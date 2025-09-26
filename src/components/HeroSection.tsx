@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, TestTube, Code, Target } from "lucide-react";
+import { ArrowDown, TestTube, Code, Phone, Mail } from "lucide-react";
 
 export const HeroSection = () => {
   return (
@@ -23,15 +23,27 @@ export const HeroSection = () => {
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
-            Playwright Framework
-            <span className="block text-primary">Architect</span>
+            Suresh Parimi
+            <span className="block text-primary">Playwright Framework Architect</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            18+ years crafting scalable, maintainable test automation frameworks. 
-            Specialized in building enterprise-grade solutions with Playwright & TypeScript.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-6 max-w-3xl mx-auto leading-relaxed">
+            18+ years in automation governance, test management, and driving transformations in software testing. 
+            Specialized in enterprise-grade Playwright frameworks with AI capabilities.
           </p>
+
+          {/* Contact Info */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-primary" />
+              <span>+31616270233</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-primary" />
+              <span>suresh.parimi@example.com</span>
+            </div>
+          </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
@@ -44,13 +56,13 @@ export const HeroSection = () => {
               <div className="text-sm text-muted-foreground">Framework Types</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">100+</div>
-              <div className="text-sm text-muted-foreground">Projects Delivered</div>
+              <div className="text-3xl font-bold text-primary mb-2">10</div>
+              <div className="text-sm text-muted-foreground">Happy Customers</div>
             </div>
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex justify-center mb-12">
             <Button 
               size="lg" 
               className="bg-gradient-primary hover:shadow-medium transition-all duration-300 transform hover:scale-105"
@@ -58,15 +70,6 @@ export const HeroSection = () => {
             >
               <Code className="w-5 h-5 mr-2" />
               Explore Frameworks
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-              onClick={() => document.getElementById('business-value')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <Target className="w-5 h-5 mr-2" />
-              Business Impact
             </Button>
           </div>
 

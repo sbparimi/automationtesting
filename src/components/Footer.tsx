@@ -10,15 +10,18 @@ export const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <TestTube className="w-6 h-6 text-primary" />
-              <span className="text-xl font-bold text-foreground">Test Automation Architect</span>
+              <span className="text-xl font-bold text-foreground">Suresh Parimi</span>
             </div>
             <p className="text-muted-foreground mb-4">
-              18+ years of expertise in building scalable, maintainable test automation frameworks 
-              with Playwright and TypeScript.
+              18+ years in automation governance, test management, and driving transformations 
+              in software testing with Playwright and TypeScript.
             </p>
             <div className="flex space-x-4">
-              <a href="mailto:contact@example.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:suresh.parimi@example.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-5 h-5" />
+              </a>
+              <a href="tel:+31616270233" className="text-muted-foreground hover:text-primary transition-colors">
+                <span className="w-5 h-5 flex items-center justify-center text-xs font-bold">📱</span>
               </a>
               <a href="https://linkedin.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
@@ -59,7 +62,7 @@ export const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © 2024 Test Automation Architect. Professional portfolio showcasing Playwright frameworks.
+            © 2024 Suresh Parimi. Professional portfolio showcasing Playwright frameworks and expertise.
           </p>
           <p className="text-muted-foreground text-sm">
             Built with React, TypeScript & Tailwind CSS
