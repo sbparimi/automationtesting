@@ -8,34 +8,34 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Professional Portfolio Design System */
+    /* Apple Design System */
     --background: 0 0% 100%;
-    --foreground: 220 13% 13%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 13%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 13%;
+    --popover-foreground: 0 0% 7%;
 
-    /* Meetup Red/Orange Accent */
-    --primary: 355 85% 57%;
+    /* Apple Blue */
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 355 85% 52%;
+    --primary-hover: 211 100% 45%;
     
-    /* Orange for Success/Positive */
-    --success: 25 95% 53%;
+    /* Apple Success Green */
+    --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;
     
-    /* Professional Gray Scale */
-    --secondary: 220 13% 95%;
-    --secondary-foreground: 220 13% 13%;
+    /* Apple Gray Scale */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 220 13% 95%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 355 85% 97%;
-    --accent-foreground: 355 85% 25%;
+    --accent: 0 0% 98%;
+    --accent-foreground: 0 0% 7%;
 
     /* Status Colors */
     --destructive: 0 84% 60%;
@@ -45,21 +45,21 @@ All colors MUST be HSL.
     --warning-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 355 85% 57%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 211 100% 50%;
 
-    /* Meetup Style Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(355 85% 57%), hsl(25 95% 53%));
-    --gradient-accent: linear-gradient(135deg, hsl(220 13% 98%), hsl(220 13% 95%));
-    --gradient-tech: linear-gradient(135deg, hsl(355 85% 57%), hsl(25 95% 53%));
+    /* Apple Style Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(211 100% 50%), hsl(211 100% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 96%));
     
-    /* Shadows */
-    --shadow-soft: 0 2px 8px -2px hsl(220 13% 13% / 0.1);
-    --shadow-medium: 0 4px 16px -4px hsl(220 13% 13% / 0.15);
-    --shadow-strong: 0 8px 32px -8px hsl(220 13% 13% / 0.2);
+    /* Apple Shadows */
+    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     
-    /* Professional Animations */
+    /* Apple Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
@@ -128,5 +128,8 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }

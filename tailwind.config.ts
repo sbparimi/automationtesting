@@ -75,7 +75,10 @@ export default {
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-accent': 'var(--gradient-accent)',
-        'gradient-tech': 'var(--gradient-tech)',
+        'gradient-hero': 'var(--gradient-hero)',
+      },
+      fontFamily: {
+        'apple': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       boxShadow: {
         'soft': 'var(--shadow-soft)',
