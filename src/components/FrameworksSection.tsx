@@ -7,10 +7,13 @@ import {
   BDDDiagram, 
   APIDiagram 
 } from "./FrameworkDiagrams";
+import { Link } from "react-router-dom";
+import { MessageCircle } from "lucide-react";
 
 export const FrameworksSection = () => {
   const frameworks = [
     {
+      id: "page-object-model",
       title: "Page Object Model (POM)",
       description: "The foundation of maintainable test automation. Encapsulates page elements and actions into reusable, testable components with clear separation of concerns.",
       features: [
@@ -53,6 +56,7 @@ export class LoginPage {
 }`
     },
     {
+      id: "keyword-driven",
       title: "Keyword Driven Framework",
       description: "Enables non-technical stakeholders to create and maintain tests using business-readable keywords. Perfect for organizations with diverse technical skills.",
       features: [
@@ -95,6 +99,7 @@ export class KeywordEngine {
 }`
     },
     {
+      id: "data-driven",
       title: "Data Driven Framework",
       description: "Executes the same test logic across multiple data sets, maximizing test coverage while minimizing code duplication. Supports various data sources.",
       features: [
@@ -131,6 +136,7 @@ testData.forEach((data, index) => {
 });`
     },
     {
+      id: "hybrid-framework",
       title: "Hybrid Framework",
       description: "The ultimate enterprise solution combining POM, Data-Driven, and Keyword-Driven approaches. Provides maximum flexibility and scalability for complex applications.",
       features: [
@@ -170,6 +176,7 @@ export class HybridFramework {
 }`
     },
     {
+      id: "bdd-cucumber",
       title: "BDD with Cucumber",
       description: "Behavior-driven development framework that bridges the communication gap between technical and non-technical stakeholders using natural language scenarios.",
       features: [
@@ -208,6 +215,7 @@ Given('user is on the login page', async () => {
 });`
     },
     {
+      id: "api-ui-integration",
       title: "API + UI Integrated Framework",
       description: "Comprehensive testing approach combining API and UI automation for complete application coverage. Optimizes test execution speed while maintaining user journey validation.",
       features: [

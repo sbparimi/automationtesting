@@ -17,7 +17,7 @@ export const Footer = () => {
               in software testing with Playwright and TypeScript.
             </p>
             <div className="flex space-x-4">
-              <a href="mailto:suresh.parimi@example.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:reachparimi@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
               <a href="tel:+31616270233" className="text-muted-foreground hover:text-primary transition-colors">

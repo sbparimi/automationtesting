@@ -1,9 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, Clock, Shield, TrendingUp } from "lucide-react";
+import { ExternalLink, Users, Clock, Shield, TrendingUp, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface FrameworkCardProps {
+  id?: string;
   title: string;
   description: string;
   features: string[];
@@ -18,6 +20,7 @@ interface FrameworkCardProps {
 }
 
 export const FrameworkCard = ({ 
+  id,
   title, 
   description, 
   features, 
@@ -123,14 +126,32 @@ export const FrameworkCard = ({
           </div>
         )}
 
-        {/* Action Button */}
-        <Button 
-          className="w-full bg-gradient-primary hover:shadow-medium transition-all duration-300"
-          onClick={() => window.open('#', '_blank')}
-        >
-          <ExternalLink className="w-4 h-4 mr-2" />
-          View Implementation Details
-        </Button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {id && (
+            <Link to={`/framework/${id}`}>
+              <Button 
+                variant="outline"
+                className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Implementation Details
+              </Button>
+            </Link>
+          )}
+          
+          <Button 
+            className="w-full bg-primary hover:bg-primary-hover text-primary-foreground transition-all duration-300"
+            onClick={() => {
+              const message = `Hi Suresh, I'm interested in purchasing the ${title} course for $10. Please provide me with access details.`;
+              const whatsappUrl = `https://wa.me/31616270233?text=${encodeURIComponent(message)}`;
+              window.open(whatsappUrl, '_blank');
+            }}
+          >
+            <MessageCircle className="w-4 h-4 mr-2" />
+            Buy Now - $10
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

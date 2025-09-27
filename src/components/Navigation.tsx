@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { TestTube, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   return (
@@ -12,6 +13,12 @@ export const Navigation = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
+            <Link to="/" className="text-foreground hover:text-primary text-sm font-medium transition-colors">
+              Home
+            </Link>
+            <Link to="/learning-paths" className="text-foreground hover:text-primary text-sm font-medium transition-colors">
+              Learning Paths
+            </Link>
             <button 
               className="text-foreground hover:text-primary text-sm font-medium transition-colors"
               onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
