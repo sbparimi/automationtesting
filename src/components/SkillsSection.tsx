@@ -42,10 +42,10 @@ const companies = [
 
 export const SkillsSection = () => {
   return (
-    <section className="py-20 bg-accent">
+    <section id="skills" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Core Expertise & Experience
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -72,12 +72,12 @@ export const SkillsSection = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill, index) => (
-            <Card key={index} className="hover:shadow-medium transition-all duration-300 transform hover:-translate-y-1">
+            <Card key={index} className="bg-card border border-border hover:shadow-glow transition-all duration-300 hover:border-primary/50">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
+                  <div className="bg-primary/20 p-3 rounded-lg">
                     <skill.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>

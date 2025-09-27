@@ -3,7 +3,7 @@ import { TestTube, Mail, Linkedin, Github } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-secondary py-12">
+    <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}

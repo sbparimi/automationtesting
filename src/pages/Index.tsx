@@ -1,20 +1,20 @@
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { ProjectOutcomes } from "@/components/ProjectOutcomes";
 import { SkillsSection } from "@/components/SkillsSection";
 import { FrameworksSection } from "@/components/FrameworksSection";
 import { BlogSection } from "@/components/BlogSection";
-import { BusinessValueSection } from "@/components/BusinessValueSection";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navigation />
       <HeroSection />
+      <ProjectOutcomes />
       <SkillsSection />
       <FrameworksSection />
       <BlogSection />
-      <BusinessValueSection />
       <Footer />
     </div>
   );
