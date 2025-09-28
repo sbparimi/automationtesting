@@ -15,26 +15,26 @@ export const Navigation = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-foreground hover:text-primary text-sm font-medium transition-colors">
+            <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Home
             </Link>
-            <Link to="/learning-paths" className="text-foreground hover:text-primary text-sm font-medium transition-colors">
+            <Link to="/learning-paths" className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Learning Paths
             </Link>
             <button 
-              className="text-foreground hover:text-primary text-sm font-medium transition-colors"
+              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Frameworks
             </button>
             <button 
-              className="text-foreground hover:text-primary text-sm font-medium transition-colors"
+              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('blog')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Playwright Tips
             </button>
             <button 
-              className="text-foreground hover:text-primary text-sm font-medium transition-colors"
+              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Expertise

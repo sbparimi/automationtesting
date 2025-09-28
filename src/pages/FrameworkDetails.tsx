@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, MessageCircle, Code, FileText, Layers } from "lucide-react";
+import { HoverCardDetailed, HoverCardDetailedTrigger, HoverCardDetailedContent } from "@/components/ui/hover-card-detailed";
+import { ArrowLeft, MessageCircle, Code, FileText, Layers, Clock, Target, Zap } from "lucide-react";
 
 const frameworkData = {
   "page-object-model": {
@@ -112,40 +113,100 @@ const FrameworkDetails = () => {
     {
       id: "beginner",
       title: "Beginner Level",
-      duration: "Day 1-5",
+      duration: "Day 1-5 (4 hours/week)",
       description: "Foundation concepts and basic implementation",
       topics: [
-        "Framework introduction and concepts",
-        "Environment setup and configuration", 
-        "Basic project structure",
-        "First test implementation",
-        "Core patterns and practices"
+        {
+          name: "Framework introduction and concepts",
+          details: "Deep dive into framework architecture, design patterns, and when to use this approach. Learn the fundamental concepts that make this framework production-ready.",
+          practicalOutcome: "Build your first working test framework with proper structure"
+        },
+        {
+          name: "Environment setup and configuration", 
+          details: "Complete development environment setup including Node.js, TypeScript, VS Code extensions, and debugging tools. Configure Git, ESLint, and Prettier for team collaboration.",
+          practicalOutcome: "Fully configured development environment ready for enterprise development"
+        },
+        {
+          name: "Basic project structure",
+          details: "Learn industry-standard folder organization, naming conventions, and file structure. Understand separation of concerns and maintainable code architecture.",
+          practicalOutcome: "Create a scalable project structure that can grow with your team"
+        },
+        {
+          name: "First test implementation",
+          details: "Write your first automated test using best practices. Learn element selection, test data management, and assertion strategies that work in production.",
+          practicalOutcome: "Working test that can be run in any environment with confidence"
+        },
+        {
+          name: "Core patterns and practices",
+          details: "Master essential patterns like Page Object Model basics, test data factories, and utility functions. Learn debugging techniques and error handling.",
+          practicalOutcome: "Reusable components that save 50% development time on future tests"
+        }
       ]
     },
     {
       id: "intermediate", 
       title: "Intermediate Level",
-      duration: "Day 6-15",
+      duration: "Day 6-15 (4 hours/week)",
       description: "Advanced patterns and real-world implementation",
       topics: [
-        "Advanced design patterns",
-        "CI/CD integration with GitHub/GitLab",
-        "Slack/Teams notifications setup",
-        "JIRA integration and reporting",
-        "Custom utilities and helpers"
+        {
+          name: "Advanced design patterns",
+          details: "Implement sophisticated patterns like Builder, Factory, and Strategy patterns for test automation. Learn composition over inheritance and create truly maintainable test suites.",
+          practicalOutcome: "Enterprise-grade test architecture that scales to thousands of tests"
+        },
+        {
+          name: "CI/CD integration with GitHub/GitLab",
+          details: "Complete DevOps pipeline setup with automated test execution, parallel runs, and intelligent retry mechanisms. Configure test execution for different environments and branches.",
+          practicalOutcome: "Fully automated CI/CD pipeline that runs tests on every commit"
+        },
+        {
+          name: "Slack/Teams notifications setup",
+          details: "Real-time notifications with rich formatting, test results, screenshots, and failure analysis. Set up different notification levels for different stakeholders.",
+          practicalOutcome: "Automated communication system that keeps the team informed 24/7"
+        },
+        {
+          name: "JIRA integration and reporting",
+          details: "Automatic ticket creation for test failures, test execution reporting, and traceability matrix. Link test results to requirements and user stories.",
+          practicalOutcome: "Seamless integration between testing and project management workflows"
+        },
+        {
+          name: "Custom utilities and helpers",
+          details: "Build a comprehensive utility library with database helpers, API utilities, file operations, and custom matchers. Create domain-specific test helpers.",
+          practicalOutcome: "Reusable utility library that reduces test writing time by 70%"
+        }
       ]
     },
     {
       id: "advanced",
       title: "Advanced Level", 
-      duration: "Day 16-30",
+      duration: "Day 16-30 (4 hours/week)",
       description: "Enterprise-grade implementation and optimization",
       topics: [
-        "Military precision test architecture",
-        "Allure reporting with trace viewer",
-        "Network-level debugging and monitoring",
-        "Performance optimization techniques",
-        "Enterprise deployment strategies"
+        {
+          name: "Military precision test architecture",
+          details: "Build bulletproof test architecture with advanced error handling, retry mechanisms, and fault tolerance. Implement health checks, self-healing tests, and monitoring.",
+          practicalOutcome: "Zero-maintenance test suite that handles any production scenario"
+        },
+        {
+          name: "Allure reporting with trace viewer",
+          details: "Comprehensive reporting with network traces, console logs, screenshots, and video recordings. Create executive dashboards and detailed technical reports.",
+          practicalOutcome: "Professional reporting system that provides complete test execution insights"
+        },
+        {
+          name: "Network-level debugging and monitoring",
+          details: "Advanced debugging techniques with network interception, performance monitoring, and API mocking. Implement request/response validation and performance budgets.",
+          practicalOutcome: "Complete visibility into application behavior during test execution"
+        },
+        {
+          name: "Performance optimization techniques",
+          details: "Optimize test execution speed with parallel processing, smart test selection, and resource management. Implement test impact analysis and flaky test detection.",
+          practicalOutcome: "Test suite that runs 10x faster with 99.9% reliability"
+        },
+        {
+          name: "Enterprise deployment strategies",
+          details: "Production deployment with multiple environments, feature flags, canary releases, and rollback strategies. Implement test data management and environment provisioning.",
+          practicalOutcome: "Enterprise-ready deployment pipeline with zero-downtime releases"
+        }
       ]
     }
   ];
@@ -225,17 +286,55 @@ const FrameworkDetails = () => {
                   {levels.map((level) => (
                     <Card key={level.id}>
                       <CardHeader>
-                        <CardTitle className="text-lg">{level.title}</CardTitle>
-                        <CardDescription>
-                          {level.duration} • {level.description}
-                        </CardDescription>
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 rounded-lg bg-gradient-button">
+                            {level.id === 'beginner' && <Target className="w-5 h-5 text-foreground" />}
+                            {level.id === 'intermediate' && <Zap className="w-5 h-5 text-foreground" />}
+                            {level.id === 'advanced' && <Layers className="w-5 h-5 text-foreground" />}
+                          </div>
+                          <div>
+                            <CardTitle className="text-lg">{level.title}</CardTitle>
+                            <CardDescription>
+                              {level.duration} • {level.description}
+                            </CardDescription>
+                          </div>
+                        </div>
                       </CardHeader>
                       <CardContent>
-                        <ul className="space-y-2">
+                        <ul className="space-y-3">
                           {level.topics.map((topic, index) => (
-                            <li key={index} className="flex items-center gap-2">
-                              <div className="w-2 h-2 bg-success rounded-full"></div>
-                              <span className="text-sm">{topic}</span>
+                            <li key={index}>
+                              <HoverCardDetailed>
+                                <HoverCardDetailedTrigger asChild>
+                                  <div className="flex items-start gap-3 cursor-pointer p-3 rounded-lg hover:bg-muted/50 transition-colors">
+                                    <div className="w-2 h-2 bg-success rounded-full mt-2"></div>
+                                    <div>
+                                      <span className="text-sm font-medium hover:text-primary transition-colors">
+                                        {topic.name}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </HoverCardDetailedTrigger>
+                                <HoverCardDetailedContent className="w-96">
+                                  <div className="space-y-3">
+                                    <h4 className="font-semibold text-primary">{topic.name}</h4>
+                                    <div className="space-y-2">
+                                      <div>
+                                        <h5 className="text-sm font-medium text-muted-foreground mb-1">What You'll Learn:</h5>
+                                        <p className="text-sm leading-relaxed">{topic.details}</p>
+                                      </div>
+                                      <div>
+                                        <h5 className="text-sm font-medium text-muted-foreground mb-1">Practical Outcome:</h5>
+                                        <p className="text-sm leading-relaxed text-success">{topic.practicalOutcome}</p>
+                                      </div>
+                                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-3">
+                                        <Clock className="w-3 h-3" />
+                                        <span>Daily practice: 30-45 minutes</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </HoverCardDetailedContent>
+                              </HoverCardDetailed>
                             </li>
                           ))}
                         </ul>
@@ -377,7 +476,9 @@ jobs:
                   <CardTitle className="text-center">Get Complete Implementation</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-4">
-                  <div className="text-3xl font-bold text-primary">$10</div>
+                  <div className="bg-gradient-button text-foreground px-4 py-2 rounded-lg text-sm font-medium">
+                    Only 4 Hours/Week Required
+                  </div>
                   <p className="text-sm text-muted-foreground">
                     Lifetime access to complete implementation guide
                   </p>
@@ -389,11 +490,21 @@ jobs:
                     <li>✅ Enterprise best practices</li>
                   </ul>
                   <Button 
-                    className="w-full bg-primary hover:bg-primary-hover"
-                    onClick={handleBuyNow}
+                    className="w-full bg-gradient-button hover:shadow-glow text-foreground"
+                    onClick={() => {
+                      const message = `Hi Suresh, I want to master Playwright, can we have a quick chat?
+
+Full Name: [Your Full Name]
+Phone Number: [Your Phone Number]  
+LinkedIn Profile: [Your LinkedIn URL]
+
+I'm interested in the ${framework.title} implementation guide and would love to discuss the details.`;
+                      const whatsappUrl = `https://wa.me/31616270233?text=${encodeURIComponent(message)}`;
+                      window.open(whatsappUrl, '_blank');
+                    }}
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Buy via WhatsApp
+                    Contact via WhatsApp
                   </Button>
                 </CardContent>
               </Card>

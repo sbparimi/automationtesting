@@ -30,15 +30,24 @@ export const HeroSection = () => {
           </p>
 
           {/* Contact Info */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <div className="flex items-center gap-3 bg-card rounded-3xl px-6 py-3 shadow-warm animate-float">
+          <div className="flex justify-center mb-12">
+            <button 
+              className="flex items-center gap-3 bg-card rounded-3xl px-6 py-3 shadow-warm animate-float hover:shadow-glow transition-all duration-300 cursor-pointer"
+              onClick={() => {
+                const message = `Hi Suresh, I want to master Playwright, can we have a quick chat?
+
+Full Name: [Your Full Name]
+Phone Number: [Your Phone Number]  
+LinkedIn Profile: [Your LinkedIn URL]
+
+I'm interested in learning about your Playwright automation courses and would love to discuss how we can work together.`;
+                const whatsappUrl = `https://wa.me/31616270233?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+              }}
+            >
               <Phone className="w-5 h-5 text-primary" />
               <span className="text-base font-medium">+31616270233</span>
-            </div>
-            <div className="flex items-center gap-3 bg-card rounded-3xl px-6 py-3 shadow-warm animate-float" style={{animationDelay: '0.2s'}}>
-              <Mail className="w-5 h-5 text-primary" />
-              <span className="text-base font-medium">reachparimi@gmail.com</span>
-            </div>
+            </button>
           </div>
 
           {/* CTA */}
@@ -54,29 +63,32 @@ export const HeroSection = () => {
 
           {/* Feature Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-6xl mx-auto">
-            <div className="bg-card border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.3s'}}>
-              <div className="text-primary text-2xl font-bold mb-2">Expert-Led Training</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wide">Live Classes</div>
+            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.3s'}}>
+              <div className="text-foreground text-xl font-bold mb-2">Expert-Led Training</div>
+              <div className="text-sm text-foreground/80 uppercase tracking-wide">Live Classes</div>
             </div>
-            <div className="bg-card border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.4s'}}>
-              <div className="text-primary text-2xl font-bold mb-2">18+ Years</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wide">Experience</div>
+            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.4s'}}>
+              <div className="text-foreground text-xl font-bold mb-2">18+ Years</div>
+              <div className="text-sm text-foreground/80 uppercase tracking-wide">Experience</div>
             </div>
-            <div className="bg-card border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.5s'}}>
-              <div className="text-primary text-2xl font-bold mb-2">5+ Frameworks</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wide">Framework Types</div>
+            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.5s'}}>
+              <div className="text-foreground text-xl font-bold mb-2">5+ Frameworks</div>
+              <div className="text-sm text-foreground/80 uppercase tracking-wide">Framework Types</div>
             </div>
-            <div className="bg-card border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.6s'}}>
-              <div className="text-primary text-2xl font-bold mb-2">Hands-On Labs</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wide">Practical Experience</div>
+            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.6s'}}>
+              <div className="text-foreground text-xl font-bold mb-2">4 Hours/Week</div>
+              <div className="text-sm text-foreground/80 uppercase tracking-wide">Practical Learning</div>
             </div>
           </div>
 
           {/* Scroll Indicator */}
           <div className="animate-bounce mt-8">
-            <div className="w-8 h-12 border-2 border-primary rounded-full flex justify-center bg-card shadow-glow mx-auto">
+            <button 
+              className="w-8 h-12 border-2 border-primary rounded-full flex justify-center bg-card shadow-glow mx-auto cursor-pointer hover:shadow-strong transition-all duration-300"
+              onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <div className="w-2 h-4 bg-gradient-button rounded-full mt-3 animate-pulse"></div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
