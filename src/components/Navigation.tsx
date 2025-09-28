@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border z-50 shadow-soft">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <TestTube className="w-6 h-6 text-primary" />
+            <div className="w-8 h-8 bg-gradient-button rounded-2xl flex items-center justify-center shadow-glow">
+              <TestTube className="w-5 h-5 text-primary-foreground" />
+            </div>
             <span className="text-xl font-bold text-foreground tracking-tight">PlaywrightPro</span>
           </div>
           
@@ -43,13 +45,13 @@ export const Navigation = () => {
             <Button 
               variant="outline" 
               size="sm"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-2xl transition-bounce hover:scale-105"
             >
               Mock Interview
             </Button>
             <Button 
               size="sm"
-              className="bg-primary hover:bg-primary-hover text-primary-foreground"
+              className="bg-gradient-button hover:shadow-glow text-primary-foreground rounded-2xl transition-bounce hover:scale-105 animate-pulse-glow"
             >
               Get Free Demo
             </Button>

@@ -71,13 +71,18 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "1.5rem",
+        "2xl": "2rem",
+        "3xl": "3rem",
+        full: "9999px",
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
-        'gradient-dark': 'var(--gradient-dark)',
+        'gradient-warm': 'var(--gradient-warm)',
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-card': 'var(--gradient-card)',
-        'grid-pattern': 'var(--grid-pattern)',
+        'gradient-button': 'var(--gradient-button)',
+        'blob-pattern': 'var(--blob-pattern)',
       },
       fontFamily: {
         'apple': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
@@ -87,10 +92,12 @@ export default {
         'medium': 'var(--shadow-medium)',
         'strong': 'var(--shadow-strong)',
         'glow': 'var(--shadow-glow)',
+        'warm': 'var(--shadow-warm)',
       },
       transitionTimingFunction: {
         'smooth': 'var(--transition-smooth)',
         'spring': 'var(--transition-spring)',
+        'bounce': 'var(--transition-bounce)',
       },
       keyframes: {
         "accordion-down": {
