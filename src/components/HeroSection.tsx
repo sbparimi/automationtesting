@@ -62,20 +62,12 @@ I'm interested in learning about your Playwright automation courses and would lo
           </div>
 
           {/* Feature Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
             <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.3s'}}>
-              <div className="text-foreground text-xl font-bold mb-2">Expert-Led Training</div>
-              <div className="text-sm text-foreground/80 uppercase tracking-wide">Live Classes</div>
-            </div>
-            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.4s'}}>
-              <div className="text-foreground text-xl font-bold mb-2">18+ Years</div>
-              <div className="text-sm text-foreground/80 uppercase tracking-wide">Experience</div>
-            </div>
-            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.5s'}}>
               <div className="text-foreground text-xl font-bold mb-2">5+ Frameworks</div>
               <div className="text-sm text-foreground/80 uppercase tracking-wide">Framework Types</div>
             </div>
-            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.6s'}}>
+            <div className="bg-gradient-button border border-border rounded-3xl p-6 text-center hover:shadow-glow transition-bounce hover:scale-105 animate-slide-up shadow-warm" style={{animationDelay: '0.4s'}}>
               <div className="text-foreground text-xl font-bold mb-2">4 Hours/Week</div>
               <div className="text-sm text-foreground/80 uppercase tracking-wide">Practical Learning</div>
             </div>
