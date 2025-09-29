@@ -40,7 +40,7 @@ export const FrameworkCard = ({
     <Card className="group hover:shadow-strong transition-all duration-300 transform hover:-translate-y-2 bg-gradient-accent border-border">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between mb-4">
-          <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+          <CardTitle className="text-2xl font-bold text-foreground transition-all duration-300 hover:bg-gradient-button hover:text-primary-foreground hover:shadow-glow hover:scale-105 rounded-3xl px-4 py-2 cursor-pointer">
             {title}
           </CardTitle>
           <Badge variant="outline" className={`border-${complexityColor} text-${complexityColor}`}>
@@ -143,13 +143,13 @@ export const FrameworkCard = ({
           <Button 
             className="w-full bg-primary hover:bg-primary-hover text-primary-foreground transition-all duration-300"
             onClick={() => {
-              const message = `Hi Suresh, I'm interested in purchasing the ${title} course for $10. Please provide me with access details.`;
+              const message = `Hi Suresh, I'm interested in learning ${title} with your expert guidance. Can we discuss the details?`;
               const whatsappUrl = `https://wa.me/31616270233?text=${encodeURIComponent(message)}`;
               window.open(whatsappUrl, '_blank');
             }}
           >
             <MessageCircle className="w-4 h-4 mr-2" />
-            Buy Now - $10
+            Get Expert Guidance
           </Button>
         </div>
       </CardContent>

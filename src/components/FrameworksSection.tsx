@@ -252,6 +252,63 @@ test('Order flow', async ({ request, page }) => {
   await page.goto('/checkout');
   await expect(page.locator('.user-name')).toHaveText(user.name);
 });`
+    },
+    {
+      id: "bdd-advanced-factory",
+      title: "BDD Advanced Factory Pattern",
+      description: "Revolutionary BDD framework enabling manual testers to automate using pure Gherkin syntax. Advanced TypeScript factory patterns handle atomic and business keywords automatically.",
+      features: [
+        "Pure Gherkin syntax automation for manual testers",
+        "Advanced TypeScript factory design patterns",
+        "Atomic keyword abstraction layer",
+        "Business-focused keyword composition",
+        "Zero coding required for test creation",
+        "Dynamic step definition generation",
+        "Smart parameter injection and validation"
+      ],
+      benefits: {
+        testers: [
+          "Manual testers create automation without coding",
+          "Gherkin-first approach with instant execution",
+          "Reusable business keyword library",
+          "Self-healing test capabilities",
+          "Advanced debugging through factory layers"
+        ],
+        business: [
+          "80% faster automation adoption",
+          "Manual testers become automation contributors",
+          "Reduced training costs and time",
+          "Scalable test creation across teams",
+          "Enterprise-grade maintainability"
+        ]
+      },
+      technologies: ["Playwright", "TypeScript", "Factory Pattern", "Gherkin", "Advanced Decorators"],
+      complexity: "Advanced" as const,
+      diagram: <BDDDiagram />,
+      codeExample: `// Advanced Factory Pattern
+@StepDefinitionFactory
+export class BusinessKeywordFactory {
+  @AtomicKeyword('login')
+  private async atomicLogin(user: User): Promise<void> {
+    await this.page.fill('[data-testid="username"]', user.username);
+    await this.page.fill('[data-testid="password"]', user.password);
+    await this.page.click('[data-testid="login-btn"]');
+  }
+  
+  @BusinessKeyword('user authenticates successfully')
+  async userAuthentication(userData: UserData): Promise<AuthResult> {
+    const factory = KeywordFactory.create<LoginFactory>();
+    return await factory.execute('login', userData);
+  }
+}
+
+// Gherkin Feature - No code needed by manual testers
+Feature: E-commerce User Journey
+  Scenario: Complete purchase flow
+    Given user authenticates successfully
+    When user searches for "premium laptop"
+    And user adds item to cart
+    Then user completes checkout process`
     }
   ];
 
