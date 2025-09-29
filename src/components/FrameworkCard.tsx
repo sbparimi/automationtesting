@@ -39,13 +39,10 @@ export const FrameworkCard = ({
   return (
     <Card className="group hover:shadow-strong transition-all duration-300 transform hover:-translate-y-2 bg-gradient-accent border-border">
       <CardHeader className="pb-4">
-        <div className="flex items-start justify-between mb-4">
-          <CardTitle className="text-2xl font-bold text-foreground transition-all duration-300 hover:bg-gradient-button hover:text-primary-foreground hover:shadow-glow hover:scale-105 rounded-3xl px-4 py-2 cursor-pointer">
+        <div className="mb-4">
+          <CardTitle className="text-2xl font-bold text-foreground transition-all duration-300 hover:bg-gradient-button hover:text-primary-foreground hover:shadow-glow hover:scale-105 rounded-3xl px-4 py-2 cursor-pointer inline-block">
             {title}
           </CardTitle>
-          <Badge variant="outline" className={`border-${complexityColor} text-${complexityColor}`}>
-            {complexity}
-          </Badge>
         </div>
         
         <p className="text-muted-foreground leading-relaxed">{description}</p>

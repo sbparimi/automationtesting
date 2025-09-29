@@ -15,46 +15,21 @@ export const Navigation = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+            <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Home
             </Link>
-            <Link to="/learning-paths" className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
-              Learning Paths
-            </Link>
             <button 
-              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
+              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Frameworks
             </button>
             <button 
-              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
+              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('blog')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Playwright Tips
             </button>
-            <button 
-              className="text-foreground hover:bg-gradient-button hover:text-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
-              onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Expertise
-            </button>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-2xl transition-bounce hover:scale-105"
-            >
-              Mock Interview
-            </Button>
-            <Button 
-              size="sm"
-              className="bg-gradient-button hover:shadow-glow text-primary-foreground rounded-2xl transition-bounce hover:scale-105 animate-pulse-glow"
-            >
-              Get Free Demo
-            </Button>
           </div>
         </div>
       </div>

@@ -1,12 +1,14 @@
 import { FrameworkCard } from "./FrameworkCard";
+import { FrameworkMindmap } from "./FrameworkMindmap";
 import { 
-  POMDiagram, 
-  KeywordDrivenDiagram, 
-  DataDrivenDiagram, 
-  HybridDiagram, 
-  BDDDiagram, 
-  APIDiagram 
-} from "./FrameworkDiagrams";
+  pomMindmap, 
+  keywordDrivenMindmap, 
+  dataDrivenMindmap, 
+  hybridMindmap, 
+  bddMindmap, 
+  apiUiMindmap,
+  bddAdvancedMindmap 
+} from "../data/frameworkMindmaps";
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 
@@ -15,31 +17,35 @@ export const FrameworksSection = () => {
     {
       id: "page-object-model",
       title: "Page Object Model (POM)",
-      description: "The foundation of maintainable test automation. Encapsulates page elements and actions into reusable, testable components with clear separation of concerns.",
+      description: "Enterprise-grade foundation for scalable test automation. Architect-level implementation with advanced design patterns, dependency injection, and AI-powered self-healing capabilities for production-grade test suites.",
       features: [
-        "Encapsulated page elements and actions",
-        "Reusable components across test suites",
-        "Easy maintenance when UI changes",
-        "Clear separation between test logic and page interactions",
-        "Enhanced readability and debugging capabilities"
+        "Advanced encapsulation with fluent interfaces and method chaining",
+        "Smart locator strategies with CSS, XPath, and data-testid optimization",
+        "Dependency injection container for seamless page object management",
+        "AI-powered self-healing locators with automatic DOM analysis",
+        "Production-grade error handling with detailed failure diagnostics",
+        "Performance monitoring with page load metrics and bottleneck detection",
+        "Cross-browser compatibility matrix with automated environment switching"
       ],
       benefits: {
         testers: [
-          "Faster test creation using existing page objects",
-          "Reduced code duplication and maintenance effort",
-          "Easier debugging with localized failures",
-          "Improved test readability and documentation"
+          "4-hour weekly learning schedule with immediate production implementation",
+          "70% reduction in test maintenance through intelligent page object architecture",
+          "Advanced debugging toolkit with visual failure analysis and stack traces",
+          "Enterprise-level test design patterns for complex application workflows",
+          "Real-time test execution monitoring with performance insights"
         ],
         business: [
-          "40% reduction in maintenance costs",
-          "Faster time-to-market with reusable components",
-          "Higher test coverage with stable automation",
-          "Reduced regression testing time"
+          "65% reduction in automation maintenance costs through intelligent design",
+          "2x faster release cycles with robust regression automation coverage",
+          "Enterprise-scale test automation supporting millions of daily transactions",
+          "ROI improvement through reusable component library across product lines",
+          "Production incident reduction by 80% through comprehensive test coverage"
         ]
       },
       technologies: ["Playwright", "TypeScript", "Page Objects", "Fixtures"],
       complexity: "Beginner" as const,
-      diagram: <POMDiagram />,
+      diagram: <FrameworkMindmap data={pomMindmap} title="Page Object Model Architecture" />,
       codeExample: `// LoginPage.ts
 export class LoginPage {
   readonly page: Page;
@@ -58,31 +64,35 @@ export class LoginPage {
     {
       id: "keyword-driven",
       title: "Keyword Driven Framework",
-      description: "Enables non-technical stakeholders to create and maintain tests using business-readable keywords. Perfect for organizations with diverse technical skills.",
+      description: "Production-ready business automation platform enabling manual testers and business users to create enterprise-grade test automation through natural language keywords. Advanced architecture with 4-hour weekly mastery program.",
       features: [
-        "Business-readable test scripts",
-        "Separation of test design and implementation",
-        "Excel/CSV based test case management",
-        "Reusable keyword library",
-        "Non-technical team participation"
+        "Natural language keyword library with business domain vocabulary",
+        "Excel/JSON/Database integration with real-time data synchronization",
+        "Advanced keyword composition with nested business logic workflows",
+        "Intelligent keyword suggestion engine with auto-completion support",
+        "Enterprise security with role-based access control for keyword management",
+        "Production deployment pipeline with automated keyword validation",
+        "Performance optimization with keyword execution caching and parallel processing"
       ],
       benefits: {
         testers: [
-          "Focus on test logic rather than code implementation",
-          "Reusable keywords across multiple test scenarios",
-          "Easy collaboration with business analysts",
-          "Reduced learning curve for new team members"
+          "4-hour weekly training transforms manual testers into automation contributors",
+          "Zero coding required - business-focused keyword approach accelerates productivity",
+          "Advanced keyword analytics showing usage patterns and optimization opportunities",
+          "Enterprise-level collaboration tools connecting business analysts with automation",
+          "Production-grade debugging with keyword-level execution tracing and analytics"
         ],
         business: [
-          "Business users can create tests independently",
-          "60% faster test creation cycle",
-          "Improved test coverage through business involvement",
-          "Reduced dependency on technical resources"
+          "Manual testing teams become automation force multipliers within 4 weeks",
+          "75% reduction in automation development timeline through business user participation",
+          "Enterprise-scale keyword governance ensuring consistency across global teams",
+          "ROI acceleration through reduced dependency on technical automation resources",
+          "Production incident reduction through business-user-created regression suites"
         ]
       },
       technologies: ["Playwright", "TypeScript", "Excel Integration", "Keyword Engine"],
       complexity: "Intermediate" as const,
-      diagram: <KeywordDrivenDiagram />,
+      diagram: <FrameworkMindmap data={keywordDrivenMindmap} title="Keyword Driven Architecture" />,
       codeExample: `// KeywordEngine.ts
 export class KeywordEngine {
   async executeKeyword(keyword: string, data: any[]) {
@@ -101,31 +111,35 @@ export class KeywordEngine {
     {
       id: "data-driven",
       title: "Data Driven Framework",
-      description: "Executes the same test logic across multiple data sets, maximizing test coverage while minimizing code duplication. Supports various data sources.",
+      description: "Enterprise data automation platform executing thousands of test scenarios from centralized data repositories. Production-grade implementation with real-time database integration, synthetic data generation, and 4-hour weekly mastery approach.",
       features: [
-        "Multiple data source support (JSON, CSV, Database)",
-        "Parameterized test execution",
-        "Dynamic test case generation",
-        "Comprehensive data validation",
-        "Parallel data processing capabilities"
+        "Multi-source data integration: JSON, CSV, SQL databases, NoSQL, REST APIs",
+        "Advanced test parameterization with complex object injection and validation",
+        "AI-powered synthetic test data generation ensuring edge case coverage",
+        "Real-time data synchronization with production-mirror test environments",
+        "Enterprise data governance with PII masking and compliance validation",
+        "Performance-optimized parallel data processing with distributed execution",
+        "Production-grade data validation with schema enforcement and anomaly detection"
       ],
       benefits: {
         testers: [
-          "Test multiple scenarios with single script",
-          "Easy data management and updates",
-          "Comprehensive edge case coverage",
-          "Simplified test maintenance"
+          "4-hour weekly training delivering comprehensive data-driven expertise",
+          "Single test script validates 1000+ scenarios through intelligent data injection",
+          "Advanced data analytics identifying coverage gaps and optimization opportunities",
+          "Production-grade debugging with per-dataset execution tracing and failure isolation",
+          "Enterprise tooling for managing massive test data repositories efficiently"
         ],
         business: [
-          "90% increase in test scenario coverage",
-          "Faster identification of data-related bugs",
-          "Reduced time for regression testing",
-          "Higher confidence in data integrity"
+          "95% increase in test scenario coverage through intelligent data multiplication",
+          "Data-related production defects reduced by 85% through comprehensive validation",
+          "Regression execution time cut by 60% through parallel data processing",
+          "Compliance assurance through automated PII handling and data governance",
+          "ROI acceleration through test reusability across multiple data environments"
         ]
       },
       technologies: ["Playwright", "TypeScript", "JSON/CSV", "Database Integration"],
       complexity: "Intermediate" as const,
-      diagram: <DataDrivenDiagram />,
+      diagram: <FrameworkMindmap data={dataDrivenMindmap} title="Data Driven Architecture" />,
       codeExample: `// DataDrivenTest.ts
 testData.forEach((data, index) => {
   test(\`Login Test \${index + 1}\`, async ({ page }) => {
@@ -138,31 +152,35 @@ testData.forEach((data, index) => {
     {
       id: "hybrid-framework",
       title: "Hybrid Framework",
-      description: "The ultimate enterprise solution combining POM, Data-Driven, and Keyword-Driven approaches. Provides maximum flexibility and scalability for complex applications.",
+      description: "Ultimate enterprise automation architecture unifying POM, Data-Driven, Keyword-Driven, and BDD approaches. Military-precision production implementation supporting Fortune 500 scale with 4-hour weekly architect-level mastery program.",
       features: [
-        "Multi-paradigm approach integration",
-        "Flexible test design patterns",
-        "Advanced reporting and analytics",
-        "Cross-browser and cross-platform support",
-        "CI/CD pipeline integration"
+        "Unified architecture orchestrating multiple automation paradigms intelligently",
+        "AI-powered test strategy selector choosing optimal approach per scenario",
+        "Enterprise observability with distributed tracing and real-time monitoring",
+        "Production-grade resilience with self-healing, retry mechanisms, and circuit breakers",
+        "Advanced CI/CD orchestration across Jenkins, GitLab, Azure DevOps, GitHub Actions",
+        "Cloud-native execution on AWS, Azure, GCP with auto-scaling and cost optimization",
+        "Comprehensive security framework with secrets management and audit logging"
       ],
       benefits: {
         testers: [
-          "Choose best approach for each test scenario",
-          "Maximum code reusability and maintainability",
-          "Advanced debugging and reporting capabilities",
-          "Seamless integration with existing processes"
+          "4-hour weekly training delivers enterprise architect-level framework mastery",
+          "Flexibility to apply best-fit automation strategy for each unique test scenario",
+          "Production-grade debugging suite with distributed tracing and root cause analysis",
+          "Advanced analytics dashboard showing framework utilization and optimization insights",
+          "Enterprise collaboration tools enabling global team coordination and knowledge sharing"
         ],
         business: [
-          "75% reduction in overall testing effort",
-          "Enterprise-scale test automation capability",
-          "Improved ROI on testing investments",
-          "Future-proof automation architecture"
+          "82% reduction in total testing effort through intelligent automation orchestration",
+          "Enterprise-scale capability supporting 10,000+ daily test executions",
+          "Production deployment confidence with 99.9% automation reliability",
+          "3x ROI improvement through maximum reusability and minimal maintenance overhead",
+          "Future-proof architecture adapting to emerging technologies and testing paradigms"
         ]
       },
       technologies: ["Playwright", "TypeScript", "Multiple Patterns", "Advanced Reporting"],
       complexity: "Advanced" as const,
-      diagram: <HybridDiagram />,
+      diagram: <FrameworkMindmap data={hybridMindmap} title="Hybrid Framework Architecture" />,
       codeExample: `// HybridFramework.ts
 export class HybridFramework {
   async executeTest(config: TestConfig) {
@@ -178,31 +196,35 @@ export class HybridFramework {
     {
       id: "bdd-cucumber",
       title: "BDD with Cucumber",
-      description: "Behavior-driven development framework that bridges the communication gap between technical and non-technical stakeholders using natural language scenarios.",
+      description: "Enterprise behavior-driven development platform enabling seamless collaboration between product, QA, and engineering. Production-grade Gherkin implementation with living documentation and 4-hour weekly mastery approach.",
       features: [
-        "Gherkin syntax for natural language tests",
-        "Living documentation generation",
-        "Stakeholder collaboration features",
-        "Step definition reusability",
-        "Business-readable test reports"
+        "Natural language Gherkin syntax creating executable requirements documentation",
+        "Advanced step definition library with reusable business domain vocabulary",
+        "Real-time living documentation auto-generated from executable specifications",
+        "Enterprise collaboration hub connecting product owners, QA, and developers",
+        "Intelligent scenario validation preventing ambiguity and ensuring consistency",
+        "Production-grade reporting with business-readable insights and traceability",
+        "CI/CD integration providing instant feedback on requirement implementation"
       ],
       benefits: {
         testers: [
-          "Clear, readable test scenarios",
-          "Easy collaboration with product owners",
-          "Reusable step definitions",
-          "Self-documenting test suites"
+          "4-hour weekly training delivering production-grade BDD expertise",
+          "Natural language scenarios eliminating technical barrier for test creation",
+          "Enterprise-level step definition library accelerating test development",
+          "Advanced collaboration tools enabling real-time stakeholder engagement",
+          "Production debugging with scenario-level execution tracing and analytics"
         ],
         business: [
-          "Improved communication between teams",
-          "Living documentation that stays current",
-          "Higher stakeholder engagement in testing",
-          "Reduced misunderstanding of requirements"
+          "Requirements-to-automation gap eliminated through executable specifications",
+          "Living documentation reducing specification maintenance effort by 70%",
+          "Cross-functional collaboration improving requirement clarity by 90%",
+          "Production defect reduction through early requirement validation and testing",
+          "Stakeholder confidence through business-readable test reports and dashboards"
         ]
       },
       technologies: ["Playwright", "Cucumber", "Gherkin", "TypeScript"],
       complexity: "Advanced" as const,
-      diagram: <BDDDiagram />,
+      diagram: <FrameworkMindmap data={bddMindmap} title="BDD Framework Architecture" />,
       codeExample: `// Feature: User Authentication
 Scenario: Successful login
   Given user is on the login page
@@ -217,31 +239,35 @@ Given('user is on the login page', async () => {
     {
       id: "api-ui-integration",
       title: "API + UI Integrated Framework",
-      description: "Comprehensive testing approach combining API and UI automation for complete application coverage. Optimizes test execution speed while maintaining user journey validation.",
+      description: "Enterprise full-stack testing platform unifying API contract testing, performance validation, and UI journey automation. Production-grade architecture with 4-hour weekly mastery delivering comprehensive test coverage optimization.",
       features: [
-        "API and UI test integration",
-        "Optimized test execution strategy",
-        "Data setup via API, validation via UI",
-        "Comprehensive coverage analysis",
-        "Performance and functional testing blend"
+        "Unified API + UI test orchestration with intelligent execution strategy",
+        "Contract testing ensuring API-UI synchronization and backward compatibility",
+        "Performance monitoring with API response time tracking and SLA validation",
+        "Data setup via API with UI validation ensuring end-to-end journey integrity",
+        "Advanced mocking and service virtualization for isolated component testing",
+        "Production-grade observability with distributed tracing across API and UI layers",
+        "CI/CD optimization executing fast API tests before comprehensive UI validation"
       ],
       benefits: {
         testers: [
-          "Faster test execution with API setup",
-          "Complete application coverage",
-          "Efficient data management",
-          "Comprehensive validation capabilities"
+          "4-hour weekly training delivering full-stack testing architect expertise",
+          "Test execution speed improved 70% through intelligent API-first strategy",
+          "Complete application coverage from API contracts to user journey validation",
+          "Advanced debugging with request/response capture and UI correlation",
+          "Production-grade tooling for managing complex microservice test dependencies"
         ],
         business: [
-          "50% faster test execution",
-          "Higher confidence in releases",
-          "Reduced production issues",
-          "Optimal resource utilization"
+          "75% faster test execution through optimized API setup and UI validation strategy",
+          "Production incident reduction by 88% through comprehensive full-stack coverage",
+          "API breaking changes detected instantly through contract testing automation",
+          "Performance SLA enforcement preventing production degradation",
+          "Resource optimization through strategic API vs UI test distribution"
         ]
       },
       technologies: ["Playwright", "REST API", "TypeScript", "Integration Testing"],
       complexity: "Advanced" as const,
-      diagram: <APIDiagram />,
+      diagram: <FrameworkMindmap data={apiUiMindmap} title="API + UI Integration Architecture" />,
       codeExample: `// IntegratedTest.ts
 test('Order flow', async ({ request, page }) => {
   // API setup
@@ -256,35 +282,35 @@ test('Order flow', async ({ request, page }) => {
     {
       id: "bdd-advanced-factory",
       title: "BDD Advanced Factory Pattern",
-      description: "Revolutionary BDD framework enabling manual testers to automate using pure Gherkin syntax. Advanced TypeScript factory patterns handle atomic and business keywords automatically.",
+      description: "Revolutionary enterprise BDD platform enabling manual testers to create production-grade automation through pure Gherkin. Advanced TypeScript factory architecture with 4-hour weekly mastery transforming manual teams into automation powerhouses.",
       features: [
-        "Pure Gherkin syntax automation for manual testers",
-        "Advanced TypeScript factory design patterns",
-        "Atomic keyword abstraction layer",
-        "Business-focused keyword composition",
-        "Zero coding required for test creation",
-        "Dynamic step definition generation",
-        "Smart parameter injection and validation"
+        "Zero-code automation through natural Gherkin syntax empowering manual testers",
+        "Advanced TypeScript factory patterns with decorators, generics, and dependency injection",
+        "Atomic keyword library providing fundamental building blocks for complex workflows",
+        "Business keyword composition orchestrating atomic actions into domain workflows",
+        "AI-powered step definition generation with intelligent parameter inference",
+        "Self-healing keyword architecture with automatic adaptation to UI changes",
+        "Enterprise governance with keyword versioning, approval workflows, and analytics"
       ],
       benefits: {
         testers: [
-          "Manual testers create automation without coding",
-          "Gherkin-first approach with instant execution",
-          "Reusable business keyword library",
-          "Self-healing test capabilities",
-          "Advanced debugging through factory layers"
+          "4-hour weekly training transforms manual testers into automation contributors",
+          "Zero coding barrier - pure Gherkin approach enables immediate productivity",
+          "Advanced keyword analytics showing reusability patterns and coverage insights",
+          "Production-grade debugging with factory-layer execution tracing and diagnostics",
+          "Enterprise collaboration tools enabling keyword sharing across global teams"
         ],
         business: [
-          "80% faster automation adoption",
-          "Manual testers become automation contributors",
-          "Reduced training costs and time",
-          "Scalable test creation across teams",
-          "Enterprise-grade maintainability"
+          "Manual testing teams become automation force within 3 weeks of training",
+          "88% reduction in automation development costs through manual tester enablement",
+          "Test creation velocity increased 5x through keyword reusability and composition",
+          "Training ROI achieved within 4 weeks through immediate productivity gains",
+          "Enterprise-scale keyword governance ensuring consistency across 1000+ test scenarios"
         ]
       },
       technologies: ["Playwright", "TypeScript", "Factory Pattern", "Gherkin", "Advanced Decorators"],
       complexity: "Advanced" as const,
-      diagram: <BDDDiagram />,
+      diagram: <FrameworkMindmap data={bddAdvancedMindmap} title="BDD Advanced Factory Architecture" />,
       codeExample: `// Advanced Factory Pattern
 @StepDefinitionFactory
 export class BusinessKeywordFactory {

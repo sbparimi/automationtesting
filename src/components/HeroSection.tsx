@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, TestTube, Code, Phone, Mail } from "lucide-react";
+import { ArrowDown, TestTube, Code } from "lucide-react";
 
 export const HeroSection = () => {
   return (
@@ -18,37 +18,13 @@ export const HeroSection = () => {
             </span>
             <br />Like a Pro
           </h1>
-          
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium mb-4 text-foreground animate-slide-up" style={{animationDelay: '0.2s'}}>
-            with Suresh Parimi
-          </h2>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed font-normal">
             18+ years in automation governance, test management, and driving transformations in software testing. 
-            Learn to build scalable, AI-powered Playwright frameworks that deliver enterprise-grade test automation solutions.
+            Learn production-grade, enterprise-level Playwright frameworks through structured daily learning (4 hours/week). 
+            Master scalable, AI-powered test automation with real-world implementations.
           </p>
-
-          {/* Contact Info */}
-          <div className="flex justify-center mb-12">
-            <button 
-              className="flex items-center gap-3 bg-card rounded-3xl px-6 py-3 shadow-warm animate-float hover:shadow-glow transition-all duration-300 cursor-pointer"
-              onClick={() => {
-                const message = `Hi Suresh, I want to master Playwright, can we have a quick chat?
-
-Full Name: [Your Full Name]
-Phone Number: [Your Phone Number]  
-LinkedIn Profile: [Your LinkedIn URL]
-
-I'm interested in learning about your Playwright automation courses and would love to discuss how we can work together.`;
-                const whatsappUrl = `https://wa.me/31616270233?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-              }}
-            >
-              <Phone className="w-5 h-5 text-primary" />
-              <span className="text-base font-medium">+31616270233</span>
-            </button>
-          </div>
 
           {/* CTA */}
           <div className="flex justify-center mb-16">
