@@ -50,87 +50,121 @@ export const FrameworkMindmap: React.FC<FrameworkMindmapProps> = ({ data, title 
     }
   };
 
+  const nodeColors = [
+    '#3B82F6', // Blue
+    '#EF4444', // Red  
+    '#10B981', // Green
+    '#F59E0B', // Yellow
+    '#8B5CF6', // Purple
+    '#EC4899', // Pink
+    '#06B6D4', // Cyan
+    '#F97316', // Orange
+  ];
+
+  const getNodeColor = (depth: number, index: number) => {
+    if (depth === 0) return '#1E40AF'; // Root node - darker blue
+    return nodeColors[index % nodeColors.length];
+  };
+
   return (
     <div className="relative">
-      <div className="absolute top-2 right-2 z-10 flex gap-2">
+      <div className="absolute bottom-4 right-4 z-10 flex gap-2 bg-background/80 backdrop-blur-sm rounded-lg p-2 border shadow-lg">
         <Button
           size="sm"
-          variant="secondary"
-          onClick={handleZoomIn}
-          className="h-8 w-8 p-0"
-        >
-          <ZoomIn className="h-4 w-4" />
-        </Button>
-        <Button
-          size="sm"
-          variant="secondary"
+          variant="outline"
           onClick={handleZoomOut}
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 hover:bg-accent"
         >
-          <ZoomOut className="h-4 w-4" />
+          <span className="text-lg font-bold">−</span>
         </Button>
         <Button
           size="sm"
-          variant="secondary"
+          variant="outline"
           onClick={handleReset}
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 hover:bg-accent"
         >
           <Maximize2 className="h-4 w-4" />
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={handleZoomIn}
+          className="h-8 w-8 p-0 hover:bg-accent"
+        >
+          <span className="text-lg font-bold">+</span>
         </Button>
       </div>
       
       <div
         ref={containerRef}
-        className="w-full h-[500px] border rounded-lg bg-background"
+        className="w-full h-[600px] border rounded-lg bg-gradient-to-br from-background to-muted/20 overflow-hidden"
       >
         <Tree
           data={data}
           translate={translate}
           zoom={zoom}
           orientation="vertical"
-          pathFunc="step"
-          nodeSize={{ x: 250, y: 120 }}
-          separation={{ siblings: 1.5, nonSiblings: 2 }}
-          renderCustomNodeElement={(rd3tProps) => (
-            <g>
-              <circle
-                r={30}
-                fill="hsl(var(--primary))"
-                opacity={0.2}
-                stroke="hsl(var(--primary))"
-                strokeWidth={2}
-              />
-              <text
-                fill="hsl(var(--foreground))"
-                strokeWidth="0"
-                x="0"
-                y="0"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                }}
-              >
-                {rd3tProps.nodeDatum.name.length > 20
-                  ? `${rd3tProps.nodeDatum.name.substring(0, 20)}...`
-                  : rd3tProps.nodeDatum.name}
-              </text>
-              {rd3tProps.nodeDatum.attributes?.description && (
+          pathFunc="diagonal"
+          nodeSize={{ x: 300, y: 150 }}
+          separation={{ siblings: 1.2, nonSiblings: 1.8 }}
+          renderCustomNodeElement={(rd3tProps) => {
+            const depth = rd3tProps.nodeDatum.__rd3t.depth || 0;
+            const index = rd3tProps.nodeDatum.__rd3t.id || 0;
+            const indexNum = typeof index === 'string' ? parseInt(index) || 0 : (typeof index === 'number' ? index : 0);
+            const nodeColor = getNodeColor(depth, indexNum);
+            const isRoot = depth === 0;
+            
+            return (
+              <g>
+                <rect
+                  x={isRoot ? -80 : -70}
+                  y={-20}
+                  width={isRoot ? 160 : 140}
+                  height={40}
+                  fill={nodeColor}
+                  rx={20}
+                  ry={20}
+                  opacity={0.9}
+                  stroke="#ffffff"
+                  strokeWidth={2}
+                />
                 <text
-                  fill="hsl(var(--muted-foreground))"
+                  fill="white"
+                  strokeWidth="0"
                   x="0"
-                  y="45"
+                  y="-2"
                   textAnchor="middle"
+                  dominantBaseline="middle"
                   style={{
-                    fontSize: '11px',
+                    fontSize: isRoot ? '16px' : '14px',
+                    fontWeight: 'bold',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
                   }}
                 >
-                  {rd3tProps.nodeDatum.attributes.description}
+                  {rd3tProps.nodeDatum.name.length > (isRoot ? 18 : 16)
+                    ? `${rd3tProps.nodeDatum.name.substring(0, isRoot ? 18 : 16)}...`
+                    : rd3tProps.nodeDatum.name}
                 </text>
-              )}
-            </g>
-          )}
+                {rd3tProps.nodeDatum.attributes?.description && !isRoot && (
+                  <text
+                    fill="#ffffff"
+                    x="0"
+                    y="35"
+                    textAnchor="middle"
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: '500',
+                      opacity: 0.9
+                    }}
+                  >
+                    {typeof rd3tProps.nodeDatum.attributes.description === 'string' && rd3tProps.nodeDatum.attributes.description.length > 25
+                      ? `${rd3tProps.nodeDatum.attributes.description.substring(0, 25)}...`
+                      : rd3tProps.nodeDatum.attributes.description}
+                  </text>
+                )}
+              </g>
+            );
+          }}
         />
       </div>
     </div>

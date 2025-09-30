@@ -2,50 +2,55 @@ export const pomMindmap = {
   name: "Page Object Model",
   children: [
     {
-      name: "Core Components",
+      name: "Architecture Foundation",
       children: [
         {
           name: "Page Classes",
-          attributes: { description: "Encapsulate page logic" },
+          attributes: { description: "Encapsulated UI logic" },
           children: [
-            { name: "Locator Definitions" },
-            { name: "Action Methods" },
-            { name: "Validation Methods" }
+            { name: "Locator Strategy", attributes: { description: "CSS/XPath selectors" } },
+            { name: "Action Methods", attributes: { description: "Click, type, select" } },
+            { name: "Wait Strategies", attributes: { description: "Explicit/implicit waits" } },
+            { name: "Element Collections", attributes: { description: "Dynamic element handling" } }
           ]
         },
         {
-          name: "Base Page",
-          attributes: { description: "Common functionality" },
+          name: "Base Page Class",
+          attributes: { description: "Common abstractions" },
           children: [
-            { name: "Navigation" },
-            { name: "Wait Strategies" },
-            { name: "Error Handling" }
+            { name: "Browser Context", attributes: { description: "Page/browser instance" } },
+            { name: "Navigation Utils", attributes: { description: "URL handling" } },
+            { name: "Screenshot Utils", attributes: { description: "Evidence capture" } },
+            { name: "JavaScript Executor", attributes: { description: "Custom JS execution" } }
           ]
         }
       ]
     },
     {
-      name: "Test Layer",
+      name: "Playwright Integration",
       children: [
-        { name: "Test Specs", attributes: { description: "Business logic tests" } },
-        { name: "Test Data", attributes: { description: "JSON/CSV data" } },
-        { name: "Fixtures", attributes: { description: "Setup & teardown" } }
+        { name: "Page Objects", attributes: { description: "Playwright page fixture" } },
+        { name: "Locator API", attributes: { description: "Auto-waiting locators" } },
+        { name: "Test Isolation", attributes: { description: "Fresh context per test" } },
+        { name: "Network Interception", attributes: { description: "Mock API responses" } }
       ]
     },
     {
-      name: "Utilities",
+      name: "Advanced Patterns",
       children: [
-        { name: "Helpers", attributes: { description: "Reusable functions" } },
-        { name: "Reporters", attributes: { description: "Custom reporting" } },
-        { name: "Config", attributes: { description: "Environment setup" } }
+        { name: "Component Objects", attributes: { description: "Reusable UI components" } },
+        { name: "Page Factory", attributes: { description: "Dependency injection" } },
+        { name: "Fluent Interface", attributes: { description: "Method chaining" } },
+        { name: "Builder Pattern", attributes: { description: "Complex object creation" } }
       ]
     },
     {
-      name: "CI/CD Integration",
+      name: "DevOps Integration",
       children: [
-        { name: "Jenkins/GitLab", attributes: { description: "Pipeline config" } },
-        { name: "Docker", attributes: { description: "Containerization" } },
-        { name: "Parallel Execution", attributes: { description: "Sharding & workers" } }
+        { name: "Docker Containers", attributes: { description: "Isolated test execution" } },
+        { name: "Parallel Execution", attributes: { description: "Worker threads/sharding" } },
+        { name: "CI/CD Pipelines", attributes: { description: "GitHub Actions/Jenkins" } },
+        { name: "Test Reports", attributes: { description: "HTML/Allure reporting" } }
       ]
     }
   ]
@@ -253,57 +258,63 @@ export const bddAdvancedMindmap = {
   name: "BDD Advanced Factory",
   children: [
     {
-      name: "Factory Pattern Core",
+      name: "Factory Pattern Architecture",
       children: [
-        { name: "Step Definition Factory", attributes: { description: "Auto-generate steps" } },
-        { name: "Keyword Factory", attributes: { description: "Dynamic keyword creation" } },
-        { name: "Decorator Patterns", attributes: { description: "@AtomicKeyword/@Business" } },
-        { name: "Dependency Injection", attributes: { description: "IoC container" } }
+        { name: "Step Definition Factory", attributes: { description: "Generates step definitions from metadata" } },
+        { name: "Keyword Factory Registry", attributes: { description: "Central keyword management system" } },
+        { name: "Decorator-Based Patterns", attributes: { description: "@AtomicKeyword @BusinessKeyword annotations" } },
+        { name: "Dependency Injection Container", attributes: { description: "IoC pattern for test dependencies" } },
+        { name: "Abstract Factory Pattern", attributes: { description: "Multi-platform test creation" } }
       ]
     },
     {
-      name: "Atomic Keywords",
+      name: "Atomic Keyword Layer",
       children: [
-        { name: "Basic Actions", attributes: { description: "Click, Type, Navigate" } },
-        { name: "Validations", attributes: { description: "Verify, Assert, Check" } },
-        { name: "Wait Strategies", attributes: { description: "Smart waits" } },
-        { name: "Error Handling", attributes: { description: "Retry & recovery" } }
+        { name: "Playwright Core Actions", attributes: { description: "click(), fill(), select(), hover()" } },
+        { name: "Smart Wait Strategies", attributes: { description: "Auto-wait for elements/network" } },
+        { name: "Assertion Library", attributes: { description: "expect().toBeVisible(), toHaveText()" } },
+        { name: "Error Recovery", attributes: { description: "Retry mechanisms & fallbacks" } },
+        { name: "Network Interception", attributes: { description: "API mocking & validation" } }
       ]
     },
     {
-      name: "Business Keywords",
+      name: "Business Keyword Composition",
       children: [
-        { name: "User Workflows", attributes: { description: "Login, Checkout" } },
-        { name: "Composite Actions", attributes: { description: "Multiple atomic steps" } },
-        { name: "Context Management", attributes: { description: "State handling" } },
-        { name: "Dynamic Params", attributes: { description: "Runtime injection" } }
+        { name: "User Journey Workflows", attributes: { description: "loginAsUser(), completeCheckout()" } },
+        { name: "Composite Action Chains", attributes: { description: "Combine atomic keywords" } },
+        { name: "Context State Management", attributes: { description: "Shared test state & data" } },
+        { name: "Dynamic Parameter Injection", attributes: { description: "Runtime data binding" } },
+        { name: "Cross-Platform Keywords", attributes: { description: "Web, Mobile, API unified" } }
       ]
     },
     {
-      name: "Manual Tester Layer",
+      name: "Manual Tester Interface",
       children: [
-        { name: "Pure Gherkin", attributes: { description: "No code needed" } },
-        { name: "Keyword Library", attributes: { description: "Searchable catalog" } },
-        { name: "Auto-Complete", attributes: { description: "IDE support" } },
-        { name: "Instant Execution", attributes: { description: "No compilation" } }
+        { name: "Pure Gherkin Scenarios", attributes: { description: "Zero code test authoring" } },
+        { name: "Intelligent Keyword Library", attributes: { description: "Searchable, autocomplete catalog" } },
+        { name: "IDE Integration & IntelliSense", attributes: { description: "VSCode extension support" } },
+        { name: "Real-time Test Execution", attributes: { description: "Live feedback & debugging" } },
+        { name: "Natural Language Processing", attributes: { description: "Gherkin to keyword mapping" } }
       ]
     },
     {
-      name: "Advanced TypeScript",
+      name: "Advanced TypeScript Patterns",
       children: [
-        { name: "Generics", attributes: { description: "Type-safe factories" } },
-        { name: "Decorators", attributes: { description: "Metadata injection" } },
-        { name: "Reflection", attributes: { description: "Runtime inspection" } },
-        { name: "Abstract Factories", attributes: { description: "Factory of factories" } }
+        { name: "Generic Type Factories", attributes: { description: "Type-safe keyword creation" } },
+        { name: "Decorator Metadata System", attributes: { description: "Runtime reflection & injection" } },
+        { name: "Proxy Pattern Implementation", attributes: { description: "Dynamic method interception" } },
+        { name: "Builder Pattern with Fluent API", attributes: { description: "Chainable test construction" } },
+        { name: "Template Method Pattern", attributes: { description: "Standardized test flows" } }
       ]
     },
     {
-      name: "Enterprise Features",
+      name: "Enterprise DevOps Integration",
       children: [
-        { name: "CI/CD Integration", attributes: { description: "Jenkins/GitLab/Azure" } },
-        { name: "Self-Healing", attributes: { description: "AI-powered fixes" } },
-        { name: "Performance Metrics", attributes: { description: "Real-time dashboards" } },
-        { name: "Multi-Environment", attributes: { description: "Dev/QA/Prod" } }
+        { name: "Multi-Platform CI/CD", attributes: { description: "Jenkins, GitLab, Azure DevOps" } },
+        { name: "AI-Powered Self-Healing", attributes: { description: "Auto-fix broken locators" } },
+        { name: "Real-time Analytics Dashboard", attributes: { description: "Grafana/ELK stack integration" } },
+        { name: "Environment Orchestration", attributes: { description: "Dev/QA/Staging/Prod deployment" } },
+        { name: "Parallel Test Distribution", attributes: { description: "Kubernetes-based scaling" } }
       ]
     }
   ]
