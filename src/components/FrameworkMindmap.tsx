@@ -105,8 +105,8 @@ export const FrameworkMindmap: React.FC<FrameworkMindmapProps> = ({ data, title 
           zoom={zoom}
           orientation="vertical"
           pathFunc="diagonal"
-          nodeSize={{ x: 300, y: 150 }}
-          separation={{ siblings: 1.2, nonSiblings: 1.8 }}
+          nodeSize={{ x: 280, y: 120 }}
+          separation={{ siblings: 1.5, nonSiblings: 2.0 }}
           renderCustomNodeElement={(rd3tProps) => {
             const depth = rd3tProps.nodeDatum.__rd3t.depth || 0;
             const index = rd3tProps.nodeDatum.__rd3t.id || 0;
@@ -116,33 +116,48 @@ export const FrameworkMindmap: React.FC<FrameworkMindmapProps> = ({ data, title 
             
             return (
               <g>
-                <rect
-                  x={isRoot ? -80 : -70}
-                  y={-20}
-                  width={isRoot ? 160 : 140}
-                  height={40}
-                  fill={nodeColor}
-                  rx={20}
-                  ry={20}
-                  opacity={0.9}
-                  stroke="#ffffff"
-                  strokeWidth={2}
-                />
+                {isRoot ? (
+                  // Root node - oval shape
+                  <ellipse
+                    cx="0"
+                    cy="0"
+                    rx="100"
+                    ry="30"
+                    fill={nodeColor}
+                    opacity={0.95}
+                    stroke="#ffffff"
+                    strokeWidth={3}
+                  />
+                ) : (
+                  // Child nodes - rounded rectangles
+                  <rect
+                    x={-80}
+                    y={-20}
+                    width={160}
+                    height={40}
+                    fill={nodeColor}
+                    rx={20}
+                    ry={20}
+                    opacity={0.9}
+                    stroke="#ffffff"
+                    strokeWidth={2}
+                  />
+                )}
                 <text
                   fill="white"
                   strokeWidth="0"
                   x="0"
-                  y="-2"
+                  y="0"
                   textAnchor="middle"
                   dominantBaseline="middle"
                   style={{
-                    fontSize: isRoot ? '16px' : '14px',
+                    fontSize: isRoot ? '18px' : '13px',
                     fontWeight: 'bold',
-                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+                    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
                   }}
                 >
-                  {rd3tProps.nodeDatum.name.length > (isRoot ? 18 : 16)
-                    ? `${rd3tProps.nodeDatum.name.substring(0, isRoot ? 18 : 16)}...`
+                  {rd3tProps.nodeDatum.name.length > (isRoot ? 20 : 18)
+                    ? `${rd3tProps.nodeDatum.name.substring(0, isRoot ? 20 : 18)}...`
                     : rd3tProps.nodeDatum.name}
                 </text>
                 {rd3tProps.nodeDatum.attributes?.description && !isRoot && (
@@ -152,13 +167,13 @@ export const FrameworkMindmap: React.FC<FrameworkMindmapProps> = ({ data, title 
                     y="35"
                     textAnchor="middle"
                     style={{
-                      fontSize: '11px',
-                      fontWeight: '500',
-                      opacity: 0.9
+                      fontSize: '10px',
+                      fontWeight: '400',
+                      opacity: 0.8
                     }}
                   >
-                    {typeof rd3tProps.nodeDatum.attributes.description === 'string' && rd3tProps.nodeDatum.attributes.description.length > 25
-                      ? `${rd3tProps.nodeDatum.attributes.description.substring(0, 25)}...`
+                    {typeof rd3tProps.nodeDatum.attributes.description === 'string' && rd3tProps.nodeDatum.attributes.description.length > 22
+                      ? `${rd3tProps.nodeDatum.attributes.description.substring(0, 22)}...`
                       : rd3tProps.nodeDatum.attributes.description}
                   </text>
                 )}

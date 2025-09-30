@@ -2,55 +2,57 @@ export const pomMindmap = {
   name: "Page Object Model",
   children: [
     {
-      name: "Architecture Foundation",
+      name: "Page Classes",
+      attributes: { description: "Encapsulated UI logic" },
       children: [
-        {
-          name: "Page Classes",
-          attributes: { description: "Encapsulated UI logic" },
-          children: [
-            { name: "Locator Strategy", attributes: { description: "CSS/XPath selectors" } },
-            { name: "Action Methods", attributes: { description: "Click, type, select" } },
-            { name: "Wait Strategies", attributes: { description: "Explicit/implicit waits" } },
-            { name: "Element Collections", attributes: { description: "Dynamic element handling" } }
-          ]
-        },
-        {
-          name: "Base Page Class",
-          attributes: { description: "Common abstractions" },
-          children: [
-            { name: "Browser Context", attributes: { description: "Page/browser instance" } },
-            { name: "Navigation Utils", attributes: { description: "URL handling" } },
-            { name: "Screenshot Utils", attributes: { description: "Evidence capture" } },
-            { name: "JavaScript Executor", attributes: { description: "Custom JS execution" } }
-          ]
-        }
+        { name: "Locator Strategy", attributes: { description: "CSS/XPath selectors" } },
+        { name: "Action Methods", attributes: { description: "Click, type, select" } },
+        { name: "Wait Strategies", attributes: { description: "Explicit/implicit waits" } }
+      ]
+    },
+    {
+      name: "Base Page Class",
+      attributes: { description: "Common abstractions" },
+      children: [
+        { name: "Browser Context", attributes: { description: "Page/browser instance" } },
+        { name: "Navigation Utils", attributes: { description: "URL handling" } },
+        { name: "Screenshot Utils", attributes: { description: "Evidence capture" } }
       ]
     },
     {
       name: "Playwright Integration",
+      attributes: { description: "Core framework" },
       children: [
         { name: "Page Objects", attributes: { description: "Playwright page fixture" } },
         { name: "Locator API", attributes: { description: "Auto-waiting locators" } },
-        { name: "Test Isolation", attributes: { description: "Fresh context per test" } },
-        { name: "Network Interception", attributes: { description: "Mock API responses" } }
+        { name: "Test Isolation", attributes: { description: "Fresh context per test" } }
       ]
     },
     {
       name: "Advanced Patterns",
+      attributes: { description: "Design patterns" },
       children: [
         { name: "Component Objects", attributes: { description: "Reusable UI components" } },
         { name: "Page Factory", attributes: { description: "Dependency injection" } },
-        { name: "Fluent Interface", attributes: { description: "Method chaining" } },
-        { name: "Builder Pattern", attributes: { description: "Complex object creation" } }
+        { name: "Fluent Interface", attributes: { description: "Method chaining" } }
       ]
     },
     {
       name: "DevOps Integration",
+      attributes: { description: "CI/CD pipeline" },
       children: [
         { name: "Docker Containers", attributes: { description: "Isolated test execution" } },
         { name: "Parallel Execution", attributes: { description: "Worker threads/sharding" } },
-        { name: "CI/CD Pipelines", attributes: { description: "GitHub Actions/Jenkins" } },
-        { name: "Test Reports", attributes: { description: "HTML/Allure reporting" } }
+        { name: "CI/CD Pipelines", attributes: { description: "GitHub Actions/Jenkins" } }
+      ]
+    },
+    {
+      name: "Test Architecture",
+      attributes: { description: "Framework structure" },
+      children: [
+        { name: "Element Collections", attributes: { description: "Dynamic element handling" } },
+        { name: "JavaScript Executor", attributes: { description: "Custom JS execution" } },
+        { name: "Network Interception", attributes: { description: "Mock API responses" } }
       ]
     }
   ]
@@ -61,6 +63,7 @@ export const keywordDrivenMindmap = {
   children: [
     {
       name: "Keyword Library",
+      attributes: { description: "Core keywords" },
       children: [
         { name: "Navigation Keywords", attributes: { description: "Navigate, GoTo" } },
         { name: "Action Keywords", attributes: { description: "Click, Type, Select" } },
@@ -69,6 +72,7 @@ export const keywordDrivenMindmap = {
     },
     {
       name: "Test Data Layer",
+      attributes: { description: "Data management" },
       children: [
         { name: "Excel/CSV Sheets", attributes: { description: "Business users edit" } },
         { name: "JSON Config", attributes: { description: "Structured data" } },
@@ -77,6 +81,7 @@ export const keywordDrivenMindmap = {
     },
     {
       name: "Execution Engine",
+      attributes: { description: "Test runner" },
       children: [
         { name: "Keyword Parser", attributes: { description: "Read & interpret" } },
         { name: "Action Mapper", attributes: { description: "Map to methods" } },
@@ -85,10 +90,11 @@ export const keywordDrivenMindmap = {
     },
     {
       name: "Advanced Features",
+      attributes: { description: "Extended capabilities" },
       children: [
         { name: "Custom Keywords", attributes: { description: "Business-specific" } },
         { name: "Error Recovery", attributes: { description: "Self-healing" } },
-        { name: "CI/CD", attributes: { description: "Jenkins/Azure" } }
+        { name: "CI/CD Integration", attributes: { description: "Jenkins/Azure DevOps" } }
       ]
     }
   ]
@@ -99,15 +105,16 @@ export const dataDrivenMindmap = {
   children: [
     {
       name: "Data Sources",
+      attributes: { description: "Input data types" },
       children: [
         { name: "JSON Files", attributes: { description: "Structured data" } },
         { name: "CSV/Excel", attributes: { description: "Tabular format" } },
-        { name: "Database", attributes: { description: "SQL queries" } },
-        { name: "APIs", attributes: { description: "Real-time data" } }
+        { name: "Database", attributes: { description: "SQL queries" } }
       ]
     },
     {
       name: "Test Framework",
+      attributes: { description: "Core execution" },
       children: [
         { name: "Parameterized Tests", attributes: { description: "Loop through data" } },
         { name: "Data Provider", attributes: { description: "Feed test data" } },
@@ -116,6 +123,7 @@ export const dataDrivenMindmap = {
     },
     {
       name: "Data Management",
+      attributes: { description: "Data handling" },
       children: [
         { name: "Data Generator", attributes: { description: "Faker.js integration" } },
         { name: "Data Validator", attributes: { description: "Schema validation" } },
@@ -123,11 +131,21 @@ export const dataDrivenMindmap = {
       ]
     },
     {
-      name: "Reporting",
+      name: "Reporting System",
+      attributes: { description: "Test analytics" },
       children: [
         { name: "Per-Dataset Reports", attributes: { description: "Individual results" } },
         { name: "Aggregate Reports", attributes: { description: "Overall stats" } },
         { name: "CI/CD Dashboards", attributes: { description: "Jenkins/Grafana" } }
+      ]
+    },
+    {
+      name: "External Integration",
+      attributes: { description: "Data connectivity" },
+      children: [
+        { name: "APIs", attributes: { description: "Real-time data" } },
+        { name: "Cloud Storage", attributes: { description: "S3/Azure Blob" } },
+        { name: "Configuration", attributes: { description: "Environment data" } }
       ]
     }
   ]
@@ -137,38 +155,57 @@ export const hybridMindmap = {
   name: "Hybrid Framework",
   children: [
     {
-      name: "Architecture Layers",
+      name: "Page Objects Layer",
+      attributes: { description: "UI abstraction" },
       children: [
-        { name: "Page Objects", attributes: { description: "UI abstraction" } },
-        { name: "Keywords", attributes: { description: "Business actions" } },
-        { name: "Data Sources", attributes: { description: "Multiple formats" } },
-        { name: "BDD Scenarios", attributes: { description: "Gherkin features" } }
+        { name: "Component Objects", attributes: { description: "Reusable UI elements" } },
+        { name: "Page Classes", attributes: { description: "Screen representations" } },
+        { name: "Element Locators", attributes: { description: "Smart selectors" } }
+      ]
+    },
+    {
+      name: "Keyword Layer",
+      attributes: { description: "Business actions" },
+      children: [
+        { name: "Business Keywords", attributes: { description: "High-level actions" } },
+        { name: "Technical Keywords", attributes: { description: "Low-level operations" } },
+        { name: "Validation Keywords", attributes: { description: "Assert operations" } }
+      ]
+    },
+    {
+      name: "Data Layer",
+      attributes: { description: "Test data management" },
+      children: [
+        { name: "Excel/CSV", attributes: { description: "Structured datasets" } },
+        { name: "JSON Config", attributes: { description: "Configuration data" } },
+        { name: "Database", attributes: { description: "Dynamic data" } }
+      ]
+    },
+    {
+      name: "BDD Integration",
+      attributes: { description: "Behavior driven" },
+      children: [
+        { name: "Gherkin Features", attributes: { description: "Natural language tests" } },
+        { name: "Step Definitions", attributes: { description: "Code bindings" } },
+        { name: "Cucumber Reports", attributes: { description: "Living documentation" } }
       ]
     },
     {
       name: "Framework Core",
+      attributes: { description: "Central engine" },
       children: [
-        { name: "Test Orchestrator", attributes: { description: "Central engine" } },
-        { name: "Config Manager", attributes: { description: "Environment control" } },
-        { name: "Logger System", attributes: { description: "Comprehensive logs" } }
+        { name: "Test Orchestrator", attributes: { description: "Execution control" } },
+        { name: "Config Manager", attributes: { description: "Environment setup" } },
+        { name: "Logger System", attributes: { description: "Comprehensive logging" } }
       ]
     },
     {
-      name: "Advanced Features",
+      name: "DevOps Pipeline",
+      attributes: { description: "CI/CD integration" },
       children: [
-        { name: "AI Test Healing", attributes: { description: "Auto-fix locators" } },
-        { name: "Visual Testing", attributes: { description: "Screenshot diff" } },
-        { name: "API Integration", attributes: { description: "API + UI tests" } },
-        { name: "Performance Tests", attributes: { description: "Load metrics" } }
-      ]
-    },
-    {
-      name: "DevOps Integration",
-      children: [
-        { name: "Multi-Platform CI", attributes: { description: "Jenkins/GitLab/Azure" } },
-        { name: "Docker Containers", attributes: { description: "Isolated envs" } },
-        { name: "Cloud Execution", attributes: { description: "AWS/Azure scale" } },
-        { name: "Real-time Monitoring", attributes: { description: "Grafana/ELK" } }
+        { name: "Docker Containers", attributes: { description: "Isolated environments" } },
+        { name: "Cloud Execution", attributes: { description: "Scalable infrastructure" } },
+        { name: "Monitoring", attributes: { description: "Real-time analytics" } }
       ]
     }
   ]
@@ -179,24 +216,25 @@ export const bddMindmap = {
   children: [
     {
       name: "Feature Files",
+      attributes: { description: "Gherkin scenarios" },
       children: [
         { name: "Gherkin Syntax", attributes: { description: "Given/When/Then" } },
         { name: "Scenarios", attributes: { description: "Test cases in plain English" } },
-        { name: "Examples", attributes: { description: "Data-driven scenarios" } },
-        { name: "Tags", attributes: { description: "Test organization" } }
+        { name: "Examples", attributes: { description: "Data-driven scenarios" } }
       ]
     },
     {
       name: "Step Definitions",
+      attributes: { description: "Code bindings" },
       children: [
-        { name: "Given Steps", attributes: { description: "Preconditions" } },
-        { name: "When Steps", attributes: { description: "Actions" } },
-        { name: "Then Steps", attributes: { description: "Validations" } },
-        { name: "Hooks", attributes: { description: "Before/After" } }
+        { name: "Given Steps", attributes: { description: "Preconditions setup" } },
+        { name: "When Steps", attributes: { description: "Action execution" } },
+        { name: "Then Steps", attributes: { description: "Assertion validations" } }
       ]
     },
     {
-      name: "Page Objects Integration",
+      name: "Page Objects",
+      attributes: { description: "UI abstraction" },
       children: [
         { name: "Page Classes", attributes: { description: "Reusable components" } },
         { name: "World Object", attributes: { description: "Shared context" } },
@@ -204,11 +242,30 @@ export const bddMindmap = {
       ]
     },
     {
-      name: "Reporting & CI/CD",
+      name: "Test Organization",
+      attributes: { description: "Structure & tags" },
+      children: [
+        { name: "Tags", attributes: { description: "Test categorization" } },
+        { name: "Hooks", attributes: { description: "Before/After methods" } },
+        { name: "Background", attributes: { description: "Common steps" } }
+      ]
+    },
+    {
+      name: "Reporting System",
+      attributes: { description: "Documentation" },
       children: [
         { name: "Cucumber Reports", attributes: { description: "HTML/JSON output" } },
         { name: "Living Documentation", attributes: { description: "Auto-generated docs" } },
-        { name: "CI Integration", attributes: { description: "Jenkins/GitLab" } }
+        { name: "Allure Integration", attributes: { description: "Rich test reports" } }
+      ]
+    },
+    {
+      name: "CI/CD Integration",
+      attributes: { description: "Pipeline automation" },
+      children: [
+        { name: "Jenkins Pipeline", attributes: { description: "Automated execution" } },
+        { name: "GitLab CI", attributes: { description: "Version control integration" } },
+        { name: "Docker Support", attributes: { description: "Containerized tests" } }
       ]
     }
   ]
@@ -219,36 +276,56 @@ export const apiUiMindmap = {
   children: [
     {
       name: "API Testing Layer",
+      attributes: { description: "Backend validation" },
       children: [
-        { name: "Request Builder", attributes: { description: "REST/GraphQL" } },
-        { name: "Response Validator", attributes: { description: "Schema/Contract" } },
-        { name: "Auth Handler", attributes: { description: "OAuth/JWT" } },
-        { name: "Data Setup", attributes: { description: "Test prerequisites" } }
+        { name: "Request Builder", attributes: { description: "REST/GraphQL clients" } },
+        { name: "Response Validator", attributes: { description: "Schema validation" } },
+        { name: "Auth Handler", attributes: { description: "OAuth/JWT tokens" } }
       ]
     },
     {
       name: "UI Testing Layer",
+      attributes: { description: "Frontend validation" },
       children: [
-        { name: "Page Objects", attributes: { description: "UI components" } },
-        { name: "User Workflows", attributes: { description: "E2E journeys" } },
-        { name: "Visual Validation", attributes: { description: "Screenshot compare" } }
+        { name: "Page Objects", attributes: { description: "UI component abstraction" } },
+        { name: "User Workflows", attributes: { description: "End-to-end journeys" } },
+        { name: "Visual Validation", attributes: { description: "Screenshot comparison" } }
       ]
     },
     {
       name: "Integration Strategy",
+      attributes: { description: "Hybrid approach" },
       children: [
-        { name: "API Setup + UI Verify", attributes: { description: "Fast execution" } },
-        { name: "Contract Testing", attributes: { description: "API-UI sync" } },
-        { name: "Performance Metrics", attributes: { description: "Response times" } }
+        { name: "API Setup + UI Verify", attributes: { description: "Fast data setup" } },
+        { name: "Contract Testing", attributes: { description: "API-UI synchronization" } },
+        { name: "Performance Metrics", attributes: { description: "Response time tracking" } }
+      ]
+    },
+    {
+      name: "Test Data Management",
+      attributes: { description: "Data handling" },
+      children: [
+        { name: "Data Setup via API", attributes: { description: "Test prerequisites" } },
+        { name: "Data Cleanup", attributes: { description: "Post-test cleanup" } },
+        { name: "Mock Services", attributes: { description: "Service virtualization" } }
       ]
     },
     {
       name: "CI/CD Pipeline",
+      attributes: { description: "Automation pipeline" },
       children: [
-        { name: "API Tests First", attributes: { description: "Fast feedback" } },
-        { name: "UI Critical Paths", attributes: { description: "Essential flows" } },
-        { name: "Parallel Execution", attributes: { description: "Optimized runtime" } },
-        { name: "Advanced Reporting", attributes: { description: "Unified dashboard" } }
+        { name: "API Tests First", attributes: { description: "Fast feedback loop" } },
+        { name: "UI Critical Paths", attributes: { description: "Essential user flows" } },
+        { name: "Parallel Execution", attributes: { description: "Optimized runtime" } }
+      ]
+    },
+    {
+      name: "Monitoring & Analytics",
+      attributes: { description: "Observability" },
+      children: [
+        { name: "Unified Dashboard", attributes: { description: "Combined API/UI metrics" } },
+        { name: "Performance Tracking", attributes: { description: "Real-time monitoring" } },
+        { name: "Error Analysis", attributes: { description: "Failure correlation" } }
       ]
     }
   ]
@@ -258,63 +335,57 @@ export const bddAdvancedMindmap = {
   name: "BDD Advanced Factory",
   children: [
     {
-      name: "Factory Pattern Architecture",
+      name: "Factory Pattern Core",
+      attributes: { description: "Advanced design patterns" },
       children: [
-        { name: "Step Definition Factory", attributes: { description: "Generates step definitions from metadata" } },
-        { name: "Keyword Factory Registry", attributes: { description: "Central keyword management system" } },
-        { name: "Decorator-Based Patterns", attributes: { description: "@AtomicKeyword @BusinessKeyword annotations" } },
-        { name: "Dependency Injection Container", attributes: { description: "IoC pattern for test dependencies" } },
-        { name: "Abstract Factory Pattern", attributes: { description: "Multi-platform test creation" } }
+        { name: "Step Definition Factory", attributes: { description: "Metadata-driven generation" } },
+        { name: "Keyword Registry", attributes: { description: "Central management system" } },
+        { name: "Decorator Patterns", attributes: { description: "@AtomicKeyword @BusinessKeyword" } }
       ]
     },
     {
-      name: "Atomic Keyword Layer",
+      name: "Atomic Keywords",
+      attributes: { description: "Core playwright actions" },
       children: [
-        { name: "Playwright Core Actions", attributes: { description: "click(), fill(), select(), hover()" } },
-        { name: "Smart Wait Strategies", attributes: { description: "Auto-wait for elements/network" } },
-        { name: "Assertion Library", attributes: { description: "expect().toBeVisible(), toHaveText()" } },
-        { name: "Error Recovery", attributes: { description: "Retry mechanisms & fallbacks" } },
-        { name: "Network Interception", attributes: { description: "API mocking & validation" } }
+        { name: "Playwright Actions", attributes: { description: "click(), fill(), select()" } },
+        { name: "Smart Waits", attributes: { description: "Auto-wait strategies" } },
+        { name: "Assertion Library", attributes: { description: "expect().toBeVisible()" } }
       ]
     },
     {
-      name: "Business Keyword Composition",
+      name: "Business Keywords",
+      attributes: { description: "High-level workflows" },
       children: [
-        { name: "User Journey Workflows", attributes: { description: "loginAsUser(), completeCheckout()" } },
-        { name: "Composite Action Chains", attributes: { description: "Combine atomic keywords" } },
-        { name: "Context State Management", attributes: { description: "Shared test state & data" } },
-        { name: "Dynamic Parameter Injection", attributes: { description: "Runtime data binding" } },
-        { name: "Cross-Platform Keywords", attributes: { description: "Web, Mobile, API unified" } }
+        { name: "User Journeys", attributes: { description: "loginAsUser(), checkout()" } },
+        { name: "Action Chains", attributes: { description: "Composite operations" } },
+        { name: "State Management", attributes: { description: "Shared test context" } }
       ]
     },
     {
       name: "Manual Tester Interface",
+      attributes: { description: "Zero-code authoring" },
       children: [
-        { name: "Pure Gherkin Scenarios", attributes: { description: "Zero code test authoring" } },
-        { name: "Intelligent Keyword Library", attributes: { description: "Searchable, autocomplete catalog" } },
-        { name: "IDE Integration & IntelliSense", attributes: { description: "VSCode extension support" } },
-        { name: "Real-time Test Execution", attributes: { description: "Live feedback & debugging" } },
-        { name: "Natural Language Processing", attributes: { description: "Gherkin to keyword mapping" } }
+        { name: "Pure Gherkin", attributes: { description: "Natural language tests" } },
+        { name: "Intelligent Library", attributes: { description: "Searchable keywords" } },
+        { name: "IDE Integration", attributes: { description: "VSCode IntelliSense" } }
       ]
     },
     {
-      name: "Advanced TypeScript Patterns",
+      name: "TypeScript Patterns",
+      attributes: { description: "Advanced programming" },
       children: [
-        { name: "Generic Type Factories", attributes: { description: "Type-safe keyword creation" } },
-        { name: "Decorator Metadata System", attributes: { description: "Runtime reflection & injection" } },
-        { name: "Proxy Pattern Implementation", attributes: { description: "Dynamic method interception" } },
-        { name: "Builder Pattern with Fluent API", attributes: { description: "Chainable test construction" } },
-        { name: "Template Method Pattern", attributes: { description: "Standardized test flows" } }
+        { name: "Generic Factories", attributes: { description: "Type-safe creation" } },
+        { name: "Decorator System", attributes: { description: "Runtime metadata" } },
+        { name: "Proxy Pattern", attributes: { description: "Method interception" } }
       ]
     },
     {
-      name: "Enterprise DevOps Integration",
+      name: "DevOps Integration",
+      attributes: { description: "Enterprise CI/CD" },
       children: [
-        { name: "Multi-Platform CI/CD", attributes: { description: "Jenkins, GitLab, Azure DevOps" } },
-        { name: "AI-Powered Self-Healing", attributes: { description: "Auto-fix broken locators" } },
-        { name: "Real-time Analytics Dashboard", attributes: { description: "Grafana/ELK stack integration" } },
-        { name: "Environment Orchestration", attributes: { description: "Dev/QA/Staging/Prod deployment" } },
-        { name: "Parallel Test Distribution", attributes: { description: "Kubernetes-based scaling" } }
+        { name: "Multi-Platform CI", attributes: { description: "Jenkins/GitLab/Azure" } },
+        { name: "Self-Healing Tests", attributes: { description: "AI-powered recovery" } },
+        { name: "Analytics Dashboard", attributes: { description: "Real-time monitoring" } }
       ]
     }
   ]
