@@ -92,6 +92,21 @@ const frameworkData = {
     ],
     technologies: ["TypeScript", "REST/GraphQL", "Playwright", "Performance Tools"],
     diagram: "API-UI integration patterns and testing strategies"
+  },
+  "bdd-advanced-factory": {
+    title: "BDD Advanced Factory Pattern",
+    description: "Revolutionary enterprise BDD framework with TypeScript factory patterns enabling manual testers to create automation through pure Gherkin syntax",
+    icon: "🏭",
+    complexity: "Expert",
+    benefits: [
+      "Zero-code automation for manual testers",
+      "Advanced TypeScript factory architecture",
+      "AI-powered step generation",
+      "Self-healing keyword system",
+      "Enterprise governance and versioning"
+    ],
+    technologies: ["TypeScript", "Playwright", "Cucumber", "Gherkin", "Factory Pattern", "Decorators"],
+    diagram: "Advanced factory pattern with metadata-driven step definitions and keyword registry"
   }
 };
 
@@ -354,7 +369,37 @@ const FrameworkDetails = () => {
                     <CardContent>
                       <div className="bg-card border border-border rounded-lg p-4">
                         <pre className="text-sm text-muted-foreground">
-{`📁 project-root/
+{frameworkId === "bdd-advanced-factory" ? `📁 project-root/
+├── 📁 features/
+│   ├── 📁 authentication/   # Login & user management
+│   ├── 📁 ecommerce/       # Shopping & checkout flows
+│   └── 📁 admin/           # Admin panel features
+├── 📁 src/
+│   ├── 📁 factories/
+│   │   ├── KeywordFactory.ts       # Core factory pattern
+│   │   ├── StepDefinitionFactory.ts # Step generation
+│   │   └── KeywordRegistry.ts      # Keyword management
+│   ├── 📁 keywords/
+│   │   ├── 📁 atomic/             # Low-level actions
+│   │   │   ├── NavigationKeywords.ts
+│   │   │   ├── InputKeywords.ts
+│   │   │   └── AssertionKeywords.ts
+│   │   ├── 📁 business/           # High-level workflows
+│   │   │   ├── AuthenticationKeywords.ts
+│   │   │   ├── CheckoutKeywords.ts
+│   │   │   └── ProductKeywords.ts
+│   │   └── 📁 decorators/         # Metadata annotations
+│   │       ├── AtomicKeyword.ts
+│   │       └── BusinessKeyword.ts
+│   ├── 📁 pages/                  # Page Objects
+│   ├── 📁 support/
+│   │   ├── hooks.ts               # Before/After hooks
+│   │   ├── world.ts               # Shared context
+│   │   └── cucumber.ts            # Cucumber config
+│   └── 📁 utils/
+├── 📁 step-definitions/           # Generated step defs
+├── 📁 reports/                    # Cucumber reports
+└── 📄 cucumber.config.ts` : `📁 project-root/
 ├── 📁 src/
 │   ├── 📁 pages/           # Page Object classes
 │   ├── 📁 components/      # Reusable UI components  
@@ -373,10 +418,21 @@ const FrameworkDetails = () => {
                       <div className="mt-4 space-y-3">
                         <h4 className="font-semibold">File Naming Conventions:</h4>
                         <ul className="space-y-1 text-sm text-muted-foreground">
-                          <li>• Pages: <code>LoginPage.ts</code>, <code>DashboardPage.ts</code></li>
-                          <li>• Tests: <code>login.spec.ts</code>, <code>checkout.spec.ts</code></li>
-                          <li>• Utils: <code>dateUtils.ts</code>, <code>apiHelpers.ts</code></li>
-                          <li>• Data: <code>testData.json</code>, <code>userCredentials.ts</code></li>
+                          {frameworkId === "bdd-advanced-factory" ? (
+                            <>
+                              <li>• Features: <code>login.feature</code>, <code>checkout.feature</code></li>
+                              <li>• Factories: <code>UserFactory.ts</code>, <code>ProductFactory.ts</code></li>
+                              <li>• Keywords: <code>AuthenticationKeywords.ts</code>, <code>CartKeywords.ts</code></li>
+                              <li>• Steps: <code>authentication.steps.ts</code>, <code>common.steps.ts</code></li>
+                            </>
+                          ) : (
+                            <>
+                              <li>• Pages: <code>LoginPage.ts</code>, <code>DashboardPage.ts</code></li>
+                              <li>• Tests: <code>login.spec.ts</code>, <code>checkout.spec.ts</code></li>
+                              <li>• Utils: <code>dateUtils.ts</code>, <code>apiHelpers.ts</code></li>
+                              <li>• Data: <code>testData.json</code>, <code>userCredentials.ts</code></li>
+                            </>
+                          )}
                         </ul>
                       </div>
                     </CardContent>
@@ -392,10 +448,206 @@ const FrameworkDetails = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold mb-2">TypeScript Configuration:</h4>
-                        <div className="bg-card border border-border rounded-lg p-4">
-                          <pre className="text-sm text-muted-foreground">
+                      {frameworkId === "bdd-advanced-factory" ? (
+                        <>
+                          <div>
+                            <h4 className="font-semibold mb-2">Gherkin Feature File (Manual Tester Creates):</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`# features/authentication/login.feature
+Feature: User Authentication
+  As a registered user
+  I want to login to the application
+  So that I can access my account
+
+  Background:
+    Given the application is running
+    And I am on the login page
+
+  Scenario: Successful login with valid credentials
+    Given I have a valid user account with username "testuser@example.com"
+    When I enter username "testuser@example.com"
+    And I enter password "SecurePass123"
+    And I click the login button
+    Then I should see the dashboard page
+    And I should see welcome message "Welcome, Test User"
+
+  Scenario Outline: Login with invalid credentials
+    When I enter username "<username>"
+    And I enter password "<password>"
+    And I click the login button
+    Then I should see error message "<error>"
+    
+    Examples:
+      | username              | password      | error                  |
+      | invalid@example.com   | wrong123      | Invalid credentials    |
+      | testuser@example.com  | wrongpass     | Invalid password       |
+      | empty@example.com     |               | Password is required   |
+
+  Scenario: Complete user journey with checkout
+    Given I am logged in as "premium_user"
+    When I search for product "MacBook Pro"
+    And I select the first product from results
+    And I add product to cart
+    And I proceed to checkout
+    And I enter shipping address
+    And I select payment method "Credit Card"
+    And I complete the purchase
+    Then I should see order confirmation
+    And I should receive order confirmation email`}
+                              </pre>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">Factory Pattern with Decorators (Automation Engineer Creates):</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// src/factories/StepDefinitionFactory.ts
+import { Page } from '@playwright/test';
+
+// Decorator for atomic keywords
+export function AtomicKeyword(name: string) {
+  return function (target: any, propertyKey: string) {
+    KeywordRegistry.registerAtomic(name, target[propertyKey]);
+  };
+}
+
+// Decorator for business keywords  
+export function BusinessKeyword(name: string) {
+  return function (target: any, propertyKey: string) {
+    KeywordRegistry.registerBusiness(name, target[propertyKey]);
+  };
+}
+
+// src/keywords/atomic/InputKeywords.ts
+export class InputKeywords {
+  constructor(private page: Page) {}
+
+  @AtomicKeyword('enter text')
+  async enterText(locator: string, text: string): Promise<void> {
+    await this.page.locator(locator).fill(text);
+    await this.page.waitForTimeout(100); // Smart wait
+  }
+
+  @AtomicKeyword('click element')
+  async clickElement(locator: string): Promise<void> {
+    await this.page.locator(locator).waitFor({ state: 'visible' });
+    await this.page.locator(locator).click();
+  }
+}
+
+// src/keywords/business/AuthenticationKeywords.ts
+export class AuthenticationKeywords {
+  constructor(
+    private page: Page,
+    private inputKeywords: InputKeywords,
+    private navigationKeywords: NavigationKeywords
+  ) {}
+
+  @BusinessKeyword('login as user')
+  async loginAsUser(username: string, password: string): Promise<void> {
+    await this.navigationKeywords.navigateTo('/login');
+    await this.inputKeywords.enterText('[data-testid="username"]', username);
+    await this.inputKeywords.enterText('[data-testid="password"]', password);
+    await this.inputKeywords.clickElement('[data-testid="login-btn"]');
+    await this.page.waitForURL('**/dashboard');
+  }
+
+  @BusinessKeyword('I am logged in as')
+  async quickLogin(userType: string): Promise<void> {
+    const credentials = this.getUserCredentials(userType);
+    await this.loginAsUser(credentials.username, credentials.password);
+  }
+}`}
+                              </pre>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold mb-2">Step Definitions (Auto-Generated):</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// step-definitions/authentication.steps.ts (Auto-generated by factory)
+import { Given, When, Then } from '@cucumber/cucumber';
+import { KeywordFactory } from '../src/factories/KeywordFactory';
+
+Given('I have a valid user account with username {string}', async function(username: string) {
+  this.username = username;
+  this.user = await KeywordFactory.createUser(username);
+});
+
+When('I enter username {string}', async function(username: string) {
+  const inputKeywords = KeywordFactory.getKeywords('input');
+  await inputKeywords.enterText('[data-testid="username"]', username);
+});
+
+When('I enter password {string}', async function(password: string) {
+  const inputKeywords = KeywordFactory.getKeywords('input');
+  await inputKeywords.enterText('[data-testid="password"]', password);
+});
+
+When('I click the login button', async function() {
+  const inputKeywords = KeywordFactory.getKeywords('input');
+  await inputKeywords.clickElement('[data-testid="login-btn"]');
+});
+
+Then('I should see the dashboard page', async function() {
+  const assertionKeywords = KeywordFactory.getKeywords('assertion');
+  await assertionKeywords.verifyUrl('**/dashboard');
+});
+
+Given('I am logged in as {string}', async function(userType: string) {
+  const authKeywords = KeywordFactory.getKeywords('authentication');
+  await authKeywords.quickLogin(userType);
+});`}
+                              </pre>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold mb-2">Keyword Registry System:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// src/factories/KeywordRegistry.ts
+export class KeywordRegistry {
+  private static atomicKeywords: Map<string, Function> = new Map();
+  private static businessKeywords: Map<string, Function> = new Map();
+
+  static registerAtomic(name: string, fn: Function): void {
+    this.atomicKeywords.set(name, fn);
+    console.log(\`Registered atomic keyword: \${name}\`);
+  }
+
+  static registerBusiness(name: string, fn: Function): void {
+    this.businessKeywords.set(name, fn);
+    console.log(\`Registered business keyword: \${name}\`);
+  }
+
+  static getAtomic(name: string): Function {
+    if (!this.atomicKeywords.has(name)) {
+      throw new Error(\`Atomic keyword '\${name}' not found\`);
+    }
+    return this.atomicKeywords.get(name)!;
+  }
+
+  static getAllKeywords(): { atomic: string[], business: string[] } {
+    return {
+      atomic: Array.from(this.atomicKeywords.keys()),
+      business: Array.from(this.businessKeywords.keys())
+    };
+  }
+}`}
+                              </pre>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <h4 className="font-semibold mb-2">TypeScript Configuration:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
 {`// tsconfig.json - Enterprise Grade Configuration
 {
   "compilerOptions": {
@@ -407,21 +659,23 @@ const FrameworkDetails = () => {
     "forceConsistentCasingInFileNames": true
   }
 }`}
-                          </pre>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-semibold mb-2">Advanced Locator Strategies:</h4>
-                        <div className="bg-card border border-border rounded-lg p-4">
-                          <pre className="text-sm text-muted-foreground">
+                              </pre>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">Advanced Locator Strategies:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
 {`// Optimized Playwright Selectors
 await page.locator('[data-testid="submit-btn"]').click();
 await page.getByRole('button', { name: 'Submit' }).click();
 await page.getByText('Welcome').first().click();`}
-                          </pre>
-                        </div>
-                      </div>
+                              </pre>
+                            </div>
+                          </div>
+                        </>
+                      )}
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -432,10 +686,185 @@ await page.getByText('Welcome').first().click();`}
                       <CardTitle>CI/CD Integration</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div>
-                        <h4 className="font-semibold mb-2">GitHub Actions Pipeline:</h4>
-                        <div className="bg-card border border-border rounded-lg p-4">
-                          <pre className="text-sm text-muted-foreground">
+                      {frameworkId === "bdd-advanced-factory" ? (
+                        <>
+                          <div>
+                            <h4 className="font-semibold mb-2">GitHub Actions with Cucumber:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`name: BDD Test Suite
+on: 
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *' # Daily at 2 AM
+
+jobs:
+  cucumber-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run test:cucumber -- --shard=\${'$'}{{ matrix.shard }}/4
+        env:
+          BROWSER: \${'$'}{{ matrix.browser }}
+      - name: Upload Cucumber Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cucumber-report-\${'$'}{{ matrix.browser }}-\${'$'}{{ matrix.shard }}
+          path: reports/cucumber/
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate
+      - name: Publish Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: reports/cucumber/*.json`}
+                              </pre>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">Cucumber Configuration:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// cucumber.config.ts
+export default {
+  requireModule: ['ts-node/register'],
+  require: ['src/step-definitions/**/*.ts', 'src/support/**/*.ts'],
+  format: [
+    'progress-bar',
+    'html:reports/cucumber/report.html',
+    'json:reports/cucumber/report.json',
+    'junit:reports/cucumber/report.xml',
+    '@cucumber/pretty-formatter'
+  ],
+  formatOptions: {
+    snippetInterface: 'async-await'
+  },
+  parallel: 4,
+  retry: 2,
+  retryTagFilter: '@flaky',
+  tags: 'not @skip and not @wip'
+};`}
+                              </pre>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold mb-2">Slack Integration with Rich Formatting:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// src/support/slack-reporter.ts
+import axios from 'axios';
+
+export class SlackReporter {
+  async sendReport(results: TestResults): Promise<void> {
+    const message = {
+      blocks: [
+        {
+          type: "header",
+          text: { type: "plain_text", text: "🧪 BDD Test Results" }
+        },
+        {
+          type: "section",
+          fields: [
+            { type: "mrkdwn", text: \`*Total Scenarios:*\\n\${results.total}\` },
+            { type: "mrkdwn", text: \`*Passed:*\\n✅ \${results.passed}\` },
+            { type: "mrkdwn", text: \`*Failed:*\\n❌ \${results.failed}\` },
+            { type: "mrkdwn", text: \`*Duration:*\\n⏱️ \${results.duration}\` }
+          ]
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: \`*Failed Features:*\\n\${results.failedFeatures.map(f => 
+              \`• \${f.name}: \${f.error}\`).join('\\n')}\`
+          }
+        },
+        {
+          type: "actions",
+          elements: [
+            {
+              type: "button",
+              text: { type: "plain_text", text: "View Full Report" },
+              url: results.reportUrl
+            }
+          ]
+        }
+      ]
+    };
+    
+    await axios.post(process.env.SLACK_WEBHOOK_URL!, message);
+  }
+}`}
+                              </pre>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">JIRA Integration:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
+{`// src/support/jira-integration.ts
+export class JiraIntegration {
+  async createTicketForFailure(scenario: FailedScenario): Promise<void> {
+    const issue = {
+      fields: {
+        project: { key: 'AUTO' },
+        summary: \`[AUTO] \${scenario.feature}: \${scenario.name}\`,
+        description: \`
+*Scenario:* \${scenario.name}
+*Feature:* \${scenario.feature}
+*Error:* \${scenario.error}
+*Steps:*
+\${scenario.steps.map((s, i) => \`\${i + 1}. \${s}\`).join('\\n')}
+
+*Environment:* \${process.env.TEST_ENV}
+*Browser:* \${scenario.browser}
+*Screenshot:* {noformat}\${scenario.screenshot}{noformat}
+        \`,
+        issuetype: { name: 'Bug' },
+        priority: { name: scenario.severity },
+        labels: ['automation', 'bdd', 'regression']
+      }
+    };
+    
+    await this.jiraClient.createIssue(issue);
+  }
+}`}
+                              </pre>
+                            </div>
+                          </div>
+
+                          <div>
+                            <h4 className="font-semibold mb-2">Living Documentation Generation:</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Automatically generates beautiful HTML documentation from your Gherkin features, 
+                              creating living documentation that stakeholders can review. Updates automatically 
+                              with each test run, showing real execution results alongside scenarios.
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div>
+                            <h4 className="font-semibold mb-2">GitHub Actions Pipeline:</h4>
+                            <div className="bg-card border border-border rounded-lg p-4">
+                              <pre className="text-sm text-muted-foreground">
 {`name: Playwright Tests
 on: [push, pull_request]
 jobs:
@@ -447,23 +876,25 @@ jobs:
       - run: npm ci
       - run: npx playwright install
       - run: npm run test:e2e`}
-                          </pre>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-semibold mb-2">Slack Integration:</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Automatic notifications to Slack channels with test results, screenshots, and trace files.
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-semibold mb-2">JIRA Integration:</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Automated ticket updates with test execution status and failure details.
-                        </p>
-                      </div>
+                              </pre>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">Slack Integration:</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Automatic notifications to Slack channels with test results, screenshots, and trace files.
+                            </p>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold mb-2">JIRA Integration:</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Automated ticket updates with test execution status and failure details.
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </CardContent>
                   </Card>
                 </TabsContent>
