@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HoverCardDetailed, HoverCardDetailedTrigger, HoverCardDetailedContent } from "@/components/ui/hover-card-detailed";
 import { ArrowLeft, MessageCircle, Code, FileText, Layers, Clock, Target, Zap } from "lucide-react";
+import { POMDiagram, KeywordDrivenDiagram, DataDrivenDiagram, HybridDiagram, BDDDiagram, APIDiagram } from "@/components/FrameworkDiagrams";
 
 const frameworkData = {
   "page-object-model": {
@@ -21,7 +22,7 @@ const frameworkData = {
       "Improved test readability"
     ],
     technologies: ["TypeScript", "Playwright", "Jest", "Node.js"],
-    diagram: "Advanced architectural diagrams showing page object hierarchy and interaction patterns"
+    DiagramComponent: POMDiagram
   },
   "keyword-driven": {
     title: "Keyword Driven Framework",
@@ -35,7 +36,7 @@ const frameworkData = {
       "Business-readable tests"
     ],
     technologies: ["TypeScript", "Excel/JSON", "Playwright", "Custom Engine"],
-    diagram: "Keyword mapping and execution flow architecture"
+    DiagramComponent: KeywordDrivenDiagram
   },
   "data-driven": {
     title: "Data Driven Framework",
@@ -49,7 +50,7 @@ const frameworkData = {
       "Comprehensive coverage"
     ],
     technologies: ["TypeScript", "CSV/JSON/Excel", "Playwright", "Database"],
-    diagram: "Data flow and test execution pipeline visualization"
+    DiagramComponent: DataDrivenDiagram
   },
   "hybrid-framework": {
     title: "Hybrid Framework",
@@ -63,7 +64,7 @@ const frameworkData = {
       "Comprehensive solution"
     ],
     technologies: ["TypeScript", "Multiple Patterns", "Playwright", "Advanced Config"],
-    diagram: "Multi-pattern integration and workflow architecture"
+    DiagramComponent: HybridDiagram
   },
   "bdd-cucumber": {
     title: "BDD with Cucumber",
@@ -77,7 +78,7 @@ const frameworkData = {
       "Stakeholder alignment"
     ],
     technologies: ["TypeScript", "Cucumber", "Gherkin", "Playwright"],
-    diagram: "BDD workflow and step definition mapping"
+    DiagramComponent: BDDDiagram
   },
   "api-ui-integration": {
     title: "API + UI Integration",
@@ -91,7 +92,7 @@ const frameworkData = {
       "Performance insights"
     ],
     technologies: ["TypeScript", "REST/GraphQL", "Playwright", "Performance Tools"],
-    diagram: "API-UI integration patterns and testing strategies"
+    DiagramComponent: APIDiagram
   },
   "bdd-advanced-factory": {
     title: "BDD Advanced Factory Pattern",
@@ -106,7 +107,7 @@ const frameworkData = {
       "Enterprise governance and versioning"
     ],
     technologies: ["TypeScript", "Playwright", "Cucumber", "Gherkin", "Factory Pattern", "Decorators"],
-    diagram: "Advanced factory pattern with metadata-driven step definitions and keyword registry"
+    DiagramComponent: BDDDiagram
   }
 };
 
@@ -282,9 +283,7 @@ const FrameworkDetails = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="bg-muted/50 p-6 rounded-lg mb-4">
-                        <p className="text-center text-muted-foreground">
-                          {framework.diagram}
-                        </p>
+                        <framework.DiagramComponent />
                       </div>
                       <h4 className="font-semibold mb-3">Key Benefits:</h4>
                       <ul className="space-y-2">

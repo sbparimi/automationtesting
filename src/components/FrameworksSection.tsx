@@ -1,14 +1,12 @@
 import { FrameworkCard } from "./FrameworkCard";
-import { FrameworkMindmap } from "./FrameworkMindmap";
 import { 
-  pomMindmap, 
-  keywordDrivenMindmap, 
-  dataDrivenMindmap, 
-  hybridMindmap, 
-  bddMindmap, 
-  apiUiMindmap,
-  bddAdvancedMindmap 
-} from "../data/frameworkMindmaps";
+  POMDiagram, 
+  KeywordDrivenDiagram, 
+  DataDrivenDiagram, 
+  HybridDiagram, 
+  BDDDiagram, 
+  APIDiagram 
+} from "./FrameworkDiagrams";
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 
@@ -45,7 +43,7 @@ export const FrameworksSection = () => {
       },
       technologies: ["Playwright", "TypeScript", "Page Objects", "Fixtures"],
       complexity: "Beginner" as const,
-      diagram: <FrameworkMindmap data={pomMindmap} title="Page Object Model Architecture" />,
+      diagram: <POMDiagram />,
       codeExample: `// LoginPage.ts
 export class LoginPage {
   readonly page: Page;
@@ -92,7 +90,7 @@ export class LoginPage {
       },
       technologies: ["Playwright", "TypeScript", "Excel Integration", "Keyword Engine"],
       complexity: "Intermediate" as const,
-      diagram: <FrameworkMindmap data={keywordDrivenMindmap} title="Keyword Driven Architecture" />,
+      diagram: <KeywordDrivenDiagram />,
       codeExample: `// KeywordEngine.ts
 export class KeywordEngine {
   async executeKeyword(keyword: string, data: any[]) {
@@ -139,7 +137,7 @@ export class KeywordEngine {
       },
       technologies: ["Playwright", "TypeScript", "JSON/CSV", "Database Integration"],
       complexity: "Intermediate" as const,
-      diagram: <FrameworkMindmap data={dataDrivenMindmap} title="Data Driven Architecture" />,
+      diagram: <DataDrivenDiagram />,
       codeExample: `// DataDrivenTest.ts
 testData.forEach((data, index) => {
   test(\`Login Test \${index + 1}\`, async ({ page }) => {
@@ -180,7 +178,7 @@ testData.forEach((data, index) => {
       },
       technologies: ["Playwright", "TypeScript", "Multiple Patterns", "Advanced Reporting"],
       complexity: "Advanced" as const,
-      diagram: <FrameworkMindmap data={hybridMindmap} title="Hybrid Framework Architecture" />,
+      diagram: <HybridDiagram />,
       codeExample: `// HybridFramework.ts
 export class HybridFramework {
   async executeTest(config: TestConfig) {
@@ -224,7 +222,7 @@ export class HybridFramework {
       },
       technologies: ["Playwright", "Cucumber", "Gherkin", "TypeScript"],
       complexity: "Advanced" as const,
-      diagram: <FrameworkMindmap data={bddMindmap} title="BDD Framework Architecture" />,
+      diagram: <BDDDiagram />,
       codeExample: `// Feature: User Authentication
 Scenario: Successful login
   Given user is on the login page
@@ -267,7 +265,7 @@ Given('user is on the login page', async () => {
       },
       technologies: ["Playwright", "REST API", "TypeScript", "Integration Testing"],
       complexity: "Advanced" as const,
-      diagram: <FrameworkMindmap data={apiUiMindmap} title="API + UI Integration Architecture" />,
+      diagram: <APIDiagram />,
       codeExample: `// IntegratedTest.ts
 test('Order flow', async ({ request, page }) => {
   // API setup
@@ -310,7 +308,7 @@ test('Order flow', async ({ request, page }) => {
       },
       technologies: ["Playwright", "TypeScript", "Factory Pattern", "Gherkin", "Advanced Decorators"],
       complexity: "Advanced" as const,
-      diagram: <FrameworkMindmap data={bddAdvancedMindmap} title="BDD Advanced Factory Architecture" />,
+      diagram: <BDDDiagram />,
       codeExample: `// Advanced Factory Pattern
 @StepDefinitionFactory
 export class BusinessKeywordFactory {
