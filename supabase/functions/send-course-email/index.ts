@@ -37,8 +37,12 @@ serve(async (req: Request): Promise<Response> => {
 
     const confirmationUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/confirm-subscription?token=${confirmationToken}&email=${encodeURIComponent(email)}&framework=${frameworkId}`;
 
+    // IMPORTANT: Replace with your verified domain email
+    // Example: "Your Name <noreply@yourdomain.com>"
+    const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <noreply@yourdomain.com>";
+    
     const emailResponse = await resend.emails.send({
-      from: "BDD Academy <onboarding@resend.dev>",
+      from: fromEmail,
       to: [email],
       subject: `Confirm Your Subscription - ${frameworkName} Course`,
       html: `

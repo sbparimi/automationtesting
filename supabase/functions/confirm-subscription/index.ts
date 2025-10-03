@@ -65,9 +65,12 @@ serve(async (req: Request): Promise<Response> => {
 
     const frameworkName = frameworkNames[frameworkId] || frameworkId;
 
+    // IMPORTANT: Replace with your verified domain email
+    const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <noreply@yourdomain.com>";
+    
     // Send welcome email
     await resend.emails.send({
-      from: "BDD Academy <onboarding@resend.dev>",
+      from: fromEmail,
       to: [email],
       subject: `Welcome to ${frameworkName} - 30 Day Course`,
       html: `

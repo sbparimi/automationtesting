@@ -64,9 +64,12 @@ serve(async (req: Request): Promise<Response> => {
       // Select a catchy subject based on index
       const subject = catchySubjects[index % catchySubjects.length];
 
+      // IMPORTANT: Replace with your verified domain email
+      const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <noreply@yourdomain.com>";
+      
       try {
         await resend.emails.send({
-          from: "Playwright Academy <onboarding@resend.dev>",
+          from: fromEmail,
           to: [sub.email],
           subject: subject,
           html: `
