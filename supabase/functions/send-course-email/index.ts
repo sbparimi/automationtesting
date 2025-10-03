@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@^4.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,28 +21,44 @@ serve(async (req: Request): Promise<Response> => {
   try {
     const { email, frameworkId, frameworkName } = await req.json();
 
+    // Generate confirmation token
+    const confirmationToken = crypto.randomUUID();
+    
+    // Store token in database
+    const { error: updateError } = await supabase
+      .from('subscriptions')
+      .update({ confirmation_token: confirmationToken })
+      .eq('email', email)
+      .eq('framework_id', frameworkId);
+
+    if (updateError) {
+      console.error('Error updating confirmation token:', updateError);
+    }
+
+    const confirmationUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/confirm-subscription?token=${confirmationToken}&email=${encodeURIComponent(email)}&framework=${frameworkId}`;
+
     const emailResponse = await resend.emails.send({
       from: "BDD Academy <onboarding@resend.dev>",
       to: [email],
-      subject: `Welcome to ${frameworkName} - 30 Day Course`,
+      subject: `Confirm Your Subscription - ${frameworkName} Course`,
       html: `
-        <h1>Welcome to the ${frameworkName} Course!</h1>
-        <p>Thank you for subscribing to our comprehensive 30-day learning program.</p>
-        
-        <h2>What to Expect:</h2>
-        <ul>
-          <li>Daily lessons covering concepts from basic to advanced</li>
-          <li>5+ practical examples per day</li>
-          <li>Hands-on practice exercises</li>
-          <li>Real-world enterprise scenarios</li>
-        </ul>
-
-        <p><strong>Day 1 starts tomorrow!</strong> You'll receive your first lesson covering Gherkin fundamentals.</p>
-        
-        <p>Please confirm your subscription by clicking the link below:</p>
-        <p><a href="${Deno.env.get('SUPABASE_URL')}/confirm?email=${encodeURIComponent(email)}&framework=${frameworkId}">Confirm Subscription</a></p>
-        
-        <p>Happy learning!<br>The BDD Academy Team</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1 style="color: #333;">Confirm Your Email</h1>
+          <p>Thank you for subscribing to the <strong>${frameworkName}</strong> 30-Day Course!</p>
+          
+          <p>Please confirm your email address to start receiving daily lessons:</p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${confirmationUrl}" 
+               style="background-color: #4F46E5; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+              Confirm Subscription
+            </a>
+          </div>
+          
+          <p style="color: #666; font-size: 14px;">If you didn't subscribe to this course, you can safely ignore this email.</p>
+          
+          <p>Best regards,<br>The BDD Academy Team</p>
+        </div>
       `,
     });
 
