@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       subscriptions: {
         Row: {
+          confirmation_token: string | null
           created_at: string
           email: string
           framework_id: string
@@ -24,6 +25,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          confirmation_token?: string | null
           created_at?: string
           email: string
           framework_id: string
@@ -32,6 +34,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          confirmation_token?: string | null
           created_at?: string
           email?: string
           framework_id?: string
