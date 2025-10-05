@@ -65,8 +65,9 @@ serve(async (req: Request): Promise<Response> => {
 
     const frameworkName = frameworkNames[frameworkId] || frameworkId;
 
-    // IMPORTANT: Replace with your verified domain email
-    const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <noreply@yourdomain.com>";
+    // Using Resend's default email (works without domain verification)
+    // To use your own domain, set FROM_EMAIL environment variable
+    const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <onboarding@resend.dev>";
     
     // Send welcome email
     await resend.emails.send({
