@@ -18,6 +18,9 @@ export const Navigation = () => {
             <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Home
             </Link>
+            <Link to="/beginner-guide" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+              For Beginners
+            </Link>
             <button 
               className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}

@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import FrameworkDetails from "./pages/FrameworkDetails";
 import CourseDetails from "./pages/CourseDetails";
+import BeginnerGuide from "./pages/BeginnerGuide";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/beginner-guide" element={<BeginnerGuide />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
           <Route path="/course/:pathId/:courseId" element={<CourseDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
