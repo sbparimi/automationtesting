@@ -19,10 +19,21 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    console.log('Send course email function invoked');
+    
     const { email, frameworkId, frameworkName } = await req.json();
+    console.log('Request payload:', { email, frameworkId, frameworkName });
+
+    // Check if RESEND_API_KEY is configured
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY is not configured');
+      throw new Error('Email service is not configured. Please contact support.');
+    }
 
     // Generate confirmation token
     const confirmationToken = crypto.randomUUID();
+    console.log('Generated confirmation token');
     
     // Store token in database
     const { error: updateError } = await supabase
@@ -33,7 +44,9 @@ serve(async (req: Request): Promise<Response> => {
 
     if (updateError) {
       console.error('Error updating confirmation token:', updateError);
+      throw new Error('Failed to update subscription');
     }
+    console.log('Successfully updated confirmation token in database');
 
     const confirmationUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/confirm-subscription?token=${confirmationToken}&email=${encodeURIComponent(email)}&framework=${frameworkId}`;
 
@@ -41,6 +54,7 @@ serve(async (req: Request): Promise<Response> => {
     // To use your own domain, set FROM_EMAIL environment variable
     const fromEmail = Deno.env.get("FROM_EMAIL") || "Playwright Academy <onboarding@resend.dev>";
     
+    console.log('Attempting to send email with Resend');
     const emailResponse = await resend.emails.send({
       from: fromEmail,
       to: [email],
@@ -61,20 +75,24 @@ serve(async (req: Request): Promise<Response> => {
           
           <p style="color: #666; font-size: 14px;">If you didn't subscribe to this course, you can safely ignore this email.</p>
           
-          <p>Best regards,<br>The BDD Academy Team</p>
+          <p>Best regards,<br>The Playwright Academy Team</p>
         </div>
       `,
     });
 
-    console.log("Email sent:", emailResponse);
+    console.log("Email sent successfully:", JSON.stringify(emailResponse));
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error: any) {
-    console.error("Error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("Error in send-course-email:", error);
+    console.error("Error stack:", error.stack);
+    return new Response(JSON.stringify({ 
+      error: error.message,
+      details: error.toString() 
+    }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
