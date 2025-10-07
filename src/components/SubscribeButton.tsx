@@ -3,6 +3,18 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+// Email validation schema
+const emailSchema = z.object({
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .min(5, "Email is too short")
+    .max(255, "Email is too long")
+    .trim()
+    .toLowerCase(),
+});
 
 interface SubscribeButtonProps {
   frameworkId: string;
@@ -15,28 +27,49 @@ export const SubscribeButton = ({ frameworkId, frameworkName }: SubscribeButtonP
   const { toast } = useToast();
 
   const handleSubscribe = async () => {
-    if (!email || !email.includes("@")) {
+    // Validate email with Zod
+    const validationResult = emailSchema.safeParse({ email: email.trim() });
+    
+    if (!validationResult.success) {
+      const errorMessage = validationResult.error.errors[0]?.message || "Invalid email";
       toast({
         title: "Invalid Email",
-        description: "Please enter a valid email address",
+        description: errorMessage,
         variant: "destructive",
       });
       return;
     }
 
+    const validatedEmail = validationResult.data.email;
     setIsLoading(true);
+
     try {
+      // Generate confirmation token on client side
+      const confirmationToken = crypto.randomUUID();
+
+      // Insert subscription record with token
       const { error: dbError } = await supabase
         .from("subscriptions")
-        .insert({ email, framework_id: frameworkId });
+        .insert({ 
+          email: validatedEmail, 
+          framework_id: frameworkId,
+          confirmation_token: confirmationToken,
+          is_confirmed: false
+        });
 
-      if (dbError) throw dbError;
+      if (dbError) {
+        console.error("Database error:", dbError);
+        throw new Error("Failed to create subscription");
+      }
 
       const { error: emailError } = await supabase.functions.invoke("send-course-email", {
-        body: { email, frameworkId, frameworkName },
+        body: { email: validatedEmail, frameworkId, frameworkName },
       });
 
-      if (emailError) throw emailError;
+      if (emailError) {
+        console.error("Email error:", emailError);
+        throw new Error("Failed to send confirmation email");
+      }
 
       toast({
         title: "Subscribed!",
@@ -46,7 +79,7 @@ export const SubscribeButton = ({ frameworkId, frameworkName }: SubscribeButtonP
     } catch (error: any) {
       toast({
         title: "Subscription Failed",
-        description: error.message,
+        description: error.message || "Please try again",
         variant: "destructive",
       });
     } finally {

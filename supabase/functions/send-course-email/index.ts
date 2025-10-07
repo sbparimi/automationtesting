@@ -22,13 +22,40 @@ serve(async (req: Request): Promise<Response> => {
     console.log('Send course email function invoked');
     
     const { email, frameworkId, frameworkName } = await req.json();
-    console.log('Request payload:', { email, frameworkId, frameworkName });
+    console.log('Request payload:', { email: email?.substring(0, 3) + '***', frameworkId, frameworkName });
+
+    // Input validation
+    if (!email || typeof email !== 'string') {
+      return new Response(JSON.stringify({ error: 'Invalid email' }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (!frameworkId || typeof frameworkId !== 'string' || frameworkId.length > 100) {
+      return new Response(JSON.stringify({ error: 'Invalid framework ID' }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailRegex.test(email) || email.length > 255) {
+      return new Response(JSON.stringify({ error: 'Invalid email format' }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     // Check if RESEND_API_KEY is configured
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) {
       console.error('RESEND_API_KEY is not configured');
-      throw new Error('Email service is not configured. Please contact support.');
+      return new Response(JSON.stringify({ error: 'Email service is not configured' }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Generate confirmation token
@@ -89,9 +116,10 @@ serve(async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in send-course-email:", error);
     console.error("Error stack:", error.stack);
+    
+    // Don't expose internal error details to clients
     return new Response(JSON.stringify({ 
-      error: error.message,
-      details: error.toString() 
+      error: 'An error occurred while processing your request'
     }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },

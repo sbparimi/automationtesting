@@ -10,10 +10,58 @@ const supabase = createClient(
 
 serve(async (req: Request): Promise<Response> => {
   try {
-    const url = new URL(req.url);
-    const token = url.searchParams.get('token');
-    const email = url.searchParams.get('email');
-    const frameworkId = url.searchParams.get('framework');
+  const url = new URL(req.url);
+  const token = url.searchParams.get('token');
+  const email = url.searchParams.get('email');
+  const frameworkId = url.searchParams.get('framework');
+
+  console.log('Confirmation request received');
+
+  // Input validation
+  if (!token || typeof token !== 'string' || token.length !== 36) {
+    console.error('Invalid token format');
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head><title>Invalid Link</title></head>
+        <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+          <h1>Invalid Confirmation Link</h1>
+          <p>This confirmation link is invalid.</p>
+        </body>
+      </html>`,
+      { headers: { 'Content-Type': 'text/html' }, status: 400 }
+    );
+  }
+
+  if (!email || typeof email !== 'string' || email.length > 255) {
+    console.error('Invalid email');
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head><title>Invalid Email</title></head>
+        <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+          <h1>Invalid Email</h1>
+          <p>The email address is invalid.</p>
+        </body>
+      </html>`,
+      { headers: { 'Content-Type': 'text/html' }, status: 400 }
+    );
+  }
+
+  if (!frameworkId || typeof frameworkId !== 'string' || frameworkId.length > 100) {
+    console.error('Invalid framework ID');
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head><title>Invalid Link</title></head>
+        <body style="font-family: Arial, sans-serif; padding: 40px; text-align: center;">
+          <h1>Invalid Confirmation Link</h1>
+          <p>This confirmation link is invalid.</p>
+        </body>
+      </html>`,
+      { headers: { 'Content-Type': 'text/html' }, status: 400 }
+    );
+  }
 
     if (!token || !email || !frameworkId) {
       return new Response('Invalid confirmation link', { status: 400 });
