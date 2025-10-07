@@ -2,7 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Code, Target, Workflow, FolderTree } from "lucide-react";
+import { BookOpen, Code, Target, Workflow, FolderTree, Briefcase, Users, LineChart, Zap } from "lucide-react";
 
 const BeginnerGuide = () => {
   const sections = [
@@ -495,7 +495,14 @@ test('user workflow', async ({ page }) => {
 
       {/* Main Content */}
       <section className="py-16 px-6">
-        <div className="max-w-7xl mx-auto space-y-12">
+        <div className="max-w-7xl mx-auto">
+          <Tabs defaultValue="tutorial" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8 max-w-md mx-auto">
+              <TabsTrigger value="tutorial">Tutorials</TabsTrigger>
+              <TabsTrigger value="journey">My Journey</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="tutorial" className="space-y-12">
           {sections.map((section, index) => (
             <Card key={section.id} className="overflow-hidden border-2 hover:shadow-warm transition-all duration-300 bg-gradient-card">
               <CardHeader className="bg-gradient-warm border-b">
@@ -556,6 +563,375 @@ test('user workflow', async ({ page }) => {
               </CardContent>
             </Card>
           ))}
+            </TabsContent>
+
+            {/* My Journey Tab */}
+            <TabsContent value="journey" className="space-y-12">
+              {/* Canon Experience */}
+              <Card className="overflow-hidden border-2 hover:shadow-warm transition-all duration-300 bg-gradient-card">
+                <CardHeader className="bg-gradient-warm border-b">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-button rounded-2xl flex items-center justify-center shadow-glow">
+                      <Briefcase className="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl text-foreground">
+                        Canon - Test Automation Architect
+                      </CardTitle>
+                      <CardDescription className="text-base mt-1">
+                        Modernizing enterprise test automation infrastructure
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="pt-6 space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Zap className="w-5 h-5 text-primary" />
+                      The Challenge
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
+                      When I joined Canon, the organization was facing critical challenges in their test automation landscape. Legacy automation tools were creating bottlenecks in the CI/CD pipeline, test maintenance costs were escalating, and defect leakage to production was impacting customer satisfaction. The existing framework lacked scalability, making it difficult to keep pace with rapid application modernization across Oracle Analytics, Salesforce, and ServiceNow platforms.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Target className="w-5 h-5 text-primary" />
+                      Building the Solution
+                    </h3>
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Enterprise Framework Architecture:</strong> Designed and implemented a scalable Playwright framework supporting Web and API automation across multiple enterprise applications (Oracle Analytics, Salesforce, ServiceNow)
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">BDD with Gherkin:</strong> Integrated Behavior-Driven Development using Cucumber and Gherkin syntax, enabling non-technical stakeholders to contribute to test scenarios and improve collaboration
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Page Object Model (POM):</strong> Architected maintainable test structure using POM pattern with TypeScript, reducing code duplication by 60% and improving test reliability
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">CI/CD Integration:</strong> Integrated framework with GitLab CI/CD pipelines, enabling automated test execution on every commit and reducing deployment cycles from weeks to days
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">JIRA Integration:</strong> Built seamless integration with JIRA for defect tracking and test case management, providing real-time traceability between requirements and test execution
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Mobile Automation:</strong> Extended framework capabilities to mobile platforms using Appium, providing unified automation approach across web and mobile applications
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Code className="w-5 h-5 text-primary" />
+                      Advanced Playwright Features Implemented
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Network Interception & Monitoring</h4>
+                        <p className="text-sm text-muted-foreground">Implemented network trace analysis to capture and validate API calls, monitor performance metrics, and detect security vulnerabilities during test execution</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Console Log Analysis</h4>
+                        <p className="text-sm text-muted-foreground">Automated detection of console errors and warnings, integrating them into test reports to catch JavaScript errors before they reach production</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Uncaught Exception Handling</h4>
+                        <p className="text-sm text-muted-foreground">Built robust error handling mechanisms to capture and report uncaught exceptions, improving test stability and debugging efficiency</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Allure Reporting</h4>
+                        <p className="text-sm text-muted-foreground">Configured comprehensive Allure test reports with screenshots, videos, network logs, and execution trends for stakeholder visibility</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Test Data Management</h4>
+                        <p className="text-sm text-muted-foreground">Designed dynamic test data factories with environment-specific configurations, supporting parallel execution across multiple test environments</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Visual Regression Testing</h4>
+                        <p className="text-sm text-muted-foreground">Implemented automated visual comparison testing to catch UI regressions across different browsers and viewport sizes</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <LineChart className="w-5 h-5 text-primary" />
+                      Impact & Results
+                    </h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Reduced test execution time by 70% through parallel execution strategies
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Increased automated test coverage from 30% to 85% across critical user journeys
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Decreased defect leakage to production by 45% within first 6 months
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Established test automation best practices adopted across 5+ engineering teams
+                      </li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Dolby Experience */}
+              <Card className="overflow-hidden border-2 hover:shadow-warm transition-all duration-300 bg-gradient-card">
+                <CardHeader className="bg-gradient-warm border-b">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-button rounded-2xl flex items-center justify-center shadow-glow">
+                      <Users className="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl text-foreground">
+                        Dolby - Lead QA Engineer
+                      </CardTitle>
+                      <CardDescription className="text-base mt-1">
+                        Leading automation for high-availability streaming platforms
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="pt-6 space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Target className="w-5 h-5 text-primary" />
+                      Mission & Scope
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
+                      Joined Dolby to revolutionize quality assurance for their billing solutions powering online streaming applications serving millions of users. The challenge was to build a robust automation framework that could ensure 99.99% uptime while supporting rapid feature deployment in a high-stakes financial processing environment.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Workflow className="w-5 h-5 text-primary" />
+                      Framework Implementation
+                    </h3>
+                    <ul className="space-y-3 mb-6">
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Page Object Model Architecture:</strong> Designed enterprise-grade POM framework for billing solutions, ensuring maintainability and scalability across 50+ payment workflows
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Functional Test Coverage:</strong> Achieved 90% functional test automation coverage including E2E user journeys, regression suites, and System Integration Testing (SIT)
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Defect Leakage Reduction:</strong> Implemented comprehensive test strategies that reduced production defects by 60% through enhanced validation of edge cases and payment processing scenarios
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">Component Testing with Cypress:</strong> Collaborated with developers to implement component-level testing using Cypress, creating a joint responsibility model that improved code quality at the unit level
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-primary" />
+                        </div>
+                        <span className="text-muted-foreground">
+                          <strong className="text-foreground">ReportPortal.io Integration:</strong> Configured advanced reporting with ReportPortal.io, providing real-time test insights, ML-powered failure analysis, and historical trend analysis
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Users className="w-5 h-5 text-primary" />
+                      Team Leadership
+                    </h3>
+                    <div className="bg-muted/50 rounded-lg p-4 border">
+                      <p className="text-muted-foreground leading-relaxed">
+                        Led a high-performing team of 4 test engineers, establishing best practices for test automation, code reviews, and knowledge sharing. Accelerated automation delivery by implementing agile testing methodologies and fostering close collaboration with development teams. Mentored junior engineers on Playwright advanced patterns, TypeScript best practices, and test architecture principles.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <Code className="w-5 h-5 text-primary" />
+                      Advanced Technical Implementations
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Network Trace Analysis</h4>
+                        <p className="text-sm text-muted-foreground">Implemented sophisticated network monitoring to validate payment gateway integrations, track API response times, and ensure secure data transmission for PCI compliance</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Console Log Monitoring</h4>
+                        <p className="text-sm text-muted-foreground">Automated capture and analysis of browser console logs to detect JavaScript errors, third-party script failures, and potential security vulnerabilities</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Exception Tracking</h4>
+                        <p className="text-sm text-muted-foreground">Built comprehensive uncaught exception handlers to catch and report runtime errors, improving test reliability and accelerating root cause analysis</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Performance Monitoring</h4>
+                        <p className="text-sm text-muted-foreground">Integrated performance metrics tracking within test execution to ensure billing pages met sub-2-second load time SLAs under various network conditions</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">Test Data Factory Pattern</h4>
+                        <p className="text-sm text-muted-foreground">Designed sophisticated test data generation strategies supporting complex billing scenarios, subscription models, and international payment methods</p>
+                      </div>
+                      <div className="bg-muted/50 rounded-lg p-4 border">
+                        <h4 className="font-semibold mb-2 text-foreground">CI/CD Pipeline Optimization</h4>
+                        <p className="text-sm text-muted-foreground">Optimized test execution in CI/CD pipeline, reducing feedback cycle from 2 hours to 20 minutes through intelligent test parallelization and selective test execution</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center gap-2">
+                      <LineChart className="w-5 h-5 text-primary" />
+                      Key Achievements
+                    </h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Achieved 99.99% uptime for billing services through comprehensive automated testing
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Reduced regression test cycle time from 3 days to 4 hours
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Improved deployment confidence enabling bi-weekly releases instead of monthly
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Zero critical billing defects in production for 12+ consecutive months
+                      </li>
+                      <li className="flex items-center gap-2 text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        Established automation framework adopted as standard across 3 product lines
+                      </li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Combined Technical Excellence */}
+              <Card className="overflow-hidden border-2 hover:shadow-warm transition-all duration-300 bg-gradient-card">
+                <CardHeader className="bg-gradient-warm border-b">
+                  <CardTitle className="text-2xl text-foreground">
+                    Technical Excellence Across Organizations
+                  </CardTitle>
+                  <CardDescription className="text-base mt-1">
+                    Common patterns and advanced capabilities implemented across Canon and Dolby
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="pt-6">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-foreground flex items-center gap-2">
+                        <Code className="w-4 h-4 text-primary" />
+                        Core Technologies
+                      </h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Playwright with TypeScript</li>
+                        <li>• Page Object Model (POM)</li>
+                        <li>• BDD with Cucumber/Gherkin</li>
+                        <li>• JIRA Integration</li>
+                        <li>• GitLab CI/CD</li>
+                        <li>• Cypress (Component Testing)</li>
+                        <li>• Appium (Mobile Testing)</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-foreground flex items-center gap-2">
+                        <Zap className="w-4 h-4 text-primary" />
+                        Advanced Features
+                      </h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Network Trace Monitoring</li>
+                        <li>• Console Log Analysis</li>
+                        <li>• Uncaught Exception Handling</li>
+                        <li>• Visual Regression Testing</li>
+                        <li>• Performance Metrics Tracking</li>
+                        <li>• API Automation</li>
+                        <li>• Parallel Execution</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-foreground flex items-center gap-2">
+                        <LineChart className="w-4 h-4 text-primary" />
+                        Reporting & Analytics
+                      </h4>
+                      <ul className="space-y-1 text-sm text-muted-foreground">
+                        <li>• Allure Reports (Canon)</li>
+                        <li>• ReportPortal.io (Dolby)</li>
+                        <li>• Test Execution Trends</li>
+                        <li>• Failure Analysis</li>
+                        <li>• Coverage Metrics</li>
+                        <li>• Performance Dashboards</li>
+                        <li>• Real-time Monitoring</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
