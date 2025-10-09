@@ -18,10 +18,17 @@ const emailSchema = z.object({
 
 interface SubscribeButtonProps {
   frameworkId: string;
-  frameworkName: string;
+  frameworkName?: string;
+  buttonText?: string;
+  className?: string;
 }
 
-export const SubscribeButton = ({ frameworkId, frameworkName }: SubscribeButtonProps) => {
+export const SubscribeButton = ({ 
+  frameworkId, 
+  frameworkName = "Playwright Course", 
+  buttonText,
+  className 
+}: SubscribeButtonProps) => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -86,6 +93,20 @@ export const SubscribeButton = ({ frameworkId, frameworkName }: SubscribeButtonP
       setIsLoading(false);
     }
   };
+
+  // If used as a simple button (for pricing page)
+  if (buttonText) {
+    return (
+      <Button 
+        onClick={handleSubscribe} 
+        disabled={isLoading}
+        className={className}
+        size="lg"
+      >
+        {isLoading ? "Processing..." : buttonText}
+      </Button>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-2 p-4 bg-secondary/20 rounded-lg">

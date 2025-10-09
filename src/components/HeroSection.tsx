@@ -4,9 +4,9 @@ import { ArrowDown, TestTube, Code } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-warm relative overflow-hidden" style={{ backgroundImage: 'var(--blob-pattern)' }}>
-      {/* Warm overlay */}
-      <div className="absolute inset-0 bg-gradient-warm opacity-95"></div>
+    <section className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden" style={{ backgroundImage: 'var(--blob-pattern)' }}>
+      {/* Professional overlay */}
+      <div className="absolute inset-0 bg-gradient-hero opacity-95"></div>
       
       <div className="max-w-6xl mx-auto px-6 text-center animate-fade-in pt-20 relative z-10">
         <div className="max-w-5xl mx-auto">

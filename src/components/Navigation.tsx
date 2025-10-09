@@ -18,20 +18,26 @@ export const Navigation = () => {
             <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Home
             </Link>
+            <button 
+              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
+              onClick={() => document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              My Journey
+            </button>
+            <button 
+              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
+              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Pricing
+            </button>
             <Link to="/beginner-guide" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
-              For Beginners
+              Tutorials
             </Link>
             <button 
               className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
               onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Frameworks
-            </button>
-            <button 
-              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
-              onClick={() => document.getElementById('blog')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Playwright Tips
             </button>
           </div>
         </div>

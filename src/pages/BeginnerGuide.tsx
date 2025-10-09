@@ -2,7 +2,8 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Code, Target, Workflow, FolderTree, Briefcase, Users, LineChart, Zap } from "lucide-react";
+import { BookOpen, Code, Target, Workflow, FolderTree, Briefcase, Users, LineChart, Zap, Wrench } from "lucide-react";
+import { InstallationGuide } from "@/components/InstallationGuide";
 
 const BeginnerGuide = () => {
   const sections = [
@@ -496,11 +497,16 @@ test('user workflow', async ({ page }) => {
       {/* Main Content */}
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <Tabs defaultValue="tutorial" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8 max-w-md mx-auto">
-              <TabsTrigger value="tutorial">Tutorials</TabsTrigger>
-              <TabsTrigger value="journey">My Journey</TabsTrigger>
+          <Tabs defaultValue="installation" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-8 max-w-2xl mx-auto">
+              <TabsTrigger value="installation"><Wrench className="w-4 h-4 mr-2" />Installation</TabsTrigger>
+              <TabsTrigger value="tutorial"><BookOpen className="w-4 h-4 mr-2" />Tutorials</TabsTrigger>
+              <TabsTrigger value="journey"><Briefcase className="w-4 h-4 mr-2" />My Journey</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="installation" className="space-y-6">
+              <InstallationGuide />
+            </TabsContent>
 
             <TabsContent value="tutorial" className="space-y-12">
           {sections.map((section, index) => (

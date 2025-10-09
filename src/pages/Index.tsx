@@ -1,5 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { JourneySection } from "@/components/JourneySection";
+import { PricingSection } from "@/components/PricingSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { FrameworksSection } from "@/components/FrameworksSection";
 import { BlogSection } from "@/components/BlogSection";
@@ -12,6 +14,8 @@ const Index = () => {
       <SubscribeModal />
       <Navigation />
       <HeroSection />
+      <JourneySection />
+      <PricingSection />
       <SkillsSection />
       <FrameworksSection />
       <BlogSection />

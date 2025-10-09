@@ -8,68 +8,70 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Arattai Light Theme - Warm & Modern */
+    /* Playwright Professional Theme - Based on official Playwright brand colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 13% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 13%;
 
-    /* Primary Orange/Yellow - Arattai Brand */
-    --primary: 45 93% 58%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 45 93% 50%;
+    /* Primary Green - Playwright Brand (#45ba4b / HSL: 123, 46%, 50%) */
+    --primary: 123 46% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 123 46% 42%;
     
-    /* Success Green */
-    --success: 142 70% 45%;
+    /* Secondary Red/Pink - Playwright Accent (#e5484d / HSL: 358, 75%, 59%) */
+    --secondary: 358 75% 59%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Success Green - Same as primary for consistency */
+    --success: 123 46% 50%;
     --success-foreground: 0 0% 100%;
-    
-    /* Secondary Warm Gray */
-    --secondary: 210 40% 98%;
-    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 13% 95%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 220 13% 95%;
+    --accent-foreground: 220 13% 13%;
 
     /* Status Colors */
-    --destructive: 0 84% 60%;
+    --destructive: 358 75% 59%;
     --destructive-foreground: 0 0% 100%;
     
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 45 93% 58%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 123 46% 50%;
 
-    /* Arattai Style Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(45 93% 58%), hsl(35 91% 55%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 100% 97%), hsl(0 0% 100%));
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 50%, hsl(0 0% 100%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 40% 98%));
-    --gradient-button: linear-gradient(135deg, hsl(45 93% 58%), hsl(40 93% 55%));
+    /* Playwright Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(123 46% 50%), hsl(123 46% 42%));
+    --gradient-secondary: linear-gradient(135deg, hsl(358 75% 59%), hsl(358 75% 50%));
+    --gradient-hero: linear-gradient(135deg, hsl(123 46% 50% / 0.05) 0%, hsl(358 75% 59% / 0.05) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 13% 98%));
+    --gradient-button: linear-gradient(135deg, hsl(123 46% 50%), hsl(123 46% 42%));
+    --gradient-accent: linear-gradient(135deg, hsl(358 75% 59%), hsl(358 75% 50%));
     
-    /* Modern Shadows */
+    /* Professional Shadows */
     --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-glow: 0 0 20px rgba(255, 193, 7, 0.3);
+    --shadow-glow: 0 0 25px rgba(69, 186, 75, 0.25);
+    --shadow-glow-accent: 0 0 25px rgba(229, 72, 77, 0.25);
     --shadow-warm: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     
-    /* Smooth Animations - Bouncy like Arattai */
+    /* Professional Smooth Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
-    /* Blob Pattern */
-    --blob-pattern: url("data:image/svg+xml,%3csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cpattern id='blob' width='60' height='60' patternUnits='userSpaceOnUse'%3e%3ccircle cx='30' cy='30' r='1.5' fill='%23FFC107' opacity='0.1'/%3e%3c/pattern%3e%3c/defs%3e%3crect width='100%25' height='100%25' fill='url(%23blob)'/%3e%3c/svg%3e");
+    /* Subtle Pattern */
+    --blob-pattern: url("data:image/svg+xml,%3csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cpattern id='blob' width='60' height='60' patternUnits='userSpaceOnUse'%3e%3ccircle cx='30' cy='30' r='1.5' fill='%2345ba4b' opacity='0.08'/%3e%3c/pattern%3e%3c/defs%3e%3crect width='100%25' height='100%25' fill='url(%23blob)'/%3e%3c/svg%3e");
 
     --radius: 0.5rem;
 
@@ -104,10 +106,24 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-image: var(--blob-pattern);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.75;
   }
 
   /* Arattai-style animations */
