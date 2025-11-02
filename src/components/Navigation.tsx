@@ -11,7 +11,7 @@ export const Navigation = () => {
             <div className="w-8 h-8 bg-gradient-button rounded-2xl flex items-center justify-center shadow-glow">
               <TestTube className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground tracking-tight">PlaywrightPro</span>
+            <span className="text-xl font-bold text-foreground tracking-tight">TestCraft Academy</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -32,6 +32,9 @@ export const Navigation = () => {
             </button>
             <Link to="/beginner-guide" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Tutorials
+            </Link>
+            <Link to="/master-typescript" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+              Master TypeScript
             </Link>
             <button 
               className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
