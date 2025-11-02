@@ -17,7 +17,7 @@ export const PricingSection = () => {
             Pricing <span className="bg-gradient-primary bg-clip-text text-transparent">Plans</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Start with fundamentals for free, upgrade to Pro for enterprise-level advanced frameworks
+            Start with fundamentals for free, get lifetime Pro access for enterprise-level Playwright & Cypress frameworks
           </p>
         </div>
 
@@ -39,7 +39,7 @@ export const PricingSection = () => {
                 <span className="text-5xl font-bold text-foreground">Free</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Perfect for getting started with Playwright automation fundamentals
+                Perfect for getting started with Playwright & Cypress automation fundamentals
               </p>
             </div>
 
@@ -47,11 +47,11 @@ export const PricingSection = () => {
             <div className="space-y-3 mb-8">
               {[
                 'Daily beginner tutorial emails',
-                'Basic Playwright installation guide',
+                'Basic Playwright & Cypress installation guide',
                 'Step-by-step setup instructions',
                 'Introduction to testing concepts',
                 'Community support access',
-                'Basic test examples'
+                'Basic test examples for both tools'
               ].map((feature, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -83,11 +83,11 @@ export const PricingSection = () => {
                 </div>
               </div>
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-5xl font-bold text-foreground">€5</span>
-                <span className="text-xl text-muted-foreground">/month</span>
+                <span className="text-5xl font-bold text-foreground">$10</span>
+                <span className="text-xl text-muted-foreground">lifetime</span>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Master enterprise-level Playwright frameworks with advanced concepts
+                Master enterprise-level Playwright & Cypress frameworks with advanced concepts
               </p>
             </div>
 
@@ -95,17 +95,19 @@ export const PricingSection = () => {
             <div className="space-y-3 mb-8">
               {[
                 'Everything in Basic Plan',
-                'All 5+ Advanced Framework Architectures',
+                'All 5+ Advanced Framework Architectures (Playwright & Cypress)',
                 'BDD with Cucumber & Gherkin mastery',
                 'Page Object Model deep dive',
+                'Screenplay Pattern & Actor Model (Cypress)',
                 'CI/CD integration tutorials (GitLab, GitHub)',
                 'Advanced TypeScript patterns',
                 'Network trace & console monitoring',
                 'Custom reporting (Allure, ReportPortal)',
                 'Test management & strategy guides',
-                'Real-world enterprise case studies',
+                'Real-world enterprise case studies (Canon, Dolby)',
                 'Priority email support',
-                'Exclusive Pro community access'
+                'Exclusive Pro community access',
+                'Lifetime access to all content'
               ].map((feature, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -118,7 +120,7 @@ export const PricingSection = () => {
               size="lg" 
               className="w-full bg-gradient-primary hover:shadow-glow text-primary-foreground text-lg font-semibold transition-all duration-300 hover:scale-105"
             >
-              Upgrade to Pro - €5/month
+              Get Lifetime Access - $10
             </Button>
           </Card>
         </div>

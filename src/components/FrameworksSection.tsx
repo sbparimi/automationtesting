@@ -15,7 +15,7 @@ export const FrameworksSection = () => {
     {
       id: "page-object-model",
       title: "Page Object Model (POM)",
-      description: "Enterprise-grade foundation for scalable test automation. Architect-level implementation with advanced design patterns, dependency injection, and AI-powered self-healing capabilities for production-grade test suites.",
+      description: "Enterprise-grade foundation for scalable test automation in both Playwright & Cypress. Architect-level implementation with advanced design patterns, dependency injection, and AI-powered self-healing capabilities for production-grade test suites.",
       features: [
         "Advanced encapsulation with fluent interfaces and method chaining",
         "Smart locator strategies with CSS, XPath, and data-testid optimization",
@@ -41,28 +41,34 @@ export const FrameworksSection = () => {
           "Production incident reduction by 80% through comprehensive test coverage"
         ]
       },
-      technologies: ["Playwright", "TypeScript", "Page Objects", "Fixtures"],
+      technologies: ["Playwright/Cypress", "TypeScript", "Page Objects", "Fixtures"],
       complexity: "Beginner" as const,
       diagram: <POMDiagram />,
-      codeExample: `// LoginPage.ts
+      codeExample: `// LoginPage.ts (Works for both Playwright & Cypress)
 export class LoginPage {
-  readonly page: Page;
+  readonly page: Page; // or cy for Cypress
   
   constructor(page: Page) {
     this.page = page;
   }
   
   async login(username: string, password: string) {
+    // Playwright
     await this.page.fill('[data-testid="username"]', username);
     await this.page.fill('[data-testid="password"]', password);
     await this.page.click('[data-testid="login-btn"]');
+    
+    // Cypress equivalent
+    // cy.get('[data-testid="username"]').type(username);
+    // cy.get('[data-testid="password"]').type(password);
+    // cy.get('[data-testid="login-btn"]').click();
   }
 }`
     },
     {
       id: "keyword-driven",
       title: "Keyword Driven Framework",
-      description: "Production-ready business automation platform enabling manual testers and business users to create enterprise-grade test automation through natural language keywords. Advanced architecture with 4-hour weekly mastery program.",
+      description: "Production-ready business automation platform enabling manual testers and business users to create enterprise-grade test automation through natural language keywords. Advanced architecture with 4-hour weekly mastery program for Playwright & Cypress.",
       features: [
         "Natural language keyword library with business domain vocabulary",
         "Excel/JSON/Database integration with real-time data synchronization",
@@ -88,10 +94,10 @@ export class LoginPage {
           "Production incident reduction through business-user-created regression suites"
         ]
       },
-      technologies: ["Playwright", "TypeScript", "Excel Integration", "Keyword Engine"],
+      technologies: ["Playwright/Cypress", "TypeScript", "Excel Integration", "Keyword Engine"],
       complexity: "Intermediate" as const,
       diagram: <KeywordDrivenDiagram />,
-      codeExample: `// KeywordEngine.ts
+      codeExample: `// KeywordEngine.ts (Supports both tools)
 export class KeywordEngine {
   async executeKeyword(keyword: string, data: any[]) {
     switch(keyword.toLowerCase()) {
@@ -109,7 +115,7 @@ export class KeywordEngine {
     {
       id: "data-driven",
       title: "Data Driven Framework",
-      description: "Enterprise data automation platform executing thousands of test scenarios from centralized data repositories. Production-grade implementation with real-time database integration, synthetic data generation, and 4-hour weekly mastery approach.",
+      description: "Enterprise data automation platform executing thousands of test scenarios from centralized data repositories. Production-grade implementation with real-time database integration, synthetic data generation, and 4-hour weekly mastery approach for both Playwright & Cypress.",
       features: [
         "Multi-source data integration: JSON, CSV, SQL databases, NoSQL, REST APIs",
         "Advanced test parameterization with complex object injection and validation",
@@ -135,10 +141,10 @@ export class KeywordEngine {
           "ROI acceleration through test reusability across multiple data environments"
         ]
       },
-      technologies: ["Playwright", "TypeScript", "JSON/CSV", "Database Integration"],
+      technologies: ["Playwright/Cypress", "TypeScript", "JSON/CSV", "Database Integration"],
       complexity: "Intermediate" as const,
       diagram: <DataDrivenDiagram />,
-      codeExample: `// DataDrivenTest.ts
+      codeExample: `// DataDrivenTest.ts (Works for both)
 testData.forEach((data, index) => {
   test(\`Login Test \${index + 1}\`, async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -150,7 +156,7 @@ testData.forEach((data, index) => {
     {
       id: "hybrid-framework",
       title: "Hybrid Framework",
-      description: "Ultimate enterprise automation architecture unifying POM, Data-Driven, Keyword-Driven, and BDD approaches. Military-precision production implementation supporting Fortune 500 scale with 4-hour weekly architect-level mastery program.",
+      description: "Ultimate enterprise automation architecture unifying POM, Data-Driven, Keyword-Driven, and BDD approaches for Playwright & Cypress. Military-precision production implementation supporting Fortune 500 scale with 4-hour weekly architect-level mastery program.",
       features: [
         "Unified architecture orchestrating multiple automation paradigms intelligently",
         "AI-powered test strategy selector choosing optimal approach per scenario",
@@ -176,7 +182,7 @@ testData.forEach((data, index) => {
           "Future-proof architecture adapting to emerging technologies and testing paradigms"
         ]
       },
-      technologies: ["Playwright", "TypeScript", "Multiple Patterns", "Advanced Reporting"],
+      technologies: ["Playwright/Cypress", "TypeScript", "Multiple Patterns", "Advanced Reporting"],
       complexity: "Advanced" as const,
       diagram: <HybridDiagram />,
       codeExample: `// HybridFramework.ts
@@ -194,7 +200,7 @@ export class HybridFramework {
     {
       id: "bdd-cucumber",
       title: "BDD with Cucumber",
-      description: "Enterprise behavior-driven development platform enabling seamless collaboration between product, QA, and engineering. Production-grade Gherkin implementation with living documentation and 4-hour weekly mastery approach.",
+      description: "Enterprise behavior-driven development platform enabling seamless collaboration between product, QA, and engineering for Playwright & Cypress. Production-grade Gherkin implementation with living documentation and 4-hour weekly mastery approach.",
       features: [
         "Natural language Gherkin syntax creating executable requirements documentation",
         "Advanced step definition library with reusable business domain vocabulary",
@@ -220,7 +226,7 @@ export class HybridFramework {
           "Stakeholder confidence through business-readable test reports and dashboards"
         ]
       },
-      technologies: ["Playwright", "Cucumber", "Gherkin", "TypeScript"],
+      technologies: ["Playwright/Cypress", "Cucumber", "Gherkin", "TypeScript"],
       complexity: "Advanced" as const,
       diagram: <BDDDiagram />,
       codeExample: `// Feature: User Authentication
@@ -229,7 +235,7 @@ Scenario: Successful login
   When user enters valid credentials
   Then user should be redirected to dashboard
 
-// Step Definition
+// Step Definition (Works for both)
 Given('user is on the login page', async () => {
   await loginPage.navigate();
 });`
@@ -237,7 +243,7 @@ Given('user is on the login page', async () => {
     {
       id: "api-ui-integration",
       title: "API + UI Integrated Framework",
-      description: "Enterprise full-stack testing platform unifying API contract testing, performance validation, and UI journey automation. Production-grade architecture with 4-hour weekly mastery delivering comprehensive test coverage optimization.",
+      description: "Enterprise full-stack testing platform unifying API contract testing, performance validation, and UI journey automation for Playwright & Cypress. Production-grade architecture with 4-hour weekly mastery delivering comprehensive test coverage optimization.",
       features: [
         "Unified API + UI test orchestration with intelligent execution strategy",
         "Contract testing ensuring API-UI synchronization and backward compatibility",
@@ -263,7 +269,7 @@ Given('user is on the login page', async () => {
           "Resource optimization through strategic API vs UI test distribution"
         ]
       },
-      technologies: ["Playwright", "REST API", "TypeScript", "Integration Testing"],
+      technologies: ["Playwright/Cypress", "REST API", "TypeScript", "Integration Testing"],
       complexity: "Advanced" as const,
       diagram: <APIDiagram />,
       codeExample: `// IntegratedTest.ts
@@ -280,7 +286,7 @@ test('Order flow', async ({ request, page }) => {
     {
       id: "bdd-advanced-factory",
       title: "BDD Advanced Factory Pattern",
-      description: "Revolutionary enterprise BDD platform enabling manual testers to create production-grade automation through pure Gherkin. Advanced TypeScript factory architecture with 4-hour weekly mastery transforming manual teams into automation powerhouses.",
+      description: "Revolutionary enterprise BDD platform enabling manual testers to create production-grade automation through pure Gherkin for Playwright & Cypress. Advanced TypeScript factory architecture with 4-hour weekly mastery transforming manual teams into automation powerhouses.",
       features: [
         "Zero-code automation through natural Gherkin syntax empowering manual testers",
         "Advanced TypeScript factory patterns with decorators, generics, and dependency injection",
@@ -306,7 +312,7 @@ test('Order flow', async ({ request, page }) => {
           "Enterprise-scale keyword governance ensuring consistency across 1000+ test scenarios"
         ]
       },
-      technologies: ["Playwright", "TypeScript", "Factory Pattern", "Gherkin", "Advanced Decorators"],
+      technologies: ["Playwright/Cypress", "TypeScript", "Factory Pattern", "Gherkin", "Advanced Decorators"],
       complexity: "Advanced" as const,
       diagram: <BDDDiagram />,
       codeExample: `// Advanced Factory Pattern
@@ -333,6 +339,65 @@ Feature: E-commerce User Journey
     When user searches for "premium laptop"
     And user adds item to cart
     Then user completes checkout process`
+    },
+    {
+      id: "cypress-screenplay",
+      title: "Cypress Screenplay Hybrid Pattern",
+      description: "Complete production-grade Cypress + TypeScript E2E framework using Domain-Driven Screenplay Hybrid pattern (POM + Tasks/Actors + Factories). Enterprise-ready with Allure reporting, HAR capture, and intelligent test management.",
+      features: [
+        "Domain-Driven Screenplay pattern with Actors and Tasks abstraction",
+        "Production-grade TypeScript with discriminated unions and generics",
+        "Centralized locators with getStable() fallback (data-cy → role → text)",
+        "Allure reporting with @shelex/cypress-allure-plugin integration",
+        "HAR capture on failure via cypress-har-generator",
+        "JSON fixtures with runtime validation using Zod schemas",
+        "CI sharding with spec-splitter.js based on historical runtime",
+        "Flakiness detection via scripts/flaky-detect.js analyzing Allure history",
+        "Visual regression scaffolding (toggleable via env.VISUAL_REGRESSION)"
+      ],
+      benefits: {
+        testers: [
+          "4-hour weekly mastery of advanced Cypress patterns and architecture",
+          "Domain-driven test design keeping specs clean and maintainable",
+          "Type-safe development with full TypeScript strict mode",
+          "Production debugging with HAR capture and detailed Allure reports",
+          "Intelligent test organization with Actors, Tasks, and Page Objects"
+        ],
+        business: [
+          "Enterprise-scale framework supporting thousands of test executions",
+          "Flaky test detection preventing unreliable test suites",
+          "CI/CD optimization through intelligent spec sharding",
+          "Production-ready reporting with Allure for stakeholder visibility",
+          "Maintainable architecture reducing long-term automation costs by 70%"
+        ]
+      },
+      technologies: ["Cypress", "TypeScript", "Screenplay Pattern", "Allure", "Zod"],
+      complexity: "Advanced" as const,
+      diagram: <HybridDiagram />,
+      codeExample: `// MemberActor.ts - Screenplay Pattern
+export class MemberActor {
+  constructor(private identity: Member) {}
+  
+  async performsSchedule(visit: MemberVisit) {
+    cy.allure().step('Member schedules visit');
+    await memberTasks.loginAs(this.identity.name);
+    await memberTasks.scheduleVisit(visit);
+    await memberTasks.logout();
+  }
+}
+
+// visit-lifecycle.cy.ts - Domain-Driven Spec
+describe('Visit Lifecycle', () => {
+  it('completes member to CTM flow', () => {
+    cy.allure().epic('Healthcare').feature('Visit Management');
+    
+    const member = new MemberActor(memberData[0]);
+    const ctm = new CTMActor(ctmData[0]);
+    
+    member.performsSchedule(visitData);
+    ctm.performsComplete(visitData);
+  });
+});`
     }
   ];
 
@@ -341,25 +406,31 @@ Feature: E-commerce User Journey
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-            Framework Architecture
-            <span className="block text-primary">Showcase</span>
+            Framework Architectures for Playwright & Cypress
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Each framework is carefully architected to solve specific automation challenges while maintaining 
-            enterprise-grade quality, scalability, and maintainability standards.
+            Choose from 8 enterprise-grade frameworks designed for both Playwright and Cypress. Each framework includes comprehensive implementation guides, real-world examples, and production-ready patterns.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {frameworks.map((framework, index) => (
-            <div 
-              key={framework.title} 
-              className="animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <FrameworkCard {...framework} />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {frameworks.map((framework) => (
+            <FrameworkCard key={framework.id} {...framework} />
           ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <p className="text-muted-foreground mb-6">
+            Have questions about which framework to choose?
+          </p>
+          <Link 
+            to="https://wa.me/31616270233" 
+            target="_blank"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-success hover:bg-success/90 text-white rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+          >
+            <MessageCircle className="w-5 h-5" />
+            Get Expert Guidance on WhatsApp
+          </Link>
         </div>
       </div>
     </section>

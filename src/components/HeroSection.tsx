@@ -14,16 +14,16 @@ export const HeroSection = () => {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground tracking-tight leading-none animate-slide-up">
             Master{" "}
             <span className="bg-gradient-button bg-clip-text text-transparent animate-float">
-              Playwright Automation
+              Playwright & Cypress
             </span>
-            <br />Like a Pro
+            <br />Automation Like a Pro
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed font-normal">
             18+ years in automation governance, test management, and driving transformations in software testing. 
-            Learn production-grade, enterprise-level Playwright frameworks through structured daily learning (4 hours/week). 
-            Master scalable, AI-powered test automation with real-world implementations.
+            Learn production-grade, enterprise-level Playwright & Cypress frameworks through structured daily learning (4 hours/week). 
+            Master scalable, AI-powered test automation with real-world implementations from Canon and Dolby.
           </p>
 
           {/* CTA */}
