@@ -398,6 +398,122 @@ describe('Visit Lifecycle', () => {
     ctm.performsComplete(visitData);
   });
 });`
+    },
+    {
+      id: "playwright-pom-allure-jira",
+      title: "Playwright POM + Allure + Jira Integration",
+      description: "Enterprise-grade Playwright + TypeScript framework with production-ready Page Object Model architecture, Allure reporting, Jira synchronization, and comprehensive artifact collection. Built for Fortune 500 scale with daily automated dashboards, functional vs script failure tracking, and complete traceability from test to Jira issue.",
+      features: [
+        "Modular Page Object Model with centralized selector repository isolating all locators",
+        "Factory pattern generating typed domain data (members, visits, providers) for data-driven testing",
+        "Allure reporter with automatic screenshot, video, trace, and network log attachment",
+        "Jira integration mapping test results to issues with auto-update Pass/Fail status",
+        "Fixture-driven test data (JSON/Excel) editable by manual testers without code changes",
+        "Production-grade CI/CD pipeline with daily automated runs and dashboard publishing",
+        "Comprehensive artifact collection: screenshots, videos, traces, console logs, network HAR",
+        "Reporting summary distinguishing functional defects from script failures with flakiness tracking",
+        "Global test hooks for setup, teardown, and automatic artifact attachment on failure",
+        "TypeScript interfaces for Visit, Member, CTMVisit with enum validation for statuses",
+        "Reusable custom commands wrapping page objects for Member/CTM role-based actions",
+        "Rule matrix controlling valid actions per visit status preventing invalid test scenarios"
+      ],
+      benefits: {
+        testers: [
+          "4-hour weekly training delivering production-grade Playwright POM + reporting mastery",
+          "Clear separation: page objects for 'how', fixtures for 'what', tests for 'verify'",
+          "Manual testers edit JSON fixtures to create new test scenarios without coding",
+          "Instant debugging with attached screenshots, traces, videos, and network logs in Allure",
+          "Jira-linked failures enabling one-click navigation from dashboard to detailed test evidence",
+          "Flakiness detection across runs identifying unstable tests requiring investigation",
+          "Production-grade artifact collection capturing full execution context for post-mortem analysis"
+        ],
+        business: [
+          "Complete traceability: Allure → Jira → Production defect with full evidence chain",
+          "Daily automated dashboard showing pass rate, functional vs script failures, and trends",
+          "88% faster defect triage through automatic functional/script failure classification",
+          "Stakeholder-friendly Allure reports with graphs, trends, and business-readable summaries",
+          "Manual QA team becomes data contributor through fixture editing without automation dependency",
+          "CI/CD integration with GitHub Actions/Jenkins enabling daily regression validation",
+          "Historical trend analysis identifying test stability patterns and coverage gaps",
+          "Enterprise scalability supporting thousands of tests with parallel execution and sharding"
+        ]
+      },
+      technologies: ["Playwright", "TypeScript", "Page Objects", "Allure", "Jira API", "CI/CD"],
+      complexity: "Advanced" as const,
+      diagram: <POMDiagram />,
+      codeExample: `// Framework Structure (Playwright)
+qa-automation/
+├── tests/
+│   ├── member/
+│   │   └── book-visit.spec.ts
+│   └── ctm/
+│       └── manage-visit.spec.ts
+├── pages/
+│   ├── member/
+│   │   ├── loginPage.ts
+│   │   └── bookVisitPage.ts
+│   └── ctm/
+│       ├── loginPage.ts
+│       └── visitDashboardPage.ts
+├── support/
+│   ├── commands/
+│   │   ├── memberCommands.ts
+│   │   └── ctmCommands.ts
+│   ├── factory/
+│   │   ├── memberFactory.ts
+│   │   └── visitFactory.ts
+│   ├── types/domain.ts
+│   ├── utils/
+│   │   ├── selectors.ts
+│   │   ├── dataLoader.ts
+│   │   └── visit-rules.ts
+│   └── plugins/
+│       ├── allureReporter.ts
+│       └── jiraSync.ts
+├── fixtures/
+│   ├── memberData.json
+│   └── visitData.json
+└── playwright.config.ts
+
+// pages/member/loginPage.ts
+export class MemberLoginPage {
+  constructor(private page: Page) {}
+  
+  async login(username: string, password: string) {
+    await allure.step('Member login', async () => {
+      await this.page.fill('[data-testid="username"]', username);
+      await this.page.fill('[data-testid="password"]', password);
+      await this.page.click('[data-testid="login-btn"]');
+    });
+  }
+}
+
+// tests/member/book-visit.spec.ts
+import { test } from '@playwright/test';
+import { allure } from 'allure-playwright';
+import { MemberLoginPage } from '../../pages/member/loginPage';
+import { loadMembers, loadVisits } from '../../support/utils/dataLoader';
+
+test.describe('Member Visit Booking', () => {
+  test('should book visit successfully @JIRA-123', async ({ page }) => {
+    await allure.epic('Healthcare');
+    await allure.feature('Visit Management');
+    await allure.issue('JIRA-123', 'https://jira.company.com/browse/JIRA-123');
+    
+    const memberData = await loadMembers();
+    const visitData = await loadVisits();
+    
+    const loginPage = new MemberLoginPage(page);
+    await loginPage.login(memberData[0].username, process.env.MEMBER_PASSWORD!);
+    
+    // Continue with booking flow using page objects
+  });
+});
+
+// CI Pipeline Integration
+// Daily runs → Allure report generation → Jira sync → Dashboard publish
+// Distinguishes functional failures from script failures
+// Provides pass %, flaky %, trend graphs for stakeholders`
     }
   ];
 
