@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, Clock, Shield, TrendingUp, MessageCircle } from "lucide-react";
+import { ExternalLink, Users, Shield, TrendingUp, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface FrameworkCardProps {
   id?: string;
@@ -17,6 +18,12 @@ interface FrameworkCardProps {
   complexity: "Beginner" | "Intermediate" | "Advanced";
   diagram: React.ReactNode;
   codeExample?: string;
+  folderStructure?: string;
+  structureDetails?: {
+    folder: string;
+    purpose: string;
+    keyFiles: string[];
+  }[];
 }
 
 export const FrameworkCard = ({ 
@@ -28,8 +35,12 @@ export const FrameworkCard = ({
   technologies, 
   complexity,
   diagram,
-  codeExample 
+  codeExample,
+  folderStructure,
+  structureDetails
 }: FrameworkCardProps) => {
+  const [showDetails, setShowDetails] = useState(false);
+  
   const complexityColor = {
     Beginner: "success",
     Intermediate: "warning", 
@@ -113,13 +124,66 @@ export const FrameworkCard = ({
           </div>
         </div>
 
-        {/* Code Example */}
-        {codeExample && (
+        {/* Folder Structure */}
+        {folderStructure && (
           <div>
-            <h4 className="font-semibold mb-3 text-foreground">Implementation Preview</h4>
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="font-semibold text-foreground">Framework Structure</h4>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowDetails(!showDetails)}
+                className="text-primary hover:text-primary-hover"
+              >
+                {showDetails ? (
+                  <>
+                    <ChevronUp className="w-4 h-4 mr-1" />
+                    Hide Details
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4 mr-1" />
+                    View Implementation Details
+                  </>
+                )}
+              </Button>
+            </div>
+            
             <pre className="bg-muted p-4 rounded-lg text-xs overflow-x-auto border">
-              <code className="text-muted-foreground">{codeExample}</code>
+              <code className="text-muted-foreground">{folderStructure}</code>
             </pre>
+
+            {showDetails && structureDetails && (
+              <div className="mt-4 space-y-4">
+                <h5 className="font-semibold text-sm text-foreground">Detailed Structure Explanation</h5>
+                {structureDetails.map((detail, index) => (
+                  <div key={index} className="bg-background p-4 rounded-lg border">
+                    <h6 className="font-semibold text-sm text-primary mb-2">{detail.folder}</h6>
+                    <p className="text-xs text-muted-foreground mb-3">{detail.purpose}</p>
+                    <div>
+                      <p className="text-xs font-medium text-foreground mb-2">Key Files:</p>
+                      <ul className="space-y-1">
+                        {detail.keyFiles.map((file, fileIndex) => (
+                          <li key={fileIndex} className="flex items-start text-xs text-muted-foreground">
+                            <div className="w-1 h-1 bg-primary rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                            {file}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+
+                {codeExample && (
+                  <div>
+                    <h5 className="font-semibold text-sm text-foreground mb-2">Code Example</h5>
+                    <pre className="bg-muted p-4 rounded-lg text-xs overflow-x-auto border">
+                      <code className="text-muted-foreground">{codeExample}</code>
+                    </pre>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 

@@ -420,7 +420,7 @@ describe('Visit Lifecycle', () => {
       benefits: {
         testers: [
           "4-hour weekly training delivering production-grade Playwright POM + reporting mastery",
-          "Clear separation: page objects for 'how', fixtures for 'what', tests for 'verify'",
+          "Clear separation: page objects for how, fixtures for what, tests for verify",
           "Manual testers edit JSON fixtures to create new test scenarios without coding",
           "Instant debugging with attached screenshots, traces, videos, and network logs in Allure",
           "Jira-linked failures enabling one-click navigation from dashboard to detailed test evidence",
@@ -428,7 +428,7 @@ describe('Visit Lifecycle', () => {
           "Production-grade artifact collection capturing full execution context for post-mortem analysis"
         ],
         business: [
-          "Complete traceability: Allure → Jira → Production defect with full evidence chain",
+          "Complete traceability: Allure to Jira to Production defect with full evidence chain",
           "Daily automated dashboard showing pass rate, functional vs script failures, and trends",
           "88% faster defect triage through automatic functional/script failure classification",
           "Stakeholder-friendly Allure reports with graphs, trends, and business-readable summaries",
@@ -441,8 +441,7 @@ describe('Visit Lifecycle', () => {
       technologies: ["Playwright", "TypeScript", "Page Objects", "Allure", "Jira API", "CI/CD"],
       complexity: "Advanced" as const,
       diagram: <POMDiagram />,
-      codeExample: `// Framework Structure (Playwright)
-qa-automation/
+      folderStructure: `qa-automation/
 ├── tests/
 │   ├── member/
 │   │   └── book-visit.spec.ts
@@ -473,9 +472,93 @@ qa-automation/
 ├── fixtures/
 │   ├── memberData.json
 │   └── visitData.json
-└── playwright.config.ts
-
-// pages/member/loginPage.ts
+└── playwright.config.ts`,
+      structureDetails: [
+        {
+          folder: "tests/",
+          purpose: "Contains all test specifications organized by user role (member, CTM, admin). Each test file uses page objects and fixtures to verify user workflows.",
+          keyFiles: [
+            "member/book-visit.spec.ts - Member booking workflow with Allure reporting and Jira linking",
+            "ctm/manage-visit.spec.ts - Care Team Member workflow for visit management",
+            "Each test includes @JIRA tags for traceability and uses Allure steps for detailed reporting"
+          ]
+        },
+        {
+          folder: "pages/",
+          purpose: "Page Object Model classes containing all element locators and page-specific actions. Each page class encapsulates UI interactions for a single page or component.",
+          keyFiles: [
+            "member/loginPage.ts - Login page with username/password fields and login action",
+            "member/bookVisitPage.ts - Visit booking form with provider selection and time slot booking",
+            "ctm/visitDashboardPage.ts - Dashboard for CTM to view and manage scheduled visits",
+            "Each page uses centralized selectors from utils/selectors.ts for consistency"
+          ]
+        },
+        {
+          folder: "support/commands/",
+          purpose: "Reusable custom commands wrapping page objects for complex, multi-step actions. These commands provide role-based workflows (Member, CTM, Admin).",
+          keyFiles: [
+            "memberCommands.ts - Member-specific workflows like loginAsMember(), scheduleVisit()",
+            "ctmCommands.ts - CTM workflows like loginAsCTM(), completeVisit(), reviewVisit()",
+            "Commands use page objects internally and add Allure steps for reporting"
+          ]
+        },
+        {
+          folder: "support/factory/",
+          purpose: "Factory pattern for generating test data. Creates typed domain objects with sensible defaults and allows overrides for specific test scenarios.",
+          keyFiles: [
+            "memberFactory.ts - Creates Member objects with name, email, state, insurance",
+            "visitFactory.ts - Creates Visit objects with provider, date/time, visit type",
+            "Factories ensure consistent test data structure across all tests"
+          ]
+        },
+        {
+          folder: "support/types/",
+          purpose: "TypeScript interfaces and types for domain models. Ensures type safety across the entire framework.",
+          keyFiles: [
+            "domain.ts - Member, Provider, Visit, CTMVisit interfaces",
+            "Enums for VisitStatus (Scheduled, InProgress, Completed, Cancelled)",
+            "VisitAction union types for valid state transitions"
+          ]
+        },
+        {
+          folder: "support/utils/",
+          purpose: "Utility functions for common tasks like data loading, selector management, and business rule validation.",
+          keyFiles: [
+            "selectors.ts - Centralized repository of all CSS/XPath selectors",
+            "dataLoader.ts - Loads and validates fixture data (JSON/Excel)",
+            "visit-rules.ts - Business rule matrix for valid visit state transitions",
+            "Utilities are pure functions with no side effects for easy testing"
+          ]
+        },
+        {
+          folder: "support/plugins/",
+          purpose: "Framework-level integrations for reporting and external systems.",
+          keyFiles: [
+            "allureReporter.ts - Configures Allure reporter with screenshot/video/trace attachment",
+            "jiraSync.ts - Syncs test results to Jira issues, updates Pass/Fail status",
+            "Plugins run as part of test lifecycle hooks (beforeEach, afterEach)"
+          ]
+        },
+        {
+          folder: "fixtures/",
+          purpose: "Test data files in JSON/Excel format. Editable by manual testers without code changes. Loaded via dataLoader utility.",
+          keyFiles: [
+            "memberData.json - Array of member test data (name, email, credentials)",
+            "visitData.json - Array of visit scenarios (provider, time, visit type, expected results)",
+            "Data files support multiple test scenarios from single test script"
+          ]
+        },
+        {
+          folder: "Root Configuration",
+          purpose: "Framework configuration files defining test execution, reporting, and CI/CD settings.",
+          keyFiles: [
+            "playwright.config.ts - Test timeout, browsers, retries, parallel execution, Allure reporter",
+            "CI/CD pipeline (GitHub Actions/Jenkins) - Daily automated runs, artifact publishing",
+            "Environment variables for JIRA_BASE, MEMBER_PASSWORD, CTM_PASSWORD"
+          ]
+        }
+      ],
+      codeExample: `// pages/member/loginPage.ts
 export class MemberLoginPage {
   constructor(private page: Page) {}
   
@@ -494,7 +577,7 @@ import { allure } from 'allure-playwright';
 import { MemberLoginPage } from '../../pages/member/loginPage';
 import { loadMembers, loadVisits } from '../../support/utils/dataLoader';
 
-test.describe('Member Visit Booking', () => {
+test.describe('Member Visit Booking @JIRA-PROJECT', () => {
   test('should book visit successfully @JIRA-123', async ({ page }) => {
     await allure.epic('Healthcare');
     await allure.feature('Visit Management');
@@ -506,14 +589,9 @@ test.describe('Member Visit Booking', () => {
     const loginPage = new MemberLoginPage(page);
     await loginPage.login(memberData[0].username, process.env.MEMBER_PASSWORD!);
     
-    // Continue with booking flow using page objects
+    // Booking flow continues using page objects
   });
-});
-
-// CI Pipeline Integration
-// Daily runs → Allure report generation → Jira sync → Dashboard publish
-// Distinguishes functional failures from script failures
-// Provides pass %, flaky %, trend graphs for stakeholders`
+});`
     }
   ];
 
