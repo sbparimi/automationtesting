@@ -1,4 +1,7 @@
 import { FrameworkCard } from "./FrameworkCard";
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "./ui/button";
 import { 
   POMDiagram, 
   KeywordDrivenDiagram, 
@@ -11,6 +14,20 @@ import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 
 export const FrameworksSection = () => {
+  const [expandedFrameworks, setExpandedFrameworks] = useState<Set<string>>(new Set());
+
+  const toggleFramework = (id: string) => {
+    setExpandedFrameworks(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
+
   const frameworks = [
     {
       id: "page-object-model",
@@ -610,9 +627,41 @@ test.describe('Member Visit Booking @JIRA-PROJECT', () => {
         </p>
       </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="space-y-4">
           {frameworks.map((framework) => (
-            <FrameworkCard key={framework.id} {...framework} />
+            <div key={framework.id} className="border border-border rounded-lg overflow-hidden bg-gradient-accent">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-foreground mb-2">{framework.title}</h3>
+                    <p className="text-muted-foreground text-sm">{framework.description}</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => toggleFramework(framework.id || framework.title)}
+                    className="ml-4 flex-shrink-0"
+                  >
+                    {expandedFrameworks.has(framework.id || framework.title) ? (
+                      <>
+                        <ChevronUp className="w-5 h-5 mr-2" />
+                        Collapse
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="w-5 h-5 mr-2" />
+                        Expand Details
+                      </>
+                    )}
+                  </Button>
+                </div>
+                {expandedFrameworks.has(framework.id || framework.title) && (
+                  <div className="mt-4 border-t border-border pt-4">
+                    <FrameworkCard {...framework} />
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
 

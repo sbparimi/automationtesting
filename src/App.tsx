@@ -8,7 +8,8 @@ import NotFound from "./pages/NotFound";
 import FrameworkDetails from "./pages/FrameworkDetails";
 import CourseDetails from "./pages/CourseDetails";
 import BeginnerGuide from "./pages/BeginnerGuide";
-import MasterTypeScript from "./pages/MasterTypeScript";
+import MasterTypeScript from "./pages/MasterTypeScriptNew";
+import TypeScriptLesson from "./pages/TypeScriptLesson";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/beginner-guide" element={<BeginnerGuide />} />
           <Route path="/master-typescript" element={<MasterTypeScript />} />
+          <Route path="/typescript-lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
           <Route path="/course/:pathId/:courseId" element={<CourseDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
