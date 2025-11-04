@@ -18,17 +18,17 @@ export const Navigation = () => {
             <Link to="/" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
               Home
             </Link>
-            <button 
-              className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl"
-              onClick={() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Frameworks
-            </button>
             <Link to="/master-typescript" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
-              Master TypeScript
+              TypeScript
             </Link>
-            <Link to="/beginner-guide" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
-              Tutorials
+            <Link to="/playwright" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+              Playwright
+            </Link>
+            <Link to="/cypress" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+              Cypress
+            </Link>
+            <Link to="/jobs" className="text-foreground hover:bg-gradient-button hover:text-primary-foreground text-sm font-medium transition-all duration-300 px-3 py-2 rounded-2xl">
+              Find Jobs in Europe
             </Link>
           </div>
         </div>

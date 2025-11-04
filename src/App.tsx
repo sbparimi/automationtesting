@@ -10,6 +10,9 @@ import CourseDetails from "./pages/CourseDetails";
 import BeginnerGuide from "./pages/BeginnerGuide";
 import MasterTypeScript from "./pages/MasterTypeScriptNew";
 import TypeScriptLesson from "./pages/TypeScriptLesson";
+import PlaywrightCourse from "./pages/PlaywrightCourse";
+import CypressCourse from "./pages/CypressCourse";
+import JobSearch from "./pages/JobSearch";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +27,10 @@ const App = () => (
           <Route path="/beginner-guide" element={<BeginnerGuide />} />
           <Route path="/master-typescript" element={<MasterTypeScript />} />
           <Route path="/typescript-lesson/:lessonId" element={<TypeScriptLesson />} />
+          <Route path="/playwright" element={<PlaywrightCourse />} />
+          <Route path="/cypress" element={<CypressCourse />} />
+          <Route path="/jobs" element={<JobSearch />} />
+          <Route path="/lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
           <Route path="/course/:pathId/:courseId" element={<CourseDetails />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
