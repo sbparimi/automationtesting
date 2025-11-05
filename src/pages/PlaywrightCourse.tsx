@@ -20,7 +20,7 @@ const PlaywrightCourse = () => {
               Master Playwright Test Automation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Complete LinkedIn Learning-style course from basics to advanced enterprise patterns. Build production-grade frameworks with TypeScript, Page Object Model, CI/CD integration, and comprehensive reporting.
+              Build enterprise-grade test automation from the ground up. Master Page Object Model, TypeScript best practices, API testing, visual regression, and CI/CD integration to become a senior QA automation engineer.
             </p>
           </div>
 

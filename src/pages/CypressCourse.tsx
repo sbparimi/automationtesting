@@ -20,7 +20,7 @@ const CypressCourse = () => {
               Master Cypress Test Automation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Complete LinkedIn Learning-style course from basics to advanced enterprise patterns. Build production-grade frameworks with TypeScript, custom commands, network control, and comprehensive reporting.
+              Build production-ready test automation frameworks from scratch. Master custom commands, network control, TypeScript integration, and enterprise CI/CD pipelines to advance your QA automation career.
             </p>
           </div>
 
