@@ -73,7 +73,7 @@ const CypressCourse = () => {
                         {section.lessons.map((lesson) => (
                           <Link
                             key={lesson.id}
-                            to={`/lesson/${lesson.id}`}
+                            to={`/cypress-lesson/${lesson.id}`}
                             className="group bg-background p-4 rounded-lg border hover:border-primary transition-all duration-300 hover:shadow-md"
                           >
                             <div className="flex items-start justify-between mb-2">
