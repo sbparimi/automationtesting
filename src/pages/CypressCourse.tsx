@@ -57,43 +57,52 @@ const CypressCourse = () => {
 
           {/* Course Sections */}
           <div className="space-y-12">
-            {allCypressCourses.map((course) => (
-              <Card key={course.id} className="border-2">
-                <CardHeader>
-                  <CardTitle className="text-3xl mb-2">{course.title}</CardTitle>
-                  <CardDescription className="text-base">{course.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {course.sections.map((section) => (
-                    <div key={section.id} className="border rounded-lg p-6 bg-gradient-accent/10">
-                      <h3 className="text-xl font-bold mb-2 text-foreground">{section.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{section.description}</p>
-                      
-                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                        {section.lessons.map((lesson) => (
-                          <Link
-                            key={lesson.id}
-                            to={`/cypress-lesson/${lesson.id}`}
-                            className="group bg-background p-4 rounded-lg border hover:border-primary transition-all duration-300 hover:shadow-md"
-                          >
-                            <div className="flex items-start justify-between mb-2">
-                              <PlayCircle className="w-4 h-4 text-primary mt-0.5" />
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <Clock className="w-3 h-3" />
-                                {lesson.duration}
-                              </div>
-                            </div>
-                            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                              {lesson.title}
-                            </h4>
-                          </Link>
-                        ))}
+            {allCypressCourses.map((course) => {
+              let lessonNumber = 0;
+              return (
+                <Card key={course.id} className="border-2">
+                  <CardHeader>
+                    <CardTitle className="text-3xl mb-2">{course.title}</CardTitle>
+                    <CardDescription className="text-base">{course.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {course.sections.map((section) => (
+                      <div key={section.id} className="border rounded-lg p-6 bg-gradient-accent/10">
+                        <h3 className="text-xl font-bold mb-2 text-foreground">{section.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{section.description}</p>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {section.lessons.map((lesson) => {
+                            lessonNumber++;
+                            return (
+                              <Link
+                                key={lesson.id}
+                                to={`/cypress-lesson/${lesson.id}`}
+                                className="group bg-background p-4 rounded-lg border hover:border-primary transition-all duration-300 hover:shadow-md"
+                              >
+                                <div className="flex items-start justify-between mb-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs font-bold text-primary">{lessonNumber}.</span>
+                                    <PlayCircle className="w-4 h-4 text-primary" />
+                                  </div>
+                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                    <Clock className="w-3 h-3" />
+                                    {lesson.duration}
+                                  </div>
+                                </div>
+                                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                                  {lesson.title}
+                                </h4>
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            ))}
+                    ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>
