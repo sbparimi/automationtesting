@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Target, BookOpen, Code, CheckCircle, AlertCircle } from "lucide-react";
-import { allCypressCourses } from "@/data/cypressLessons";
+import { allCypressCourses, type Lesson } from "@/data/cypressLessons";
+import { generateCypressLessonContent } from "@/utils/generateCypressContent";
 
 // Cypress-specific lesson content
 const cypressLessonContent: Record<string, {
@@ -697,7 +698,14 @@ const CypressLesson = () => {
   };
 
   const lessonData = findLesson();
-  const content = lessonId ? cypressLessonContent[lessonId] : null;
+  // Use predefined content if available, otherwise generate it
+  const content = lessonId 
+    ? cypressLessonContent[lessonId] || generateCypressLessonContent(
+        lessonData?.lesson.id || '',
+        lessonData?.lesson.title || '',
+        lessonData?.lesson.level || 'basic'
+      )
+    : null;
 
   if (!lessonData || !content) {
     return (

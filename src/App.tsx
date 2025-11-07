@@ -11,6 +11,7 @@ import BeginnerGuide from "./pages/BeginnerGuide";
 import MasterTypeScript from "./pages/MasterTypeScriptNew";
 import TypeScriptLesson from "./pages/TypeScriptLesson";
 import PlaywrightCourse from "./pages/PlaywrightCourse";
+import PlaywrightLesson from "./pages/PlaywrightLesson";
 import CypressCourse from "./pages/CypressCourse";
 import CypressLesson from "./pages/CypressLesson";
 import JobSearch from "./pages/JobSearch";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/master-typescript" element={<MasterTypeScript />} />
           <Route path="/typescript-lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/playwright" element={<PlaywrightCourse />} />
+          <Route path="/playwright-lesson/:lessonId" element={<PlaywrightLesson />} />
           <Route path="/cypress" element={<CypressCourse />} />
           <Route path="/cypress-lesson/:lessonId" element={<CypressLesson />} />
           <Route path="/jobs" element={<JobSearch />} />
