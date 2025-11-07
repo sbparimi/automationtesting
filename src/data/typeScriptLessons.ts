@@ -295,7 +295,7 @@ export const advancedTypeScriptCourse: Course = {
   ]
 };
 
-export const allCourses = [
+export const allTypeScriptCourses = [
   basicTypeScriptCourse,
   intermediateTypeScriptCourse,
   advancedTypeScriptCourse

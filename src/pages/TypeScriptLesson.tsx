@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowLeft, BookOpen, Code2, Lightbulb, Zap, CheckCircle2, PlayCircle } from "lucide-react";
+import { allTypeScriptCourses } from "@/data/typeScriptLessons";
 
 // This is a template - in production, this would fetch from a database
 const getLessonContent = (lessonId: string) => {
@@ -143,6 +144,26 @@ const TypeScriptLesson = () => {
   const { lessonId } = useParams();
   const lesson = getLessonContent(lessonId || 'ts-basic-001');
 
+  // Find previous and next lessons
+  const findAdjacentLessons = () => {
+    const allLessons: Array<{ lesson: any; course: any; section: any }> = [];
+    for (const course of allTypeScriptCourses) {
+      for (const section of course.sections) {
+        for (const tsLesson of section.lessons) {
+          allLessons.push({ lesson: tsLesson, course, section });
+        }
+      }
+    }
+    
+    const currentIndex = allLessons.findIndex(item => item.lesson.id === lessonId);
+    return {
+      prev: currentIndex > 0 ? allLessons[currentIndex - 1] : null,
+      next: currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1] : null
+    };
+  };
+
+  const { prev, next } = findAdjacentLessons();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -275,7 +296,7 @@ const TypeScriptLesson = () => {
           </Card>
 
           {/* Practice Exercises */}
-          <Card>
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PlayCircle className="h-5 w-5" />
@@ -310,6 +331,41 @@ const TypeScriptLesson = () => {
               </Accordion>
             </CardContent>
           </Card>
+
+          {/* Navigation */}
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-between items-center">
+            <div className="w-full sm:w-auto">
+              {prev ? (
+                <Link to={`/typescript-lesson/${prev.lesson.id}`} className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Previous: {prev.lesson.title}
+                  </Button>
+                </Link>
+              ) : (
+                <div className="w-full sm:w-auto"></div>
+              )}
+            </div>
+            
+            <Link to="/master-typescript">
+              <Button variant="ghost" size="lg">
+                All Lessons
+              </Button>
+            </Link>
+            
+            <div className="w-full sm:w-auto">
+              {next ? (
+                <Link to={`/typescript-lesson/${next.lesson.id}`} className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    Next: {next.lesson.title}
+                    <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                  </Button>
+                </Link>
+              ) : (
+                <div className="w-full sm:w-auto"></div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

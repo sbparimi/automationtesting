@@ -31,6 +31,28 @@ const PlaywrightLesson = () => {
       )
     : null;
 
+  // Find previous and next lessons
+  const findAdjacentLessons = () => {
+    if (!lessonData) return { prev: null, next: null };
+    
+    const allLessons: Array<{ lesson: any; course: any; section: any }> = [];
+    for (const course of allPlaywrightCourses) {
+      for (const section of course.sections) {
+        for (const lesson of section.lessons) {
+          allLessons.push({ lesson, course, section });
+        }
+      }
+    }
+    
+    const currentIndex = allLessons.findIndex(item => item.lesson.id === lessonId);
+    return {
+      prev: currentIndex > 0 ? allLessons[currentIndex - 1] : null,
+      next: currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1] : null
+    };
+  };
+
+  const { prev, next } = findAdjacentLessons();
+
   if (!lessonData || !content) {
     return (
       <div className="min-h-screen bg-background">
@@ -236,13 +258,38 @@ const PlaywrightLesson = () => {
           </Card>
 
           {/* Navigation */}
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-between items-center">
+            <div className="w-full sm:w-auto">
+              {prev ? (
+                <Link to={`/playwright-lesson/${prev.lesson.id}`} className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Previous: {prev.lesson.title}
+                  </Button>
+                </Link>
+              ) : (
+                <div className="w-full sm:w-auto"></div>
+              )}
+            </div>
+            
             <Link to="/playwright">
-              <Button size="lg">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to All Playwright Lessons
+              <Button variant="ghost" size="lg">
+                All Lessons
               </Button>
             </Link>
+            
+            <div className="w-full sm:w-auto">
+              {next ? (
+                <Link to={`/playwright-lesson/${next.lesson.id}`} className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    Next: {next.lesson.title}
+                    <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                  </Button>
+                </Link>
+              ) : (
+                <div className="w-full sm:w-auto"></div>
+              )}
+            </div>
           </div>
         </div>
       </div>
