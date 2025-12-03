@@ -14,6 +14,10 @@ import PlaywrightCourse from "./pages/PlaywrightCourse";
 import PlaywrightLesson from "./pages/PlaywrightLesson";
 import CypressCourse from "./pages/CypressCourse";
 import CypressLesson from "./pages/CypressLesson";
+import TestManagementCourse from "./pages/TestManagementCourse";
+import TestManagementLesson from "./pages/TestManagementLesson";
+import AiInQaCourse from "./pages/AiInQaCourse";
+import AiQaLesson from "./pages/AiQaLesson";
 import JobSearch from "./pages/JobSearch";
 
 const queryClient = new QueryClient();
@@ -33,6 +37,10 @@ const App = () => (
           <Route path="/playwright-lesson/:lessonId" element={<PlaywrightLesson />} />
           <Route path="/cypress" element={<CypressCourse />} />
           <Route path="/cypress-lesson/:lessonId" element={<CypressLesson />} />
+          <Route path="/test-management" element={<TestManagementCourse />} />
+          <Route path="/test-management-lesson/:lessonId" element={<TestManagementLesson />} />
+          <Route path="/ai-in-qa" element={<AiInQaCourse />} />
+          <Route path="/ai-qa-lesson/:lessonId" element={<AiQaLesson />} />
           <Route path="/jobs" element={<JobSearch />} />
           <Route path="/lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
