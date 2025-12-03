@@ -3,94 +3,140 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { TestTube, Zap, Trophy, Clock, PlayCircle } from "lucide-react";
+import { TestTube, Zap, Trophy, Clock, PlayCircle, Lock } from "lucide-react";
 import { allPlaywrightCourses } from "@/data/playwrightLessons";
+import { useSubscription } from "@/hooks/useSubscription";
+import { UpgradeModal } from "@/components/UpgradeModal";
 
 const PlaywrightCourse = () => {
+  const { isPremium, isLessonFree, showUpgradeModal, setShowUpgradeModal, checkAccess, triggerSource } = useSubscription();
+
+  // Calculate total lessons
+  let totalLessons = 0;
+  allPlaywrightCourses.forEach(course => {
+    course.sections.forEach(section => {
+      totalLessons += section.lessons.length;
+    });
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} triggerSource={triggerSource} />
       
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-6 bg-gradient-button">162 Comprehensive Lessons</Badge>
+            <Badge className="mb-6 bg-gradient-button">{totalLessons} Comprehensive Lessons</Badge>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-text bg-clip-text text-transparent">
               Master Playwright Test Automation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Build enterprise-grade test automation from the ground up. Master Page Object Model, TypeScript best practices, API testing, visual regression, and CI/CD integration to become a senior QA automation engineer.
+              Build enterprise-grade test automation from the ground up. Master Page Object Model, TypeScript best practices, API testing, visual regression, and CI/CD integration.
             </p>
           </div>
 
           {/* Course Overview Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-16">
-            <Card className="border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <Card className="bg-[hsl(48,96%,75%)] border-none hover:scale-[1.02] transition-all duration-300">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-button rounded-2xl flex items-center justify-center mb-4">
-                  <TestTube className="w-6 h-6 text-primary-foreground" />
+                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
+                  <TestTube className="w-6 h-6 text-foreground" />
                 </div>
-                <CardTitle className="text-2xl">52 Basic Lessons</CardTitle>
-                <CardDescription>Getting started, locators, assertions, navigation</CardDescription>
+                <CardTitle className="text-2xl text-foreground">For Beginners</CardTitle>
+                <CardDescription className="text-foreground/70">Getting started, locators, assertions, navigation</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <Card className="bg-[hsl(145,70%,65%)] border-none hover:scale-[1.02] transition-all duration-300">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-button rounded-2xl flex items-center justify-center mb-4">
-                  <Zap className="w-6 h-6 text-primary-foreground" />
+                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
+                  <Zap className="w-6 h-6 text-foreground" />
                 </div>
-                <CardTitle className="text-2xl">54 Intermediate</CardTitle>
-                <CardDescription>POM, fixtures, API testing, advanced features</CardDescription>
+                <CardTitle className="text-2xl text-foreground">For Professionals</CardTitle>
+                <CardDescription className="text-foreground/70">POM, fixtures, API testing, advanced features</CardDescription>
               </CardHeader>
             </Card>
-            <Card className="border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <Card className="bg-[hsl(195,90%,65%)] border-none hover:scale-[1.02] transition-all duration-300">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-button rounded-2xl flex items-center justify-center mb-4">
-                  <Trophy className="w-6 h-6 text-primary-foreground" />
+                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
+                  <Trophy className="w-6 h-6 text-foreground" />
                 </div>
-                <CardTitle className="text-2xl">54 Advanced</CardTitle>
-                <CardDescription>CI/CD, reporting, performance, enterprise architecture</CardDescription>
+                <CardTitle className="text-2xl text-foreground">For Practitioners</CardTitle>
+                <CardDescription className="text-foreground/70">CI/CD, reporting, performance, enterprise architecture</CardDescription>
               </CardHeader>
             </Card>
           </div>
 
           {/* Course Sections */}
           <div className="space-y-12">
-            {allPlaywrightCourses.map((course) => {
+            {allPlaywrightCourses.map((course, courseIndex) => {
               let lessonNumber = 0;
+              for (let i = 0; i < courseIndex; i++) {
+                allPlaywrightCourses[i].sections.forEach(section => {
+                  lessonNumber += section.lessons.length;
+                });
+              }
+              
+              const levelLabel = course.id.includes('basic') ? 'For Beginners' : 
+                                course.id.includes('intermediate') ? 'For Professionals' : 'For Practitioners';
+              
               return (
                 <Card key={course.id} className="border-2">
                   <CardHeader>
+                    <Badge className="w-fit mb-2">{levelLabel}</Badge>
                     <CardTitle className="text-3xl mb-2">{course.title}</CardTitle>
                     <CardDescription className="text-base">{course.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     {course.sections.map((section) => (
-                      <div key={section.id} className="border rounded-lg p-6 bg-gradient-accent/10">
+                      <div key={section.id} className="border rounded-lg p-6 bg-muted/30">
                         <h3 className="text-xl font-bold mb-2 text-foreground">{section.title}</h3>
                         <p className="text-sm text-muted-foreground mb-4">{section.description}</p>
                         
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                           {section.lessons.map((lesson) => {
                             lessonNumber++;
+                            const globalIndex = lessonNumber - 1;
+                            const isFree = isLessonFree('', globalIndex);
+                            const hasAccess = isPremium() || isFree;
+                            
+                            const handleClick = (e: React.MouseEvent) => {
+                              if (!hasAccess) {
+                                e.preventDefault();
+                                checkAccess(lesson.title, globalIndex);
+                              }
+                            };
+                            
                             return (
                               <Link
                                 key={lesson.id}
-                                to={`/playwright-lesson/${lesson.id}`}
-                                className="group bg-background p-4 rounded-lg border hover:border-primary transition-all duration-300 hover:shadow-md"
+                                to={hasAccess ? `/playwright-lesson/${lesson.id}` : '#'}
+                                onClick={handleClick}
+                                className={`group bg-background p-4 rounded-lg border transition-all duration-300 ${
+                                  hasAccess ? 'hover:border-primary hover:shadow-md' : 'opacity-75 cursor-pointer'
+                                }`}
                               >
                                 <div className="flex items-start justify-between mb-2">
                                   <div className="flex items-center gap-2">
                                     <span className="text-xs font-bold text-primary">{lessonNumber}.</span>
-                                    <PlayCircle className="w-4 h-4 text-primary" />
+                                    {hasAccess ? (
+                                      <PlayCircle className="w-4 h-4 text-primary" />
+                                    ) : (
+                                      <Lock className="w-4 h-4 text-muted-foreground" />
+                                    )}
                                   </div>
-                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                    <Clock className="w-3 h-3" />
-                                    {lesson.duration}
+                                  <div className="flex items-center gap-2">
+                                    {isFree && <Badge variant="secondary" className="text-[10px] px-1.5 py-0">FREE</Badge>}
+                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                      <Clock className="w-3 h-3" />
+                                      {lesson.duration}
+                                    </div>
                                   </div>
                                 </div>
-                                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                                <h4 className={`text-sm font-semibold transition-colors line-clamp-2 ${
+                                  hasAccess ? 'text-foreground group-hover:text-primary' : 'text-muted-foreground'
+                                }`}>
                                   {lesson.title}
                                 </h4>
                               </Link>
