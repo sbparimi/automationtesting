@@ -2,22 +2,190 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Lock, PlayCircle, Sparkles, Award, Crown } from "lucide-react";
+import { Clock, Lock, Circle, CheckCircle2, Bookmark, ChevronDown, Sparkles, Award, Crown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { allAiInQaCourses } from "@/data/aiInQaLessons";
+import { allAiInQaCourses, Course } from "@/data/aiInQaLessons";
 import { useSubscription } from "@/hooks/useSubscription";
 import { UpgradeModal } from "@/components/UpgradeModal";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useState } from "react";
+
+interface CourseSectionProps {
+  course: Course;
+  levelLabel: string;
+  levelColor: string;
+  levelIcon: React.ReactNode;
+  startIndex: number;
+  isLessonFree: (courseId: string, lessonIndex: number) => boolean;
+  isPremium: () => boolean;
+  checkAccess: (title: string, index: number) => void;
+}
+
+const CourseSection = ({ 
+  course, 
+  levelLabel, 
+  levelColor, 
+  levelIcon, 
+  startIndex,
+  isLessonFree,
+  isPremium,
+  checkAccess
+}: CourseSectionProps) => {
+  const [openSections, setOpenSections] = useState<string[]>([course.sections[0]?.id || '']);
+  
+  let lessonNumber = startIndex;
+
+  const toggleSection = (sectionId: string) => {
+    setOpenSections(prev => 
+      prev.includes(sectionId) 
+        ? prev.filter(id => id !== sectionId)
+        : [...prev, sectionId]
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Course Header Card */}
+      <Card className={`${levelColor} border-none`}>
+        <CardHeader>
+          <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
+            {levelIcon}
+          </div>
+          <CardTitle className="text-2xl text-foreground">{levelLabel}</CardTitle>
+          <CardDescription className="text-foreground/70">{course.description}</CardDescription>
+        </CardHeader>
+      </Card>
+
+      {/* Sections Accordion */}
+      <div className="bg-card border rounded-xl overflow-hidden">
+        {/* Contents Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/30">
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-semibold text-foreground">Contents</span>
+          </div>
+        </div>
+
+        {/* Sections */}
+        {course.sections.map((section, sectionIndex) => {
+          const isOpen = openSections.includes(section.id);
+          const sectionStartNumber = lessonNumber;
+
+          return (
+            <Collapsible
+              key={section.id}
+              open={isOpen}
+              onOpenChange={() => toggleSection(section.id)}
+            >
+              <CollapsibleTrigger className="w-full">
+                <div className={`flex items-center justify-between px-5 py-4 hover:bg-muted/50 transition-colors border-b ${isOpen ? 'bg-muted/30' : ''}`}>
+                  <span className="font-semibold text-foreground text-left">
+                    {sectionIndex + 1}. {section.title.replace(/Section \d+: /, '').replace(/ \(\d+ lessons\)/, '')}
+                  </span>
+                  <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                </div>
+              </CollapsibleTrigger>
+              
+              <CollapsibleContent>
+                <div className="border-b">
+                  {section.lessons.map((lesson) => {
+                    lessonNumber++;
+                    const globalIndex = lessonNumber - 1;
+                    const isFree = isLessonFree('', globalIndex);
+                    const hasAccess = isPremium() || isFree;
+                    const isCompleted = false; // Can be connected to user progress later
+
+                    const handleClick = (e: React.MouseEvent) => {
+                      if (!hasAccess) {
+                        e.preventDefault();
+                        checkAccess(lesson.title, globalIndex);
+                      }
+                    };
+
+                    return (
+                      <Link
+                        key={lesson.id}
+                        to={hasAccess ? `/ai-qa-lesson/${lesson.id}` : '#'}
+                        onClick={handleClick}
+                        className={`flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors group ${
+                          !hasAccess ? 'opacity-60' : ''
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          {/* Status Circle */}
+                          {hasAccess ? (
+                            isCompleted ? (
+                              <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                            ) : (
+                              <Circle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                            )
+                          ) : (
+                            <Lock className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                          )}
+                          
+                          {/* Lesson Info */}
+                          <div className="flex flex-col min-w-0">
+                            <span className={`text-sm font-medium truncate ${hasAccess ? 'text-foreground group-hover:text-primary' : 'text-muted-foreground'}`}>
+                              {lesson.title}
+                            </span>
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <Clock className="w-3 h-3" />
+                              <span>{lesson.duration}</span>
+                              {isFree && (
+                                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4">FREE</Badge>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Bookmark Icon */}
+                        <Bookmark className="w-5 h-5 text-muted-foreground flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const AiInQaCourse = () => {
   const { isLessonFree, isPremium, showUpgradeModal, setShowUpgradeModal, triggerSource, checkAccess } = useSubscription();
 
-  // Calculate total lessons
+  // Calculate total lessons and starting indices
   let totalLessons = 0;
-  allAiInQaCourses.forEach(course => {
+  const courseStartIndices: number[] = [];
+  
+  allAiInQaCourses.forEach((course, index) => {
+    courseStartIndices.push(totalLessons);
     course.sections.forEach(section => {
       totalLessons += section.lessons.length;
     });
   });
+
+  const courseConfigs = [
+    { 
+      course: allAiInQaCourses[0], 
+      levelLabel: 'For Beginners', 
+      levelColor: 'bg-[hsl(48,96%,75%)]',
+      levelIcon: <Sparkles className="w-6 h-6 text-foreground" />
+    },
+    { 
+      course: allAiInQaCourses[1], 
+      levelLabel: 'For Professionals', 
+      levelColor: 'bg-[hsl(145,70%,65%)]',
+      levelIcon: <Award className="w-6 h-6 text-foreground" />
+    },
+    { 
+      course: allAiInQaCourses[2], 
+      levelLabel: 'For Practitioners', 
+      levelColor: 'bg-[hsl(195,90%,65%)]',
+      levelIcon: <Crown className="w-6 h-6 text-foreground" />
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,118 +224,21 @@ const AiInQaCourse = () => {
             </div>
           </div>
 
-          {/* Course Overview Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            <Card className="bg-[hsl(48,96%,75%)] border-none hover:scale-[1.02] transition-all duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Sparkles className="w-6 h-6 text-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">For Beginners</CardTitle>
-                <CardDescription className="text-foreground/70">AI basics, prompt engineering, ChatGPT for testing</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-[hsl(145,70%,65%)] border-none hover:scale-[1.02] transition-all duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Award className="w-6 h-6 text-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">For Professionals</CardTitle>
-                <CardDescription className="text-foreground/70">AI test generation, intelligent automation, ML testing</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-[hsl(195,90%,65%)] border-none hover:scale-[1.02] transition-all duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-foreground/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Crown className="w-6 h-6 text-foreground" />
-                </div>
-                <CardTitle className="text-2xl text-foreground">For Practitioners</CardTitle>
-                <CardDescription className="text-foreground/70">AI strategy, governance, enterprise transformation</CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-
-          {/* Course Sections */}
-          <div className="space-y-12">
-            {allAiInQaCourses.map((course, courseIndex) => {
-              let lessonNumber = 0;
-              for (let i = 0; i < courseIndex; i++) {
-                allAiInQaCourses[i].sections.forEach(section => {
-                  lessonNumber += section.lessons.length;
-                });
-              }
-              
-              const levelLabel = course.id.includes('basic') ? 'For Beginners' : 
-                                course.id.includes('intermediate') ? 'For Professionals' : 'For Practitioners';
-              
-              return (
-                <Card key={course.id} className="border-2">
-                  <CardHeader>
-                    <Badge className="w-fit mb-2">{levelLabel}</Badge>
-                    <CardTitle className="text-3xl mb-2">{course.title}</CardTitle>
-                    <CardDescription className="text-base">{course.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {course.sections.map((section) => (
-                      <div key={section.id} className="border rounded-lg p-6 bg-muted/30">
-                        <h3 className="text-xl font-bold mb-2 text-foreground">{section.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-4">{section.description}</p>
-                        
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {section.lessons.map((lesson) => {
-                            lessonNumber++;
-                            const globalIndex = lessonNumber - 1;
-                            const isFree = isLessonFree('', globalIndex);
-                            const hasAccess = isPremium() || isFree;
-                            
-                            const handleClick = (e: React.MouseEvent) => {
-                              if (!hasAccess) {
-                                e.preventDefault();
-                                checkAccess(lesson.title, globalIndex);
-                              }
-                            };
-                            
-                            return (
-                              <Link
-                                key={lesson.id}
-                                to={hasAccess ? `/ai-qa-lesson/${lesson.id}` : '#'}
-                                onClick={handleClick}
-                                className={`group bg-background p-4 rounded-lg border transition-all duration-300 ${
-                                  hasAccess ? 'hover:border-primary hover:shadow-md' : 'opacity-75 cursor-pointer'
-                                }`}
-                              >
-                                <div className="flex items-start justify-between mb-2">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-xs font-bold text-primary">{lessonNumber}.</span>
-                                    {hasAccess ? (
-                                      <PlayCircle className="w-4 h-4 text-primary" />
-                                    ) : (
-                                      <Lock className="w-4 h-4 text-muted-foreground" />
-                                    )}
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    {isFree && <Badge variant="secondary" className="text-[10px] px-1.5 py-0">FREE</Badge>}
-                                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                      <Clock className="w-3 h-3" />
-                                      {lesson.duration}
-                                    </div>
-                                  </div>
-                                </div>
-                                <h4 className={`text-sm font-semibold transition-colors line-clamp-2 ${
-                                  hasAccess ? 'text-foreground group-hover:text-primary' : 'text-muted-foreground'
-                                }`}>
-                                  {lesson.title}
-                                </h4>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              );
-            })}
+          {/* Course Sections - Each with its own card and accordion */}
+          <div className="grid lg:grid-cols-3 gap-8">
+            {courseConfigs.map((config, index) => (
+              <CourseSection
+                key={config.course.id}
+                course={config.course}
+                levelLabel={config.levelLabel}
+                levelColor={config.levelColor}
+                levelIcon={config.levelIcon}
+                startIndex={courseStartIndices[index]}
+                isLessonFree={isLessonFree}
+                isPremium={isPremium}
+                checkAccess={checkAccess}
+              />
+            ))}
           </div>
         </div>
       </div>
