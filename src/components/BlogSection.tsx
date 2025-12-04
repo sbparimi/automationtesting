@@ -462,29 +462,38 @@ test('security vulnerabilities', async ({ page }) => {
 
 export const BlogSection = () => {
   return (
-    <section id="blog" className="py-20 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-            Playwright Tips & Advanced Techniques
+    <section id="blog" className="py-20 bg-gradient-to-b from-muted/30 to-background relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse-glow" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }} />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-16 animate-fade-in">
+          <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20">Advanced Techniques</Badge>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Playwright Tips & Patterns
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Production-proven TypeScript patterns and optimization techniques for enterprise-grade automation
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {tips.map((tip, index) => (
-            <Card key={index} className="hover:shadow-strong transition-all duration-300 transform hover:-translate-y-2">
+        <div className="grid lg:grid-cols-2 gap-6">
+          {tips.slice(0, 8).map((tip, index) => (
+            <Card 
+              key={index} 
+              className="group border-none shadow-soft hover:shadow-strong transition-all duration-500 hover:-translate-y-2 animate-slide-up overflow-hidden"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="bg-primary/10 p-2 rounded-lg">
-                      <tip.icon className="w-5 h-5 text-primary" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <tip.icon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <CardTitle className="text-lg text-foreground">{tip.title}</CardTitle>
-                      <Badge className="mt-1 text-xs bg-gradient-button text-foreground border-0">
+                      <CardTitle className="text-lg text-foreground group-hover:text-primary transition-colors">{tip.title}</CardTitle>
+                      <Badge variant="secondary" className="mt-1 text-xs">
                         {tip.category}
                       </Badge>
                     </div>
@@ -495,8 +504,8 @@ export const BlogSection = () => {
                 <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                   {tip.description}
                 </p>
-                <div className="bg-muted p-4 rounded-lg overflow-x-auto">
-                  <pre className="text-sm text-foreground">
+                <div className="bg-muted/50 p-4 rounded-xl overflow-x-auto border border-border/50">
+                  <pre className="text-xs text-foreground font-mono">
                     <code>{tip.snippet}</code>
                   </pre>
                 </div>
