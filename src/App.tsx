@@ -19,6 +19,8 @@ import TestManagementLesson from "./pages/TestManagementLesson";
 import AiInQaCourse from "./pages/AiInQaCourse";
 import AiQaLesson from "./pages/AiQaLesson";
 import JobSearch from "./pages/JobSearch";
+import FrameworksCourse from "./pages/FrameworksCourse";
+import FrameworkLesson from "./pages/FrameworkLesson";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/ai-in-qa" element={<AiInQaCourse />} />
           <Route path="/ai-qa-lesson/:lessonId" element={<AiQaLesson />} />
           <Route path="/jobs" element={<JobSearch />} />
+          <Route path="/frameworks" element={<FrameworksCourse />} />
+          <Route path="/framework-lesson/:lessonId" element={<FrameworkLesson />} />
           <Route path="/lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
           <Route path="/course/:pathId/:courseId" element={<CourseDetails />} />
