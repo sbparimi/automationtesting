@@ -1,7 +1,8 @@
 import { FrameworkCard } from "./FrameworkCard";
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, MessageCircle, Zap, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 import { 
   POMDiagram, 
   KeywordDrivenDiagram, 
@@ -11,7 +12,6 @@ import {
   APIDiagram 
 } from "./FrameworkDiagrams";
 import { Link } from "react-router-dom";
-import { MessageCircle } from "lucide-react";
 
 export const FrameworksSection = () => {
   const [expandedFrameworks, setExpandedFrameworks] = useState<Set<string>>(new Set());
@@ -615,26 +615,48 @@ test.describe('Member Visit Booking @JIRA-PROJECT', () => {
   return (
     <section id="frameworks" className="py-20 bg-gradient-accent">
       <div className="container mx-auto px-6">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-          Production-Grade Framework Architectures
-        </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
-          9 battle-tested frameworks for Playwright & Cypress. Each framework is production-proven, scalable to thousands of tests, and includes complete implementation guides with real-world code examples.
-        </p>
-        <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-          Every framework includes: Detailed architecture diagrams • Step-by-step implementation guides • Production code examples for both Playwright & Cypress • Best practices & anti-patterns • Performance optimization strategies
-        </p>
-      </div>
+        <div className="text-center mb-16">
+          <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
+            PREMIUM COURSE
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+            Production-Grade Framework Architectures
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+            Master 7 enterprise frameworks for Playwright & Cypress. Complete curriculum with {frameworks.length} framework patterns, 200+ lessons, all locked behind premium access.
+          </p>
+          
+          {/* CTA to Frameworks Course */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <Link to="/frameworks">
+              <Button size="lg" className="bg-primary hover:bg-primary-hover text-primary-foreground gap-2 px-8">
+                <Zap className="w-5 h-5" />
+                Explore Frameworks Course
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+            <div className="text-sm text-muted-foreground">
+              5 free lessons • €2.99/month for full access
+            </div>
+          </div>
+        </div>
 
         <div className="space-y-4">
-          {frameworks.map((framework) => (
+          {frameworks.slice(0, 3).map((framework) => (
             <div key={framework.id} className="border border-border rounded-lg overflow-hidden bg-gradient-accent">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-foreground mb-2">{framework.title}</h3>
                     <p className="text-muted-foreground text-sm">{framework.description}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {framework.complexity}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs border-success/30 text-success">
+                        5 lessons FREE
+                      </Badge>
+                    </div>
                   </div>
                   <Button
                     variant="ghost"
@@ -663,6 +685,19 @@ test.describe('Member Visit Booking @JIRA-PROJECT', () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* See All Frameworks CTA */}
+        <div className="mt-8 text-center">
+          <Link to="/frameworks">
+            <Button variant="outline" size="lg" className="gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              View All {frameworks.length} Frameworks
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+          <p className="text-sm text-muted-foreground mt-4">
+            Includes: POM, Keyword-Driven, Data-Driven, Hybrid, BDD Cucumber, API+UI, and Advanced Factory patterns
+          </p>
         </div>
 
         <div className="mt-16 text-center">

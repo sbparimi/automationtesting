@@ -10,6 +10,7 @@ export const Navigation = () => {
     { to: "/master-typescript", label: "TypeScript" },
     { to: "/playwright", label: "Playwright" },
     { to: "/cypress", label: "Cypress" },
+    { to: "/frameworks", label: "Frameworks" },
     { to: "/test-management", label: "Test Management" },
     { to: "/ai-in-qa", label: "AI in QA" },
     { to: "/jobs", label: "Jobs" },
