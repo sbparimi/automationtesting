@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Playwright Professional Theme - Based on official Playwright brand colors */
+    /* QAForge Professional Theme - Marketing Focused */
     --background: 0 0% 100%;
     --foreground: 220 13% 13%;
 
@@ -37,6 +37,13 @@ All colors MUST be HSL.
     --accent: 220 13% 95%;
     --accent-foreground: 220 13% 13%;
 
+    /* Marketing Colors - From screenshots */
+    --skill-orange: 32 90% 60%;
+    --skill-yellow: 45 95% 65%;
+    --skill-pink: 340 65% 65%;
+    --skill-green: 160 60% 50%;
+    --skill-blue: 210 80% 60%;
+    
     /* Status Colors */
     --destructive: 358 75% 59%;
     --destructive-foreground: 0 0% 100%;
@@ -49,13 +56,14 @@ All colors MUST be HSL.
     --input: 220 13% 91%;
     --ring: 123 46% 50%;
 
-    /* Playwright Professional Gradients */
+    /* Professional Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(123 46% 50%), hsl(123 46% 42%));
     --gradient-secondary: linear-gradient(135deg, hsl(358 75% 59%), hsl(358 75% 50%));
     --gradient-hero: linear-gradient(135deg, hsl(123 46% 50% / 0.05) 0%, hsl(358 75% 59% / 0.05) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 13% 98%));
     --gradient-button: linear-gradient(135deg, hsl(123 46% 50%), hsl(123 46% 42%));
     --gradient-accent: linear-gradient(135deg, hsl(358 75% 59%), hsl(358 75% 50%));
+    --gradient-urgency: linear-gradient(135deg, hsl(123 50% 90%), hsl(123 50% 85%));
     
     /* Level Colors */
     --level-beginner: 48 96% 75%;
@@ -92,8 +100,12 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;
+    --background: 220 13% 8%;
+    --foreground: 0 0% 95%;
+    --card: 220 13% 12%;
+    --card-foreground: 0 0% 95%;
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 9% 60%;
   }
 }
 
@@ -109,7 +121,6 @@ All colors MUST be HSL.
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: var(--blob-pattern);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -180,6 +191,21 @@ All colors MUST be HSL.
     to { transform: rotate(360deg); }
   }
 
+  @keyframes countdown-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  @keyframes urgency-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(69, 186, 75, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(69, 186, 75, 0.7); }
+  }
+
+  @keyframes bar-grow {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
   .animate-float { animation: float 3s ease-in-out infinite; }
   .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
   .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
@@ -191,6 +217,9 @@ All colors MUST be HSL.
   .animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
   .animate-scale-pulse { animation: scale-pulse 2s ease-in-out infinite; }
   .animate-rotate-slow { animation: rotate-slow 20s linear infinite; }
+  .animate-countdown { animation: countdown-pulse 1s ease-in-out infinite; }
+  .animate-urgency { animation: urgency-glow 2s ease-in-out infinite; }
+  .animate-bar-grow { animation: bar-grow 1s ease-out forwards; }
 
   /* Staggered animations */
   .stagger-1 { animation-delay: 0.1s; }
@@ -273,5 +302,57 @@ All colors MUST be HSL.
 
   .level-practitioner {
     background: linear-gradient(135deg, hsl(195 90% 65%), hsl(205 85% 55%));
+  }
+
+  /* Skill bar colors matching screenshot */
+  .skill-bar-blue { background: hsl(210 80% 60%); }
+  .skill-bar-green { background: hsl(160 60% 50%); }
+  .skill-bar-pink { background: hsl(340 65% 65%); }
+  .skill-bar-yellow { background: hsl(45 95% 65%); }
+  .skill-bar-orange { background: hsl(32 90% 60%); }
+
+  /* Urgency banner */
+  .urgency-banner {
+    background: linear-gradient(135deg, hsl(123 50% 90%), hsl(123 50% 85%));
+  }
+
+  /* Pricing card styles */
+  .pricing-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .pricing-card:hover {
+    border-color: hsl(var(--primary));
+    transform: translateY(-2px);
+  }
+
+  .pricing-card.popular {
+    border-color: hsl(var(--primary));
+    position: relative;
+  }
+
+  /* Testimonial card */
+  .testimonial-card {
+    background: hsl(var(--card));
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+  }
+
+  /* Feature card with green border */
+  .feature-card {
+    border: 2px solid hsl(var(--primary) / 0.3);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.02);
   }
 }

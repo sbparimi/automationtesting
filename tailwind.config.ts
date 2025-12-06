@@ -56,6 +56,14 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        // Marketing skill colors from screenshots
+        skill: {
+          orange: "hsl(var(--skill-orange))",
+          yellow: "hsl(var(--skill-yellow))",
+          pink: "hsl(var(--skill-pink))",
+          green: "hsl(var(--skill-green))",
+          blue: "hsl(var(--skill-blue))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
