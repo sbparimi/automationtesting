@@ -3,49 +3,16 @@ import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Check, Crown, Sparkles } from "lucide-react";
 import { CountdownTimer } from "./CountdownTimer";
 
-const plans = [
-  {
-    name: "1-WEEK TRIAL",
-    badge: "TRY IT OUT",
-    originalPrice: "€1.29",
-    price: "€0.89",
-    perDay: "per day",
-    total: "€6.29 total",
-    originalTotal: "€9.09",
-    popular: false,
-  },
-  {
-    name: "4-WEEK PLAN",
-    badge: "MOST POPULAR",
-    originalPrice: "€0.69",
-    price: "€0.29",
-    perDay: "per day",
-    total: "€8.79 total",
-    originalTotal: "€20.79",
-    popular: true,
-  },
-  {
-    name: "12-WEEK PLAN",
-    badge: "BEST VALUE",
-    originalPrice: "€0.49",
-    price: "€0.19",
-    perDay: "per day",
-    total: "€17.19 total",
-    originalTotal: "€44.19",
-    popular: false,
-  },
-];
-
 export const PricingSection = () => {
   const whatsappNumber = "31616270233";
   const whatsappMessage = encodeURIComponent(
-    "Hi! I'd like to subscribe to QAForge Pro (€2.99/month)."
+    "Hi! I'd like to subscribe to QAForge Pro (€2.99/week)."
   );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <section className="py-20 bg-background" id="pricing">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-6">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Start growing your QA career today!
@@ -59,70 +26,66 @@ export const PricingSection = () => {
           </div>
         </div>
         
-        {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={`pricing-card bg-card rounded-2xl p-6 shadow-soft ${
-                plan.popular ? 'popular ring-2 ring-primary' : 'border border-border'
-              }`}
-            >
-              {plan.popular && (
-                <div className="bg-primary text-primary-foreground text-xs font-bold py-1 px-3 rounded-full text-center mb-4 -mt-9 mx-auto w-fit">
-                  {plan.badge}
-                </div>
-              )}
-              
-              <h3 className="text-lg font-bold text-foreground mb-2">{plan.name}</h3>
-              
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-3xl font-bold text-foreground">{plan.price}</span>
-                <span className="text-muted-foreground text-sm">{plan.perDay}</span>
+        {/* Single Pricing Card */}
+        <div className="bg-card border-2 border-primary rounded-3xl p-8 shadow-xl max-w-md mx-auto mb-8">
+          <div className="text-center">
+            <Badge className="bg-primary text-primary-foreground mb-4">
+              FLAT FEE - BEST VALUE
+            </Badge>
+            
+            <h3 className="text-2xl font-bold text-foreground mb-4">Weekly Access</h3>
+            
+            <div className="flex items-baseline justify-center gap-2 mb-2">
+              <span className="text-5xl font-bold text-foreground">€2.99</span>
+              <span className="text-muted-foreground text-lg">/week</span>
+            </div>
+            
+            <p className="text-muted-foreground mb-6">
+              Full access to all courses • Cancel anytime
+            </p>
+            
+            <div className="space-y-3 text-left mb-8">
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>5 FREE lessons per course to try</span>
               </div>
-              
-              <div className="flex items-center gap-2 text-sm mb-4">
-                <span className="line-through text-muted-foreground">{plan.originalTotal}</span>
-                <span className="text-foreground font-medium">{plan.total}</span>
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>Full access to all 500+ premium lessons</span>
               </div>
-              
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-sm text-foreground">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>5 free lessons per course</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>Full access to all 500+ lessons</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-foreground">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>Cancel anytime</span>
-                </div>
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>TypeScript, Playwright, Cypress, AI in QA</span>
+              </div>
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>Test Management & Frameworks courses</span>
+              </div>
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>Production-grade code examples</span>
+              </div>
+              <div className="flex items-center gap-3 text-foreground">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>Junior to Director career path</span>
               </div>
             </div>
-          ))}
+            
+            <Button
+              size="lg"
+              className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-lg py-6 rounded-xl shadow-lg hover:shadow-xl transition-all gap-3"
+              onClick={() => window.open(whatsappLink, '_blank')}
+            >
+              <MessageCircle className="w-6 h-6" />
+              Subscribe via WhatsApp
+            </Button>
+          </div>
         </div>
         
         {/* Money-back guarantee note */}
-        <p className="text-center text-muted-foreground mb-6">
-          30-day money-back guarantee
+        <p className="text-center text-muted-foreground">
+          30-day money-back guarantee • Secure payment
         </p>
-        
-        {/* Main CTA */}
-        <div className="text-center">
-          <Button
-            size="lg"
-            className="bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-lg px-12 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all gap-3"
-            onClick={() => window.open(whatsappLink, '_blank')}
-          >
-            <MessageCircle className="w-6 h-6" />
-            Get Started via WhatsApp
-          </Button>
-          <p className="text-sm text-muted-foreground mt-4">
-            Continue with other payment options available
-          </p>
-        </div>
       </div>
     </section>
   );
