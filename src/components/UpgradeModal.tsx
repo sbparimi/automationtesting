@@ -15,7 +15,7 @@ export const UpgradeModal = ({ isOpen, onClose, triggerSource }: UpgradeModalPro
   const { user } = useAuth();
   const whatsappNumber = "31616270233";
   const whatsappMessage = encodeURIComponent(
-    `Hi! I'd like to upgrade to QAForge Pro (€2.99/month). My email: ${user?.email || '[please login first]'}. ${triggerSource ? `I was viewing: ${triggerSource}` : ''}`
+    `Hi! I'd like to upgrade to QAForge Pro (€2.99/week). My email: ${user?.email || '[please login first]'}. ${triggerSource ? `I was viewing: ${triggerSource}` : ''}`
   );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -46,7 +46,7 @@ export const UpgradeModal = ({ isOpen, onClose, triggerSource }: UpgradeModalPro
           <div className="text-center bg-primary/5 border border-primary/20 rounded-2xl p-6">
             <div className="flex items-baseline justify-center gap-1">
               <span className="text-4xl font-bold text-foreground">€2.99</span>
-              <span className="text-muted-foreground">/month</span>
+              <span className="text-muted-foreground">/week</span>
             </div>
             <Badge variant="secondary" className="mt-2 bg-primary/10 text-primary border-primary/20">
               Cancel anytime

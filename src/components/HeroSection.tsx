@@ -96,7 +96,7 @@ export const HeroSection = () => {
               </Button>
               <div className="text-center">
                 <p className="text-2xl font-bold text-foreground">€2.99</p>
-                <p className="text-xs text-muted-foreground">/month after trial</p>
+                <p className="text-xs text-muted-foreground">/week after trial</p>
               </div>
             </div>
             
