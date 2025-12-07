@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Check, Crown, MessageCircle, Zap, BookOpen, Award } from "lucide-react";
+import { Check, Crown, MessageCircle, Zap, BookOpen, Award, LogIn } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -11,9 +12,10 @@ interface UpgradeModalProps {
 }
 
 export const UpgradeModal = ({ isOpen, onClose, triggerSource }: UpgradeModalProps) => {
+  const { user } = useAuth();
   const whatsappNumber = "31616270233";
   const whatsappMessage = encodeURIComponent(
-    `Hi! I'd like to upgrade to QAForge Pro ($2.99/month). ${triggerSource ? `I was viewing: ${triggerSource}` : ''}`
+    `Hi! I'd like to upgrade to QAForge Pro (€2.99/month). My email: ${user?.email || '[please login first]'}. ${triggerSource ? `I was viewing: ${triggerSource}` : ''}`
   );
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -63,14 +65,28 @@ export const UpgradeModal = ({ isOpen, onClose, triggerSource }: UpgradeModalPro
             ))}
           </div>
 
-          {/* WhatsApp CTA */}
-          <Button 
-            className="w-full h-12 bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-base gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all"
-            onClick={() => window.open(whatsappLink, '_blank')}
-          >
-            <MessageCircle className="w-5 h-5" />
-            Upgrade via WhatsApp
-          </Button>
+          {/* CTA based on login status */}
+          {user ? (
+            <Button 
+              className="w-full h-12 bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-base gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              onClick={() => window.open(whatsappLink, '_blank')}
+            >
+              <MessageCircle className="w-5 h-5" />
+              Upgrade via WhatsApp
+            </Button>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-sm text-center text-muted-foreground">
+                Please login first to upgrade to premium
+              </p>
+              <Link to="/auth" onClick={onClose}>
+                <Button className="w-full h-12 font-semibold text-base gap-2 rounded-xl">
+                  <LogIn className="w-5 h-5" />
+                  Login / Sign Up
+                </Button>
+              </Link>
+            </div>
+          )}
 
           <p className="text-xs text-center text-muted-foreground">
             Secure payment • Instant access • 24/7 support

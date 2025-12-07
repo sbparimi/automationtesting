@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 const skills = [
-  { name: "Self-awareness", width: 100, color: "skill-bar-blue", delay: 0 },
-  { name: "Ambition", width: 85, color: "skill-bar-green", delay: 0.1 },
-  { name: "Processing information", width: 70, color: "skill-bar-pink", delay: 0.2 },
-  { name: "Resilience", width: 55, color: "skill-bar-yellow", delay: 0.3 },
-  { name: "Adaptability", width: 40, color: "skill-bar-orange", delay: 0.4 },
+  { name: "Test Automation (Playwright/Cypress)", width: 100, color: "skill-bar-blue", delay: 0 },
+  { name: "TypeScript & JavaScript", width: 90, color: "skill-bar-green", delay: 0.1 },
+  { name: "API Testing & Integration", width: 80, color: "skill-bar-pink", delay: 0.2 },
+  { name: "CI/CD & DevOps Practices", width: 70, color: "skill-bar-yellow", delay: 0.3 },
+  { name: "AI-Powered Testing Tools", width: 60, color: "skill-bar-orange", delay: 0.4 },
 ];
 
 export const SkillsChart = () => {

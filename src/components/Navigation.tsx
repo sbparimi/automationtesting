@@ -1,10 +1,21 @@
-import { TestTube, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { TestTube, Menu, X, LogIn, LogOut, Shield, User } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAdmin, isPremium, signOut, loading } = useAuth();
+  const navigate = useNavigate();
 
   const navLinks = [
     { to: "/master-typescript", label: "TypeScript" },
@@ -15,6 +26,16 @@ export const Navigation = () => {
     { to: "/ai-in-qa", label: "AI in QA" },
     { to: "/jobs", label: "Jobs" },
   ];
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast.error("Failed to sign out");
+    } else {
+      toast.success("Signed out successfully");
+      navigate("/");
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-xl border-b border-border z-50 shadow-soft">
@@ -40,6 +61,47 @@ export const Navigation = () => {
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-1/2 rounded-full" />
               </Link>
             ))}
+          </div>
+
+          {/* Auth Section */}
+          <div className="hidden lg:flex items-center gap-2">
+            {loading ? (
+              <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+            ) : user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-2">
+                    <User className="w-4 h-4" />
+                    <span className="max-w-[100px] truncate">{user.email?.split('@')[0]}</span>
+                    {isPremium && (
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold bg-primary/20 text-primary rounded">PRO</span>
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {isAdmin && (
+                    <>
+                      <DropdownMenuItem onClick={() => navigate('/admin')} className="gap-2">
+                        <Shield className="w-4 h-4" />
+                        Admin Panel
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem onClick={handleSignOut} className="gap-2 text-destructive">
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button size="sm" className="gap-2">
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -68,6 +130,43 @@ export const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
+              
+              {/* Mobile Auth */}
+              <div className="pt-4 border-t border-border mt-2">
+                {user ? (
+                  <>
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        className="flex items-center gap-2 text-foreground hover:text-primary text-sm font-medium px-4 py-3 rounded-xl hover:bg-primary/5"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <Shield className="w-4 h-4" />
+                        Admin Panel
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => {
+                        handleSignOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="flex items-center gap-2 text-destructive text-sm font-medium px-4 py-3 rounded-xl hover:bg-destructive/5 w-full text-left"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="flex items-center gap-2 text-primary text-sm font-medium px-4 py-3 rounded-xl hover:bg-primary/5"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Login / Sign Up
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         )}
