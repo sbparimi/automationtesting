@@ -1,15 +1,17 @@
 import { useState, useCallback } from 'react';
+import { useAuth } from './useAuth';
 
 const FREE_LESSONS_PER_COURSE = 5;
 
 export function useSubscription() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [triggerSource, setTriggerSource] = useState<string>('');
+  const { isPremium: isPremiumFromAuth, user, loading } = useAuth();
 
-  // Check if user has premium (stored in localStorage for demo)
+  // Check if user has premium (from server-side auth)
   const isPremium = useCallback(() => {
-    return localStorage.getItem('qaforge_premium') === 'true';
-  }, []);
+    return isPremiumFromAuth;
+  }, [isPremiumFromAuth]);
 
   // Check if a specific lesson is free
   const isLessonFree = useCallback((lessonId: string, lessonIndex: number, isFreeMarked?: boolean) => {
@@ -22,26 +24,26 @@ export function useSubscription() {
 
   // Check access and show modal if needed
   const checkAccess = useCallback((lessonTitle: string, lessonIndex: number, isFreeMarked?: boolean): boolean => {
-    if (isPremium()) return true;
+    // If user is premium, always grant access
+    if (isPremiumFromAuth) return true;
+    
+    // If lesson is free, grant access
     if (isLessonFree('', lessonIndex, isFreeMarked)) return true;
     
+    // Show upgrade modal
     setTriggerSource(lessonTitle);
     setShowUpgradeModal(true);
     return false;
-  }, [isPremium, isLessonFree]);
-
-  // For demo: set premium status
-  const setPremium = useCallback((status: boolean) => {
-    localStorage.setItem('qaforge_premium', status.toString());
-  }, []);
+  }, [isPremiumFromAuth, isLessonFree]);
 
   return {
     isPremium,
     isLessonFree,
     checkAccess,
-    setPremium,
     showUpgradeModal,
     setShowUpgradeModal,
     triggerSource,
+    user,
+    loading,
   };
 }
