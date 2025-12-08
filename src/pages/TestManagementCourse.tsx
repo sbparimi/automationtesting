@@ -4,12 +4,12 @@ import { allTestManagementCourses } from "@/data/testManagementLessons";
 const TestManagementCourse = () => {
   return (
     <CourseLayout
-      title="Test Management Mastery"
-      subtitle="From Junior Tester to Engineering Manager & Director. Master TMAP Next methodology, test strategy, governance, and leadership skills for enterprise QA."
-      badgeText="TMAP Next"
+      title="Test Management & Leadership"
+      subtitle="From Test Manager to Head of QA. Master Agile leadership, engineering management, executive communications, budget management, and organizational strategy for the cloud and AI era."
+      badgeText="Leadership"
       courses={allTestManagementCourses}
       lessonPath="test-management-lesson"
-      roleJourney={["Junior QA", "Mid QA", "Senior QA", "Lead", "Manager", "Director"]}
+      roleJourney={["Test Manager", "Sr. Test Manager", "Sr. Eng Manager", "Head of QA", "VP Quality"]}
     />
   );
 };
