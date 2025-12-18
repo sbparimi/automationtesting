@@ -115,12 +115,6 @@ export const Footer = () => {
                 </a>
               </li>
             </ul>
-            
-            {/* Pricing Badge */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
-              <p className="text-2xl font-bold text-foreground">€2.99<span className="text-sm font-normal text-muted-foreground">/month</span></p>
-              <p className="text-xs text-muted-foreground mt-1">Unlimited access to all courses</p>
-            </div>
           </div>
         </div>
 

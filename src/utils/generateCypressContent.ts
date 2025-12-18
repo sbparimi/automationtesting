@@ -1,11 +1,17 @@
-// Utility to generate comprehensive Cypress lesson content for all 162 lessons
+// Utility to generate comprehensive Cypress lesson content with STAR method
 
 export interface LessonContent {
   title: string;
   objectives: string[];
   concept: string;
+  starMethod: {
+    situation: string;
+    task: string;
+    action: string;
+    result: string;
+  };
   whys: { question: string; answer: string }[];
-  cypressImplementation: { title: string; code: string; explanation: string }[];
+  cypressImplementation: { title: string; code: string; explanation: string; starContext: { situation: string; task: string; action: string; result: string } }[];
   benefits: string[];
   commonMistakes: { mistake: string; solution: string }[];
   exercises: { title: string; task: string; solution: string }[];
@@ -13,7 +19,6 @@ export interface LessonContent {
 }
 
 export const generateCypressLessonContent = (lessonId: string, title: string, level: string): LessonContent => {
-  // Base content structure that adapts based on lesson topic
   const lessonNumber = parseInt(lessonId.split('-').pop() || '0');
   
   return {
@@ -25,9 +30,22 @@ export const generateCypressLessonContent = (lessonId: string, title: string, le
       `Avoid common pitfalls when using ${title.split(' ')[0]}`,
       `Build reusable and maintainable test solutions`
     ],
+    
+    // STAR Method Overview for the entire lesson
+    starMethod: {
+      situation: `Modern web applications require robust end-to-end testing. Teams struggle with ${title.toLowerCase()} due to asynchronous behavior, flaky tests, and complex DOM interactions. Cypress provides a unique architecture to solve these challenges.`,
+      task: `Implement ${title.toLowerCase()} using Cypress best practices. Create tests that are fast, reliable, and provide excellent developer experience with time-travel debugging.`,
+      action: `Apply Cypress commands with proper chaining, use intercept for network control, leverage custom commands for reusability, and structure tests with the Testing Library philosophy.`,
+      result: `Achieve 99% test reliability, reduce debugging time by 70% with time-travel, and create a test suite that runs in under 10 minutes for 200+ tests.`
+    },
+    
     concept: `**${title}**
 
 This lesson covers ${title.toLowerCase()}, an essential concept in Cypress test automation. Understanding this topic will help you build more robust, maintainable, and efficient test suites.
+
+**The STAR Framework Applied to ${title}:**
+
+By understanding ${title.toLowerCase()} through STAR, you contextualize the problem, understand the approach, and measure success.
 
 **Key Concepts:**
 
@@ -67,76 +85,211 @@ Cypress provides unique capabilities for ${title.toLowerCase()} that distinguish
     cypressImplementation: [
       {
         title: `Basic ${title} Example`,
+        starContext: {
+          situation: "A junior QA engineer needs to write their first Cypress test for a form submission feature. The form has multiple fields and validation.",
+          task: "Create a reliable test that validates form submission works correctly with Cypress's command chaining.",
+          action: "Use cy.get() with data-cy attributes, chain assertions with should(), and validate the success state.",
+          result: "A clean, readable test that runs in 2 seconds and demonstrates Cypress fundamentals."
+        },
         code: `// cypress/e2e/${lessonId}.cy.js
+
+/**
+ * STAR Context:
+ * Situation: Testing form submission on web application
+ * Task: Validate form fills and submits correctly
+ * Action: Use Cypress commands with proper chaining
+ * Result: Reliable test demonstrating best practices
+ */
 describe('${title}', () => {
   beforeEach(() => {
+    // ARRANGE: Navigate to the page before each test
     cy.visit('https://example.cypress.io')
   })
 
   it('demonstrates ${title.toLowerCase()}', () => {
-    // Example implementation
+    // ACT: Interact with elements using Cypress commands
     cy.get('[data-cy="element"]')
-      .should('be.visible')
+      .should('be.visible')  // Auto-retry until visible
       .click()
     
-    // Verify expected behavior
+    // ASSERT: Verify expected behavior
     cy.get('[data-cy="result"]')
       .should('contain', 'Success')
   })
 })`,
-        explanation: `This basic example shows the fundamental pattern for ${title.toLowerCase()}. Notice how Cypress commands chain together and automatically wait for elements.`
+        explanation: `**Why this code matters (STAR Analysis):**
+
+**Situation**: Every test automation project starts with basic element interactions. Getting these fundamentals right prevents hours of debugging later.
+
+**Task**: The code demonstrates Cypress's chainable command structure, which is fundamentally different from Selenium's approach.
+
+**Action**: 
+- \`cy.get('[data-cy="element"]')\` - Uses data-cy attribute (Cypress best practice)
+- \`.should('be.visible')\` - Auto-retries for up to 4 seconds
+- Command chaining ensures proper execution order
+
+**Result**: Tests are readable like English, self-document their intent, and leverage Cypress's automatic retry mechanism.`
       },
       {
         title: `Intermediate ${title} Pattern`,
+        starContext: {
+          situation: "A mid-level engineer faces flaky tests due to backend API inconsistencies. Real API responses vary, causing random failures.",
+          task: "Implement network stubbing to control API responses and make tests deterministic.",
+          action: "Use cy.intercept() for network mocking, wait for aliased requests, and validate UI updates.",
+          result: "Tests that run 5x faster, work offline, and have 100% reliability."
+        },
         code: `// cypress/e2e/${lessonId}-intermediate.cy.js
+
+/**
+ * STAR Context:
+ * Situation: Flaky tests due to API inconsistencies
+ * Task: Control network layer for deterministic testing
+ * Action: Intercept APIs, wait for requests, validate UI
+ * Result: Fast, reliable, offline-capable tests
+ */
 describe('${title} - Intermediate', () => {
   it('uses advanced ${title.split(' ')[0]} techniques', () => {
-    cy.intercept('GET', '/api/data').as('getData')
+    // ARRANGE: Setup network interception BEFORE actions
+    cy.intercept('GET', '/api/data', {
+      statusCode: 200,
+      body: {
+        items: [
+          { id: 1, name: 'Item 1', status: 'active' },
+          { id: 2, name: 'Item 2', status: 'pending' },
+          { id: 3, name: 'Item 3', status: 'active' }
+        ]
+      }
+    }).as('getData')  // Alias for waiting
     
     cy.visit('/page')
+    
+    // Wait for the API call to complete
     cy.wait('@getData')
     
-    // Advanced implementation
+    // ACT & ASSERT: Validate list rendering
     cy.get('[data-cy="list"]')
       .find('li')
       .should('have.length.greaterThan', 0)
       .each(($el, index) => {
+        // Wrap jQuery element for Cypress commands
         cy.wrap($el)
           .should('be.visible')
           .and('have.attr', 'data-id')
+          .and('contain', \`Item \${index + 1}\`)
       })
   })
 })`,
-        explanation: `This intermediate pattern demonstrates more sophisticated use of ${title.toLowerCase()}, including network interception and element iteration.`
+        explanation: `**Why this code matters (STAR Analysis):**
+
+**Situation**: Network dependencies are the #1 cause of flaky E2E tests. Backend issues shouldn't fail your frontend tests.
+
+**Task**: The code shows complete network control using cy.intercept() - Cypress's powerful network layer.
+
+**Action**:
+- \`cy.intercept('GET', '/api/data', {...})\` - Stub the response
+- \`.as('getData')\` - Create an alias for synchronization
+- \`cy.wait('@getData')\` - Ensure response is received before assertions
+- \`cy.wrap($el)\` - Convert jQuery to Cypress chainable
+
+**Result**: 
+- Tests run in 500ms instead of 3+ seconds
+- Zero failures from backend issues
+- Predictable test data every run`
       },
       {
         title: `Production-Ready ${title} Implementation`,
+        starContext: {
+          situation: "An enterprise with 30 developers needs consistent testing patterns. Tests are duplicated across 500 spec files.",
+          task: "Create custom commands that encapsulate common operations and enforce best practices.",
+          action: "Build custom commands with TypeScript support, add retry logic, and create a command library.",
+          result: "75% reduction in test code, consistent patterns, and faster onboarding for new developers."
+        },
         code: `// cypress/support/commands.js
+
+/**
+ * STAR Context:
+ * Situation: Enterprise team with code duplication
+ * Task: Create reusable, typed custom commands
+ * Action: Implement custom command with retry logic
+ * Result: Consistent patterns, faster test creation
+ */
+
+/**
+ * Custom command for ${title.toLowerCase()}
+ * @param {Object} options - Configuration options
+ * @param {number} options.timeout - Max wait time in ms
+ * @param {number} options.retries - Number of retry attempts
+ */
 Cypress.Commands.add('${lessonId.replace(/-/g, '')}', (options = {}) => {
   const defaults = {
     timeout: 10000,
-    retries: 3
+    retries: 3,
+    waitForAnimation: true
   }
   
   const config = { ...defaults, ...options }
   
-  // Reusable custom command
-  cy.get('[data-cy="target"]', { timeout: config.timeout })
+  // Log for debugging in Cypress GUI
+  Cypress.log({
+    name: '${lessonId.replace(/-/g, '')}',
+    message: \`Performing ${title.toLowerCase()}\`,
+    consoleProps: () => ({ config })
+  })
+  
+  // Reusable custom command with built-in best practices
+  return cy.get('[data-cy="target"]', { timeout: config.timeout })
     .should('be.visible')
     .then(($element) => {
-      // Production logic
+      // Production logic with proper waiting
+      if (config.waitForAnimation) {
+        cy.wait(100) // Wait for CSS animations
+      }
       return cy.wrap($element)
     })
 })
 
+// TypeScript Declaration (cypress/support/index.d.ts)
+declare namespace Cypress {
+  interface Chainable {
+    ${lessonId.replace(/-/g, '')}(options?: {
+      timeout?: number;
+      retries?: number;
+      waitForAnimation?: boolean;
+    }): Chainable<JQuery<HTMLElement>>;
+  }
+}
+
 // Usage in tests
 describe('Using Custom Command', () => {
   it('applies ${title.toLowerCase()} pattern', () => {
+    cy.visit('/page')
+    
+    // Clean, readable test using custom command
     cy.${lessonId.replace(/-/g, '')}({ timeout: 5000 })
-    cy.get('[data-cy="success"]').should('exist')
+      .click()
+    
+    cy.get('[data-cy="success"]')
+      .should('exist')
+      .and('be.visible')
   })
 })`,
-        explanation: `This production-ready implementation creates a reusable custom command for ${title.toLowerCase()}, making it easy to maintain and use across multiple tests.`
+        explanation: `**Why this code matters (STAR Analysis):**
+
+**Situation**: Large codebases suffer from duplicated test logic. Every developer reimplements the same patterns.
+
+**Task**: Custom commands create a single source of truth. The \`Cypress.Commands.add()\` API makes this straightforward.
+
+**Action**:
+- **Cypress.log()**: Adds visibility in Test Runner GUI
+- **TypeScript declarations**: Enable autocomplete and type safety
+- **Configuration object**: Flexible, overridable defaults
+- **Return cy.wrap()**: Enable continued chaining
+
+**Result**:
+- 75% less code in spec files
+- Consistent behavior across all tests
+- New developers productive in hours, not days
+- Changes propagate instantly across all uses`
       }
     ],
     
@@ -175,13 +328,25 @@ describe('Using Custom Command', () => {
     exercises: [
       {
         title: `Exercise 1: Basic ${title} Implementation`,
-        task: `Create a test that demonstrates ${title.toLowerCase()} in a simple scenario. Use proper assertions and Cypress best practices.`,
-        solution: `describe('${title} Exercise 1', () => {
+        task: `Create a test that demonstrates ${title.toLowerCase()} in a simple scenario. Apply STAR method in comments to document your reasoning.`,
+        solution: `/**
+ * STAR Method for Exercise 1:
+ * Situation: Learning ${title.toLowerCase()} fundamentals
+ * Task: Create first working test with Cypress
+ * Action: Use cy.get, cy.should, and command chaining
+ * Result: Reliable test ready for team review
+ */
+describe('${title} Exercise 1', () => {
   it('implements basic ${title.toLowerCase()}', () => {
+    // SITUATION: Testing element visibility and interaction
     cy.visit('https://example.cypress.io')
+    
+    // TASK & ACTION: Validate and interact
     cy.get('[data-cy="element"]')
       .should('be.visible')
       .click()
+    
+    // RESULT: Verify success state
     cy.get('[data-cy="result"]')
       .should('contain', 'Expected Text')
   })
@@ -189,8 +354,17 @@ describe('Using Custom Command', () => {
       },
       {
         title: `Exercise 2: Intermediate ${title} Challenge`,
-        task: `Build a more complex test using ${title.toLowerCase()} with network interception and custom commands.`,
-        solution: `Cypress.Commands.add('verify${title.replace(/\s+/g, '')}', () => {
+        task: `Build a more complex test using ${title.toLowerCase()} with network interception and custom commands. Document STAR context for each section.`,
+        solution: `/**
+ * STAR Method for Exercise 2:
+ * Situation: Need reusable command for ${title.toLowerCase()}
+ * Task: Create custom command with network control
+ * Action: Implement command + intercept pattern
+ * Result: Reusable, fast, deterministic test
+ */
+ 
+// Custom Command
+Cypress.Commands.add('verify${title.replace(/\s+/g, '')}', () => {
   cy.intercept('GET', '/api/*').as('apiCall')
   cy.wait('@apiCall')
   cy.get('[data-cy="status"]').should('have.class', 'success')
@@ -205,22 +379,47 @@ describe('${title} Exercise 2', () => {
       },
       {
         title: `Exercise 3: Real-World ${title} Scenario`,
-        task: `Create a production-ready test suite that applies ${title.toLowerCase()} to solve a realistic testing problem.`,
-        solution: `describe('${title} - Production Suite', () => {
+        task: `Create a production-ready test suite that applies ${title.toLowerCase()} to solve a realistic testing problem. Include full STAR documentation.`,
+        solution: `/**
+ * STAR Analysis for Production Implementation:
+ * 
+ * Situation: E-commerce company with 200+ products needs reliable
+ * checkout testing. Current tests fail 20% of the time due to
+ * inventory API inconsistencies.
+ * 
+ * Task: Create deterministic checkout tests with <1% flake rate.
+ * 
+ * Action: Implement network stubbing, custom commands for cart
+ * operations, and proper waiting strategies.
+ * 
+ * Result: 0.5% flake rate, 3-second test execution, full coverage
+ * of checkout edge cases.
+ */
+describe('${title} - Production Suite', () => {
   beforeEach(() => {
+    // Stub all API endpoints for isolation
     cy.intercept('GET', '/api/config', { fixture: 'config.json' })
+    cy.intercept('GET', '/api/products', { fixture: 'products.json' })
+    cy.intercept('POST', '/api/cart', { statusCode: 201, body: { id: 'cart-123' } })
+    
     cy.visit('/dashboard')
   })
 
   it('handles ${title.toLowerCase()} in complex flows', () => {
+    // Navigate using data-cy selectors
     cy.get('[data-cy="nav"]').click()
+    
+    // Use within() for scoped queries
     cy.get('[data-cy="form"]').within(() => {
       cy.get('input[name="field"]').type('test value')
       cy.get('button[type="submit"]').click()
     })
+    
+    // Verify success notification
     cy.get('[data-cy="notification"]')
       .should('be.visible')
       .and('contain', 'Success')
+      .and('have.class', 'success')
   })
 })`
       }
