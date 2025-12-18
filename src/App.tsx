@@ -24,6 +24,8 @@ import FrameworkLesson from "./pages/FrameworkLesson";
 import Auth from "./pages/Auth";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLogin from "./pages/AdminLogin";
+import CodexCourse from "./pages/CodexCourse";
+import CodexLesson from "./pages/CodexLesson";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +54,8 @@ const App = () => (
           <Route path="/adminn" element={<AdminLogin />} />
           <Route path="/frameworks" element={<FrameworksCourse />} />
           <Route path="/framework-lesson/:lessonId" element={<FrameworkLesson />} />
+          <Route path="/codex-course" element={<CodexCourse />} />
+          <Route path="/codex-lesson/:lessonId" element={<CodexLesson />} />
           <Route path="/lesson/:lessonId" element={<TypeScriptLesson />} />
           <Route path="/framework/:frameworkId" element={<FrameworkDetails />} />
           <Route path="/course/:pathId/:courseId" element={<CourseDetails />} />

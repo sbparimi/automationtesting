@@ -85,6 +85,19 @@ const courses: Course[] = [
     gradient: "from-pink-500 to-pink-700"
   },
   {
+    id: "codex",
+    title: "AI Codex for Automation",
+    description: "Master GitHub Copilot and AI assistants for 10x faster test development.",
+    image: "/placeholder.svg",
+    lessonCount: 160,
+    duration: "50+ hours",
+    level: "Intermediate",
+    category: "AI + Automation",
+    path: "/codex-course",
+    icon: Code,
+    gradient: "from-cyan-500 to-cyan-700"
+  },
+  {
     id: "frameworks",
     title: "Framework Architecture",
     description: "Build production-grade test frameworks from POM to Hybrid patterns.",
