@@ -21,8 +21,9 @@ export const Navigation = () => {
     { to: "/master-typescript", label: "TypeScript" },
     { to: "/playwright", label: "Playwright" },
     { to: "/cypress", label: "Cypress" },
+    { to: "/codex-course", label: "AI Codex" },
     { to: "/frameworks", label: "Frameworks" },
-    { to: "/test-management", label: "Test Management & Leadership" },
+    { to: "/test-management", label: "Leadership" },
     { to: "/ai-in-qa", label: "AI in QA" },
     { to: "/jobs", label: "Jobs" },
   ];
