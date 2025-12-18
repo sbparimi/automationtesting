@@ -7,18 +7,38 @@ import { FrameworksSection } from "@/components/FrameworksSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { BlogSection } from "@/components/BlogSection";
 import { Footer } from "@/components/Footer";
+import { ScrollAnimationWrapper } from "@/components/ScrollAnimationWrapper";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navigation />
       <HeroSection />
-      <SocialProofBanner />
-      <FeaturesGrid />
-      <SkillsSection />
-      <TestimonialsSection />
-      <FrameworksSection />
-      <BlogSection />
+      
+      <ScrollAnimationWrapper direction="up" delay={0.1}>
+        <SocialProofBanner />
+      </ScrollAnimationWrapper>
+      
+      <ScrollAnimationWrapper direction="up" delay={0.1}>
+        <FeaturesGrid />
+      </ScrollAnimationWrapper>
+      
+      <ScrollAnimationWrapper direction="left" delay={0.1}>
+        <SkillsSection />
+      </ScrollAnimationWrapper>
+      
+      <ScrollAnimationWrapper direction="right" delay={0.1}>
+        <TestimonialsSection />
+      </ScrollAnimationWrapper>
+      
+      <ScrollAnimationWrapper direction="up" delay={0.1}>
+        <FrameworksSection />
+      </ScrollAnimationWrapper>
+      
+      <ScrollAnimationWrapper direction="up" delay={0.1}>
+        <BlogSection />
+      </ScrollAnimationWrapper>
+      
       <Footer />
     </div>
   );
