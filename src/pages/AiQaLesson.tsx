@@ -213,11 +213,21 @@ const AiQaLesson = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ol className="space-y-2 list-decimal list-inside">
+              <div className="space-y-4">
                 {content.exercises.map((exercise, i) => (
-                  <li key={i} className="text-sm">{exercise}</li>
+                  <div key={i} className="p-4 bg-muted/30 rounded-lg border border-border">
+                    {typeof exercise === 'string' ? (
+                      <p className="text-sm">{exercise}</p>
+                    ) : (
+                      <>
+                        <p className="font-semibold text-foreground mb-2">{i + 1}. {exercise.task}</p>
+                        <p className="text-sm text-muted-foreground mb-1"><strong>Deliverable:</strong> {exercise.deliverable}</p>
+                        <p className="text-sm text-muted-foreground"><strong>Criteria:</strong> {exercise.criteria}</p>
+                      </>
+                    )}
+                  </div>
                 ))}
-              </ol>
+              </div>
             </CardContent>
           </Card>
 
