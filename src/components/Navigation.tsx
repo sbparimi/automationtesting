@@ -22,7 +22,7 @@ export const Navigation = () => {
     { to: "/playwright", label: "Playwright" },
     { to: "/cypress", label: "Cypress" },
     { to: "/frameworks", label: "Frameworks" },
-    { to: "/test-management", label: "Leadership" },
+    { to: "/test-management", label: "Test Management & Leadership" },
     { to: "/ai-in-qa", label: "AI in QA" },
     { to: "/jobs", label: "Jobs" },
   ];
