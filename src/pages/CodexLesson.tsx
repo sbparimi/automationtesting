@@ -11,6 +11,9 @@ const CodexLesson = () => {
   
   // Flatten all lessons from all courses and sections
   let allLessons: any[] = [];
+  let currentLesson: any = null;
+  let currentCourse: any = null;
+  let lessonIndex = -1;
   
   for (const course of allCodexCourses) {
     for (const section of course.sections) {
