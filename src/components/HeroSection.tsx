@@ -138,7 +138,7 @@ export const HeroSection = () => {
             
             <motion.div 
               className="relative bg-card border border-border rounded-3xl p-6 shadow-strong"
-              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(45, 212, 191, 0.3)" }}
+              whileHover={{ y: -5, boxShadow: "0 20px 40px -15px rgba(132, 204, 22, 0.3)" }}
               transition={{ duration: 0.3 }}
             >
               <div className="absolute -top-3 -right-3">
