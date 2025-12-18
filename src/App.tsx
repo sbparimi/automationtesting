@@ -23,6 +23,7 @@ import FrameworksCourse from "./pages/FrameworksCourse";
 import FrameworkLesson from "./pages/FrameworkLesson";
 import Auth from "./pages/Auth";
 import AdminPanel from "./pages/AdminPanel";
+import AdminLogin from "./pages/AdminLogin";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/jobs" element={<JobSearch />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/adminn" element={<AdminLogin />} />
           <Route path="/frameworks" element={<FrameworksCourse />} />
           <Route path="/framework-lesson/:lessonId" element={<FrameworkLesson />} />
           <Route path="/lesson/:lessonId" element={<TypeScriptLesson />} />
