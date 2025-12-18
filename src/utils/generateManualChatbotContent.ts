@@ -880,7 +880,6 @@ Target Thresholds:
         'Rasa NER Testing Best Practices',
         'Stanford NER Evaluation Metrics'
       ]
-    }
     },
 
     // ===== ADVANCED LLM TESTING TECHNIQUES =====
