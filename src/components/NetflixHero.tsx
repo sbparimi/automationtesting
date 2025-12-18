@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "./ui/badge";
-import { ArrowRight, Play, Clock, BookOpen, Code, TestTube, Brain, Users, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, Play, Clock, BookOpen, Code, TestTube, Brain, Users, Sparkles, TrendingUp, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface FeaturedCourse {
@@ -19,6 +19,17 @@ interface FeaturedCourse {
 }
 
 const featuredCourses: FeaturedCourse[] = [
+  {
+    id: "codex",
+    title: "AI Codex Mastery",
+    tagline: "10x Your Test Development Speed",
+    description: "Master GitHub Copilot and AI assistants to supercharge your Playwright and Cypress automation. From prompts to production-grade CI/CD pipelines.",
+    lessonCount: 160,
+    duration: "50+ hours",
+    path: "/codex-course",
+    icon: Bot,
+    gradient: "from-cyan-600 via-cyan-700 to-cyan-900"
+  },
   {
     id: "typescript",
     title: "Master TypeScript",
@@ -207,8 +218,7 @@ export const NetflixHero = () => {
             <Link to="/auth">
               <Button 
                 size="lg"
-                variant="outline"
-                className="border-2 border-white/50 text-white hover:bg-white/10 px-8 py-6 text-lg font-bold rounded-xl"
+                className="bg-primary/90 text-primary-foreground hover:bg-primary px-8 py-6 text-lg font-bold rounded-xl border-2 border-primary"
               >
                 Sign Up Free
                 <ArrowRight className="w-5 h-5 ml-2" />

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { SearchDialog } from "./SearchDialog";
 
 export const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -64,8 +65,9 @@ export const Navigation = () => {
             ))}
           </div>
 
-          {/* Auth Section */}
+          {/* Search & Auth Section */}
           <div className="hidden lg:flex items-center gap-2">
+            <SearchDialog />
             {loading ? (
               <div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
             ) : user ? (
