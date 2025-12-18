@@ -41,9 +41,8 @@ export const HeroSection = () => {
 
             {/* Quick Value Props - 5 Second Rule */}
             <div className="grid grid-cols-2 gap-3 mb-8">
-              {[
+{[
                 { icon: Target, text: 'Job-Ready Skills' },
-                { icon: Clock, text: '20 Min/Day' },
                 { icon: TrendingUp, text: 'Career Growth' },
                 { icon: Zap, text: 'Instant Access' }
               ].map((item, i) => (
