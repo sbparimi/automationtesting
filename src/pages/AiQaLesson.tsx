@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, CheckCircle, AlertTriangle, BookOpen, Lightbulb, Target, ExternalLink, Sparkles } from "lucide-react";
 import { allAiInQaCourses } from "@/data/aiInQaLessons";
 import { generateAiInQaContent } from "@/utils/generateAiInQaContent";
+import { generateBotiumContent } from "@/utils/generateBotiumContent";
+import { generateManualChatbotContent } from "@/utils/generateManualChatbotContent";
 
 const AiQaLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
@@ -64,7 +66,12 @@ const AiQaLesson = () => {
     );
   }
 
-  const content = generateAiInQaContent(lessonId!, currentLesson.title);
+  // Generate content based on lesson type
+  const content = lessonId?.startsWith('botium-') 
+    ? generateBotiumContent(lessonId, currentLesson.title)
+    : lessonId?.startsWith('manual-bot-')
+    ? generateManualChatbotContent(lessonId, currentLesson.title)
+    : generateAiInQaContent(lessonId!, currentLesson.title);
 
   const getLevelColor = (level: string) => {
     switch (level) {

@@ -610,6 +610,297 @@ export const botiumAdvancedCourse: Course = {
   ],
 };
 
+// MANUAL CHATBOT TESTING COURSE (3 Levels)
+// Comprehensive course on manual testing of conversational AI using Botium and similar tools
+
+export const manualChatbotBasicCourse: Course = {
+  id: 'manual-chatbot-basic',
+  title: 'Manual Chatbot Testing Foundations',
+  description: 'Essential skills for manual testers to validate conversational AI systems - from architecture understanding to practical test execution',
+  sections: [
+    {
+      id: 'manual-bot-section-1',
+      title: 'Section 1: Understanding Conversational AI (12 lessons)',
+      description: 'Architecture, components, and testing philosophy for chatbots',
+      lessons: [
+        { id: 'manual-bot-001', title: 'Understanding Conversational AI Architecture for Manual Testing', duration: '55 min', level: 'basic', isFree: true },
+        { id: 'manual-bot-002', title: 'Non-Deterministic Systems: Testing Philosophy and Approach', duration: '60 min', level: 'basic', isFree: true },
+        { id: 'manual-bot-003', title: 'Test Case Design for Intent Classification', duration: '58 min', level: 'basic', isFree: true },
+        { id: 'manual-bot-004', title: 'Entity Extraction Testing Techniques', duration: '55 min', level: 'basic', isFree: true },
+        { id: 'manual-bot-005', title: 'Dialog Flow Testing Fundamentals', duration: '52 min', level: 'basic' },
+        { id: 'manual-bot-006', title: 'Context and Memory Testing in Conversations', duration: '58 min', level: 'basic' },
+        { id: 'manual-bot-007', title: 'LLM Basics Every Tester Must Know', duration: '62 min', level: 'basic' },
+        { id: 'manual-bot-008', title: 'Tokenization, Context Windows, and Temperature', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-009', title: 'Prompt Engineering for Testers', duration: '60 min', level: 'basic' },
+        { id: 'manual-bot-010', title: 'Understanding Model Confidence Scores', duration: '48 min', level: 'basic' },
+        { id: 'manual-bot-011', title: 'Test Environment Setup and Configuration', duration: '45 min', level: 'basic' },
+        { id: 'manual-bot-012', title: 'Introduction to Botium Framework', duration: '65 min', level: 'basic' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-2',
+      title: 'Section 2: Test Case Design and Execution (14 lessons)',
+      description: 'Practical techniques for creating and executing chatbot test cases',
+      lessons: [
+        { id: 'manual-bot-013', title: 'Writing BotiumScript Test Cases', duration: '58 min', level: 'basic' },
+        { id: 'manual-bot-014', title: 'Conversation Flow Test Design', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-015', title: 'Utterance Variation Generation Techniques', duration: '52 min', level: 'basic' },
+        { id: 'manual-bot-016', title: 'Test Data Creation for Chatbots', duration: '60 min', level: 'basic' },
+        { id: 'manual-bot-017', title: 'Boundary Testing for Conversational Systems', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-018', title: 'Negative Testing and Fallback Scenarios', duration: '58 min', level: 'basic' },
+        { id: 'manual-bot-019', title: 'Multi-Turn Conversation Testing', duration: '62 min', level: 'basic' },
+        { id: 'manual-bot-020', title: 'Context Retention Validation', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-021', title: 'Error Handling and Recovery Testing', duration: '50 min', level: 'basic' },
+        { id: 'manual-bot-022', title: 'Response Quality Assessment', duration: '58 min', level: 'basic' },
+        { id: 'manual-bot-023', title: 'Semantic Equivalence Validation', duration: '60 min', level: 'basic' },
+        { id: 'manual-bot-024', title: 'Test Execution Best Practices', duration: '45 min', level: 'basic' },
+        { id: 'manual-bot-025', title: 'Defect Reporting for Chatbots', duration: '48 min', level: 'basic' },
+        { id: 'manual-bot-026', title: 'Test Documentation Standards', duration: '42 min', level: 'basic' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-3',
+      title: 'Section 3: Calculations and Formulas (10 lessons)',
+      description: 'Essential metrics and statistical methods for chatbot testing',
+      lessons: [
+        { id: 'manual-bot-027', title: 'Intent Classification Accuracy Calculation', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-028', title: 'Precision, Recall, and F1 Score', duration: '60 min', level: 'basic' },
+        { id: 'manual-bot-029', title: 'Confidence Interval Calculations', duration: '58 min', level: 'basic' },
+        { id: 'manual-bot-030', title: 'Sample Size Determination for Testing', duration: '52 min', level: 'basic' },
+        { id: 'manual-bot-031', title: 'Semantic Similarity Scoring', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-032', title: 'Response Time Percentile Analysis', duration: '48 min', level: 'basic' },
+        { id: 'manual-bot-033', title: 'Confusion Matrix Analysis', duration: '60 min', level: 'basic' },
+        { id: 'manual-bot-034', title: 'Test Coverage Metrics for Chatbots', duration: '55 min', level: 'basic' },
+        { id: 'manual-bot-035', title: 'Quality Score Aggregation', duration: '50 min', level: 'basic' },
+        { id: 'manual-bot-036', title: 'Statistical Significance in Test Results', duration: '58 min', level: 'basic' },
+      ],
+    },
+  ],
+};
+
+export const manualChatbotIntermediateCourse: Course = {
+  id: 'manual-chatbot-intermediate',
+  title: 'Manual Chatbot Testing Professional',
+  description: 'Advanced techniques for testing LLM-based systems, performance testing, and enterprise chatbot validation',
+  sections: [
+    {
+      id: 'manual-bot-section-4',
+      title: 'Section 4: LLM-Specific Testing (14 lessons)',
+      description: 'Testing techniques specific to Large Language Model based chatbots',
+      lessons: [
+        { id: 'manual-bot-int-001', title: 'LLM Architecture Deep Dive for Testers', duration: '65 min', level: 'intermediate' },
+        { id: 'manual-bot-int-002', title: 'Hallucination Detection and Testing', duration: '62 min', level: 'intermediate' },
+        { id: 'manual-bot-int-003', title: 'Prompt Injection Vulnerability Testing', duration: '68 min', level: 'intermediate' },
+        { id: 'manual-bot-int-004', title: 'Context Window Boundary Testing', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-005', title: 'Token Limit Edge Case Testing', duration: '52 min', level: 'intermediate' },
+        { id: 'manual-bot-int-006', title: 'Temperature and Sampling Parameter Testing', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-007', title: 'Response Consistency Testing Across Sessions', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-008', title: 'RAG System Testing (Retrieval Augmented Generation)', duration: '70 min', level: 'intermediate' },
+        { id: 'manual-bot-int-009', title: 'Testing Fine-Tuned Models', duration: '62 min', level: 'intermediate' },
+        { id: 'manual-bot-int-010', title: 'Model Version Regression Testing', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-011', title: 'Embedding Quality Validation', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-012', title: 'Chain-of-Thought Validation', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-013', title: 'Multi-Modal Input Testing', duration: '65 min', level: 'intermediate' },
+        { id: 'manual-bot-int-014', title: 'LLM Safety and Guardrail Testing', duration: '68 min', level: 'intermediate' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-5',
+      title: 'Section 5: Performance and Load Testing (12 lessons)',
+      description: 'Validating chatbot performance under various conditions',
+      lessons: [
+        { id: 'manual-bot-int-015', title: 'Response Time Testing Methodology', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-016', title: 'Concurrent User Simulation Testing', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-017', title: 'Stress Testing Conversational Systems', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-018', title: 'API Rate Limit Testing', duration: '52 min', level: 'intermediate' },
+        { id: 'manual-bot-int-019', title: 'Token Consumption Monitoring', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-020', title: 'Cold Start and Warm-up Testing', duration: '50 min', level: 'intermediate' },
+        { id: 'manual-bot-int-021', title: 'Long Conversation Performance', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-022', title: 'Timeout and Retry Behavior Testing', duration: '52 min', level: 'intermediate' },
+        { id: 'manual-bot-int-023', title: 'Caching Effectiveness Validation', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-024', title: 'Resource Utilization Monitoring', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-025', title: 'Performance Baseline Establishment', duration: '52 min', level: 'intermediate' },
+        { id: 'manual-bot-int-026', title: 'Performance Regression Detection', duration: '55 min', level: 'intermediate' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-6',
+      title: 'Section 6: Integration and Channel Testing (12 lessons)',
+      description: 'Testing chatbots across different platforms and integrations',
+      lessons: [
+        { id: 'manual-bot-int-027', title: 'Multi-Channel Testing Strategy', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-028', title: 'Web Widget Testing', duration: '52 min', level: 'intermediate' },
+        { id: 'manual-bot-int-029', title: 'Mobile App Chatbot Testing', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-030', title: 'Voice Channel Testing (Alexa, Google)', duration: '65 min', level: 'intermediate' },
+        { id: 'manual-bot-int-031', title: 'Messaging Platform Testing (WhatsApp, FB)', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-032', title: 'Teams and Slack Integration Testing', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-033', title: 'CRM Integration Validation', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-034', title: 'Backend API Integration Testing', duration: '62 min', level: 'intermediate' },
+        { id: 'manual-bot-int-035', title: 'Authentication and Authorization Testing', duration: '60 min', level: 'intermediate' },
+        { id: 'manual-bot-int-036', title: 'Webhook Testing for Chatbots', duration: '55 min', level: 'intermediate' },
+        { id: 'manual-bot-int-037', title: 'Third-Party Service Integration Testing', duration: '58 min', level: 'intermediate' },
+        { id: 'manual-bot-int-038', title: 'Channel-Specific Feature Testing', duration: '52 min', level: 'intermediate' },
+      ],
+    },
+  ],
+};
+
+export const manualChatbotAdvancedCourse: Course = {
+  id: 'manual-chatbot-advanced',
+  title: 'Manual Chatbot Testing Expert',
+  description: 'Enterprise-grade testing strategies, security testing, and building test centers of excellence for conversational AI',
+  sections: [
+    {
+      id: 'manual-bot-section-7',
+      title: 'Section 7: Security and Compliance Testing (14 lessons)',
+      description: 'Comprehensive security testing for enterprise chatbots',
+      lessons: [
+        { id: 'manual-bot-adv-001', title: 'Chatbot Security Testing Framework', duration: '65 min', level: 'advanced' },
+        { id: 'manual-bot-adv-002', title: 'Advanced Prompt Injection Attacks', duration: '70 min', level: 'advanced' },
+        { id: 'manual-bot-adv-003', title: 'Data Extraction and Leakage Testing', duration: '65 min', level: 'advanced' },
+        { id: 'manual-bot-adv-004', title: 'Jailbreak Attempt Testing', duration: '68 min', level: 'advanced' },
+        { id: 'manual-bot-adv-005', title: 'PII Detection and Protection Testing', duration: '62 min', level: 'advanced' },
+        { id: 'manual-bot-adv-006', title: 'GDPR Compliance Testing', duration: '60 min', level: 'advanced' },
+        { id: 'manual-bot-adv-007', title: 'HIPAA Compliance for Healthcare Bots', duration: '65 min', level: 'advanced' },
+        { id: 'manual-bot-adv-008', title: 'Financial Compliance (PCI-DSS)', duration: '60 min', level: 'advanced' },
+        { id: 'manual-bot-adv-009', title: 'Accessibility Testing for Chatbots', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-010', title: 'Audit Trail and Logging Verification', duration: '58 min', level: 'advanced' },
+        { id: 'manual-bot-adv-011', title: 'Session Security Testing', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-012', title: 'Input Sanitization Validation', duration: '52 min', level: 'advanced' },
+        { id: 'manual-bot-adv-013', title: 'Cross-Site Scripting Prevention', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-014', title: 'Security Test Report Writing', duration: '50 min', level: 'advanced' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-8',
+      title: 'Section 8: Bias and Ethical Testing (12 lessons)',
+      description: 'Ensuring fair, unbiased, and ethical chatbot behavior',
+      lessons: [
+        { id: 'manual-bot-adv-015', title: 'Understanding AI Bias in Chatbots', duration: '62 min', level: 'advanced' },
+        { id: 'manual-bot-adv-016', title: 'Bias Testing Methodology', duration: '65 min', level: 'advanced' },
+        { id: 'manual-bot-adv-017', title: 'Demographic Fairness Testing', duration: '60 min', level: 'advanced' },
+        { id: 'manual-bot-adv-018', title: 'Language and Cultural Bias Detection', duration: '58 min', level: 'advanced' },
+        { id: 'manual-bot-adv-019', title: 'Gender and Age Bias Testing', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-020', title: 'Harmful Content Generation Testing', duration: '62 min', level: 'advanced' },
+        { id: 'manual-bot-adv-021', title: 'Misinformation Detection Testing', duration: '60 min', level: 'advanced' },
+        { id: 'manual-bot-adv-022', title: 'Ethical Guidelines Compliance', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-023', title: 'User Manipulation Testing', duration: '58 min', level: 'advanced' },
+        { id: 'manual-bot-adv-024', title: 'Transparency and Explainability Testing', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-025', title: 'Bias Metric Calculations', duration: '60 min', level: 'advanced' },
+        { id: 'manual-bot-adv-026', title: 'Ethical Testing Documentation', duration: '52 min', level: 'advanced' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-9',
+      title: 'Section 9: Test Planning and Strategy (12 lessons)',
+      description: 'Building comprehensive test strategies for enterprise chatbots',
+      lessons: [
+        { id: 'manual-bot-adv-027', title: 'Enterprise Chatbot Test Strategy', duration: '70 min', level: 'advanced' },
+        { id: 'manual-bot-adv-028', title: 'Risk-Based Test Planning', duration: '65 min', level: 'advanced' },
+        { id: 'manual-bot-adv-029', title: 'Test Effort Estimation for Chatbots', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-030', title: 'Test Environment Strategy', duration: '58 min', level: 'advanced' },
+        { id: 'manual-bot-adv-031', title: 'Regression Test Suite Design', duration: '62 min', level: 'advanced' },
+        { id: 'manual-bot-adv-032', title: 'Test Data Management Strategy', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-033', title: 'Quality Gates Definition', duration: '52 min', level: 'advanced' },
+        { id: 'manual-bot-adv-034', title: 'Release Readiness Criteria', duration: '50 min', level: 'advanced' },
+        { id: 'manual-bot-adv-035', title: 'Production Monitoring Strategy', duration: '58 min', level: 'advanced' },
+        { id: 'manual-bot-adv-036', title: 'Continuous Improvement Framework', duration: '55 min', level: 'advanced' },
+        { id: 'manual-bot-adv-037', title: 'Test Metrics and Reporting', duration: '52 min', level: 'advanced' },
+        { id: 'manual-bot-adv-038', title: 'Stakeholder Communication', duration: '48 min', level: 'advanced' },
+      ],
+    },
+    {
+      id: 'manual-bot-section-10',
+      title: 'Section 10: Practical Projects (10 lessons)',
+      description: 'Hands-on projects to build production-ready testing skills',
+      lessons: [
+        { id: 'manual-bot-adv-039', title: 'Project 1: E-Commerce Chatbot Test Suite', duration: '95 min', level: 'advanced' },
+        { id: 'manual-bot-adv-040', title: 'Project 2: Banking Assistant Complete Testing', duration: '100 min', level: 'advanced' },
+        { id: 'manual-bot-adv-041', title: 'Project 3: Healthcare Bot Compliance Testing', duration: '95 min', level: 'advanced' },
+        { id: 'manual-bot-adv-042', title: 'Project 4: HR Chatbot Security Testing', duration: '90 min', level: 'advanced' },
+        { id: 'manual-bot-adv-043', title: 'Project 5: Customer Service LLM Testing', duration: '95 min', level: 'advanced' },
+        { id: 'manual-bot-adv-044', title: 'Project 6: Multi-Language Bot Testing', duration: '88 min', level: 'advanced' },
+        { id: 'manual-bot-adv-045', title: 'Project 7: Voice Assistant Testing', duration: '92 min', level: 'advanced' },
+        { id: 'manual-bot-adv-046', title: 'Project 8: Performance Test Suite', duration: '85 min', level: 'advanced' },
+        { id: 'manual-bot-adv-047', title: 'Project 9: Test Strategy Document', duration: '80 min', level: 'advanced' },
+        { id: 'manual-bot-adv-048', title: 'Project 10: Building a Testing COE', duration: '100 min', level: 'advanced' },
+      ],
+    },
+  ],
+};
+
+// Pareto Principle Learning Strategy for Botium Mastery
+export const botiumParetoStrategy = {
+  title: "Pareto 80/20 Learning Strategy: Master Botium in 30 Days",
+  description: "Focus on the 20% of lessons that will give you 80% of practical testing skills. This accelerated path prioritizes high-impact knowledge for immediate job readiness.",
+  keyInsight: "Research shows that 80% of real-world chatbot testing challenges can be addressed by mastering these core competencies. Follow this focused path to become job-ready in 30 days.",
+  phases: [
+    {
+      week: "Week 1: Foundations (Days 1-7)",
+      focus: "Understanding chatbot architecture and testing philosophy",
+      criticalLessons: [
+        { id: 'manual-bot-001', title: 'Understanding Conversational AI Architecture', reason: 'Foundation for all testing - know what you are testing' },
+        { id: 'manual-bot-002', title: 'Non-Deterministic Systems Testing', reason: 'Core philosophy that differentiates chatbot testing from traditional QA' },
+        { id: 'botium-basic-001', title: 'Botium Framework Introduction', reason: 'Primary tool you will use daily' },
+        { id: 'botium-basic-002', title: 'BotiumScript Fundamentals', reason: 'The language you will write all tests in' },
+        { id: 'manual-bot-027', title: 'Accuracy, Precision, Recall Calculations', reason: 'Metrics you will calculate and report constantly' },
+      ],
+      dailyGoal: "Complete 1 lesson per day, practice with exercises for 1 hour"
+    },
+    {
+      week: "Week 2: Core Testing Skills (Days 8-14)",
+      focus: "Hands-on test case design and execution",
+      criticalLessons: [
+        { id: 'manual-bot-003', title: 'Intent Classification Testing', reason: '40% of chatbot defects originate here - highest impact testing area' },
+        { id: 'manual-bot-004', title: 'Entity Extraction Testing', reason: 'Second most common defect source - critical for functional testing' },
+        { id: 'botium-basic-009', title: 'Writing Your First Test Cases', reason: 'Practical skill you need immediately' },
+        { id: 'botium-int-001', title: 'Advanced BotiumScript', reason: 'Professional-level test case authoring' },
+        { id: 'botium-int-012', title: 'Multi-Turn Conversation Testing', reason: 'Real chatbots have complex flows - must test properly' },
+      ],
+      dailyGoal: "Complete lesson + write 10 test cases applying the concepts"
+    },
+    {
+      week: "Week 3: Professional Practices (Days 15-21)",
+      focus: "Enterprise-grade testing and LLM-specific techniques",
+      criticalLessons: [
+        { id: 'manual-bot-int-002', title: 'Hallucination Detection', reason: 'Critical for LLM-based bots - most common production issue' },
+        { id: 'manual-bot-int-003', title: 'Prompt Injection Testing', reason: 'Security testing - every enterprise requires this' },
+        { id: 'botium-int-022', title: 'Non-Deterministic Response Assertions', reason: 'Solve the #1 challenge in chatbot automation' },
+        { id: 'botium-adv-011', title: 'Building Test Strategy', reason: 'Planning skills for lead/senior roles' },
+        { id: 'manual-bot-adv-001', title: 'Security Testing Framework', reason: 'Enterprise requirement for all deployments' },
+      ],
+      dailyGoal: "Complete lesson + practice on real chatbot (use public APIs/demos)"
+    },
+    {
+      week: "Week 4: Mastery & Portfolio (Days 22-30)",
+      focus: "Practical projects to build portfolio and confidence",
+      criticalLessons: [
+        { id: 'botium-adv-033', title: 'E-Commerce Bot Testing Project', reason: 'Complete project for portfolio' },
+        { id: 'botium-adv-034', title: 'Banking Bot Test Suite', reason: 'Industry-specific testing experience' },
+        { id: 'manual-bot-adv-027', title: 'Enterprise Test Strategy', reason: 'Documentation skills for interviews' },
+        { id: 'botium-adv-020', title: 'Test Metrics and KPIs', reason: 'Reporting skills managers look for' },
+        { id: 'manual-bot-adv-048', title: 'Building a Testing COE', reason: 'Leadership perspective for career growth' },
+      ],
+      dailyGoal: "Complete one mini-project demonstrating skills learned"
+    }
+  ],
+  quickWins: [
+    "Day 1: Set up Botium environment and run your first test",
+    "Day 3: Write 20 intent test cases for a sample chatbot",
+    "Day 7: Calculate accuracy metrics for a real chatbot",
+    "Day 14: Complete a 50-test case suite with multi-turn conversations",
+    "Day 21: Execute security tests including prompt injection",
+    "Day 30: Present a complete test strategy document"
+  ],
+  successMetrics: [
+    "Can write BotiumScript test cases without documentation reference",
+    "Comfortable calculating precision, recall, and F1 scores",
+    "Able to test LLM-specific issues (hallucination, injection)",
+    "Created at least 2 complete test suites for portfolio",
+    "Can articulate a testing strategy in interviews"
+  ]
+};
+
 // Export all courses
 export const allAiInQaCourses = [
   basicAiInQaCourse,
@@ -619,4 +910,7 @@ export const allAiInQaCourses = [
   botiumBasicCourse,
   botiumIntermediateCourse,
   botiumAdvancedCourse,
+  manualChatbotBasicCourse,
+  manualChatbotIntermediateCourse,
+  manualChatbotAdvancedCourse,
 ];
