@@ -3,10 +3,8 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Lock, Circle, CheckCircle2, Bookmark, ChevronDown, Sparkles, Award, Crown, BookOpen } from "lucide-react";
+import { Clock, Circle, CheckCircle2, Bookmark, ChevronDown, Sparkles, Award, Crown, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useSubscription } from "@/hooks/useSubscription";
-import { UpgradeModal } from "@/components/UpgradeModal";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface Lesson {
@@ -46,10 +44,6 @@ interface CourseSectionProps {
   levelLabel: string;
   levelColor: string;
   levelIcon: React.ReactNode;
-  startIndex: number;
-  isLessonFree: (courseId: string, lessonIndex: number) => boolean;
-  isPremium: () => boolean;
-  checkAccess: (title: string, index: number) => void;
   lessonPath: string;
   isSelected: boolean;
   onSelect: () => void;
@@ -60,17 +54,11 @@ const CourseSection = ({
   levelLabel, 
   levelColor, 
   levelIcon, 
-  startIndex,
-  isLessonFree,
-  isPremium,
-  checkAccess,
   lessonPath,
   isSelected,
   onSelect
 }: CourseSectionProps) => {
   const [openSections, setOpenSections] = useState<string[]>([course.sections[0]?.id || '']);
-  
-  let lessonNumber = startIndex;
 
   const toggleSection = (sectionId: string) => {
     setOpenSections(prev => 
@@ -82,7 +70,7 @@ const CourseSection = ({
 
   return (
     <div className="space-y-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-      {/* Course Header Card - Clickable for filtering */}
+      {/* Course Header Card */}
       <Card 
         className={`${levelColor} border-none cursor-pointer transition-all duration-300 hover:scale-[1.02] ${isSelected ? 'ring-4 ring-foreground/20 shadow-strong' : ''}`}
         onClick={onSelect}
@@ -97,6 +85,9 @@ const CourseSection = ({
             <Badge variant="secondary" className="bg-foreground/10 text-foreground border-none">
               {course.sections.reduce((acc, s) => acc + s.lessons.length, 0)} lessons
             </Badge>
+            <Badge variant="secondary" className="bg-foreground/10 text-foreground border-none">
+              FREE
+            </Badge>
           </div>
         </CardHeader>
       </Card>
@@ -104,7 +95,7 @@ const CourseSection = ({
       {/* Sections Accordion */}
       <div className="bg-card border rounded-xl overflow-hidden shadow-soft">
         {/* Contents Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b bg-gradient-to-r from-muted/50 to-muted/30">
+        <div className="flex items-center justify-between px-5 py-4 border-b bg-muted/30">
           <div className="flex items-center gap-2">
             <span className="text-lg font-semibold text-foreground">Contents</span>
             <Badge variant="outline" className="text-xs">{course.sections.length} sections</Badge>
@@ -124,7 +115,7 @@ const CourseSection = ({
               <CollapsibleTrigger className="w-full">
                 <div className={`flex items-center justify-between px-5 py-4 hover:bg-muted/50 transition-all duration-200 border-b ${isOpen ? 'bg-muted/30' : ''}`}>
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isOpen ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${isOpen ? 'bg-primary text-foreground' : 'bg-muted text-muted-foreground'}`}>
                       {sectionIndex + 1}
                     </div>
                     <span className="font-semibold text-foreground text-left">
@@ -141,51 +132,30 @@ const CourseSection = ({
               <CollapsibleContent>
                 <div className="border-b bg-muted/10">
                   {section.lessons.map((lesson) => {
-                    lessonNumber++;
-                    const globalIndex = lessonNumber - 1;
-                    const isFree = isLessonFree('', globalIndex);
-                    const hasAccess = isPremium() || isFree;
                     const isCompleted = false;
-
-                    const handleClick = (e: React.MouseEvent) => {
-                      if (!hasAccess) {
-                        e.preventDefault();
-                        checkAccess(lesson.title, globalIndex);
-                      }
-                    };
 
                     return (
                       <Link
                         key={lesson.id}
-                        to={hasAccess ? `/${lessonPath}/${lesson.id}` : '#'}
-                        onClick={handleClick}
-                        className={`flex items-center justify-between px-5 py-3.5 hover:bg-muted/40 transition-all duration-200 group border-b border-muted/30 last:border-b-0 ${
-                          !hasAccess ? 'opacity-60' : ''
-                        }`}
+                        to={`/${lessonPath}/${lesson.id}`}
+                        className="flex items-center justify-between px-5 py-3.5 hover:bg-muted/40 transition-all duration-200 group border-b border-muted/30 last:border-b-0"
                       >
                         <div className="flex items-center gap-3 flex-1 min-w-0">
                           {/* Status Circle */}
-                          {hasAccess ? (
-                            isCompleted ? (
-                              <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                            ) : (
-                              <Circle className="w-5 h-5 text-muted-foreground flex-shrink-0 group-hover:text-primary transition-colors" />
-                            )
+                          {isCompleted ? (
+                            <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                           ) : (
-                            <Lock className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                            <Circle className="w-5 h-5 text-muted-foreground flex-shrink-0 group-hover:text-primary transition-colors" />
                           )}
                           
                           {/* Lesson Info */}
                           <div className="flex flex-col min-w-0">
-                            <span className={`text-sm font-medium truncate transition-colors ${hasAccess ? 'text-foreground group-hover:text-primary' : 'text-muted-foreground'}`}>
+                            <span className="text-sm font-medium truncate transition-colors text-foreground group-hover:text-primary">
                               {lesson.title}
                             </span>
                             <div className="flex items-center gap-2 text-xs text-muted-foreground mt-0.5">
                               <Clock className="w-3 h-3" />
                               <span>{lesson.duration}</span>
-                              {isFree && (
-                                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 bg-primary/10 text-primary border-primary/20">FREE</Badge>
-                              )}
                             </div>
                           </div>
                         </div>
@@ -206,15 +176,11 @@ const CourseSection = ({
 };
 
 export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, roleJourney }: CourseLayoutProps) => {
-  const { isLessonFree, isPremium, showUpgradeModal, setShowUpgradeModal, triggerSource, checkAccess } = useSubscription();
   const [activeFilter, setActiveFilter] = useState<LevelFilter>('all');
 
-  // Calculate total lessons and starting indices
+  // Calculate total lessons
   let totalLessons = 0;
-  const courseStartIndices: number[] = [];
-  
   courses.forEach((course) => {
-    courseStartIndices.push(totalLessons);
     course.sections.forEach(section => {
       totalLessons += section.lessons.length;
     });
@@ -224,25 +190,38 @@ export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, 
     { 
       course: courses[0], 
       levelLabel: 'For Beginners', 
-      levelColor: 'bg-gradient-to-br from-[hsl(48,96%,75%)] to-[hsl(38,90%,70%)]',
+      levelColor: 'bg-gradient-to-br from-[hsl(95,70%,85%)] to-[hsl(95,70%,78%)]',
       levelIcon: <BookOpen className="w-7 h-7 text-foreground" />,
       filterKey: 'beginner' as LevelFilter
     },
     { 
       course: courses[1], 
       levelLabel: 'For Professionals', 
-      levelColor: 'bg-gradient-to-br from-[hsl(145,70%,65%)] to-[hsl(155,65%,55%)]',
+      levelColor: 'bg-gradient-to-br from-[hsl(95,70%,75%)] to-[hsl(95,70%,68%)]',
       levelIcon: <Award className="w-7 h-7 text-foreground" />,
       filterKey: 'professional' as LevelFilter
     },
     { 
       course: courses[2], 
       levelLabel: 'For Practitioners', 
-      levelColor: 'bg-gradient-to-br from-[hsl(195,90%,65%)] to-[hsl(205,85%,55%)]',
+      levelColor: 'bg-gradient-to-br from-[hsl(95,70%,65%)] to-[hsl(95,70%,55%)]',
       levelIcon: <Crown className="w-7 h-7 text-foreground" />,
       filterKey: 'practitioner' as LevelFilter
     },
   ];
+
+  // Handle additional courses (like Bot Framework)
+  if (courses.length > 3) {
+    for (let i = 3; i < courses.length; i++) {
+      courseConfigs.push({
+        course: courses[i],
+        levelLabel: courses[i].title,
+        levelColor: 'bg-gradient-to-br from-[hsl(95,70%,70%)] to-[hsl(95,70%,60%)]',
+        levelIcon: <BookOpen className="w-7 h-7 text-foreground" />,
+        filterKey: 'all' as LevelFilter
+      });
+    }
+  }
 
   const filteredConfigs = activeFilter === 'all' 
     ? courseConfigs 
@@ -255,17 +234,16 @@ export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} triggerSource={triggerSource} />
       
       <div className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Hero Section with enhanced animations */}
+          {/* Hero Section */}
           <div className="text-center mb-16 animate-fade-in">
-            <Badge className="mb-6 bg-gradient-button shadow-glow animate-pulse-glow">
+            <Badge className="mb-6 bg-primary text-foreground shadow-glow">
               <Sparkles className="w-3 h-3 mr-1" />
-              {badgeText} • {totalLessons}+ Lessons
+              {badgeText} • {totalLessons}+ Free Lessons
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-foreground to-secondary bg-clip-text text-transparent animate-slide-up">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground animate-slide-up">
               {title}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
@@ -279,11 +257,7 @@ export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, 
                   <div key={role} className="flex items-center gap-2">
                     <Badge 
                       variant="outline" 
-                      className={`transition-all duration-300 hover:scale-105 ${
-                        index < 2 ? 'bg-primary/5 border-primary/20' : 
-                        index < 4 ? 'bg-amber-500/10 text-amber-600 border-amber-500/20' : 
-                        'bg-secondary/10 text-secondary border-secondary/20'
-                      }`}
+                      className="transition-all duration-300 hover:scale-105 bg-primary/10 border-primary/30"
                     >
                       {role}
                     </Badge>
@@ -307,7 +281,7 @@ export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, 
               >
                 All Courses
               </button>
-              {courseConfigs.map(config => (
+              {courseConfigs.slice(0, 3).map(config => (
                 <button
                   key={config.filterKey}
                   onClick={() => setActiveFilter(config.filterKey)}
@@ -329,17 +303,13 @@ export const CourseLayout = ({ title, subtitle, badgeText, courses, lessonPath, 
             filteredConfigs.length === 2 ? 'lg:grid-cols-2' : 
             'lg:grid-cols-3'
           }`}>
-            {filteredConfigs.map((config, index) => (
+            {filteredConfigs.map((config) => (
               <CourseSection
                 key={config.course.id}
                 course={config.course}
                 levelLabel={config.levelLabel}
                 levelColor={config.levelColor}
                 levelIcon={config.levelIcon}
-                startIndex={courseStartIndices[courseConfigs.findIndex(c => c.filterKey === config.filterKey)]}
-                isLessonFree={isLessonFree}
-                isPremium={isPremium}
-                checkAccess={checkAccess}
                 lessonPath={lessonPath}
                 isSelected={activeFilter === config.filterKey}
                 onSelect={() => handleCardSelect(config.filterKey)}
