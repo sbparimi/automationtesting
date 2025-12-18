@@ -115,7 +115,7 @@ const Auth = () => {
               <span className="text-2xl font-bold text-primary-foreground">Q</span>
             </div>
             <CardTitle className="text-2xl font-bold">Welcome to QAForge</CardTitle>
-            <CardDescription>Sign in to access premium courses and content</CardDescription>
+            <CardDescription>Sign in to access all courses for free</CardDescription>
           </CardHeader>
           
           <CardContent>
@@ -226,7 +226,7 @@ const Auth = () => {
             
             <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
               <p className="text-sm text-center text-muted-foreground">
-                After signup, contact us via WhatsApp to unlock premium content with our €2.99/month plan.
+                All courses are completely free. Sign up and start learning today!
               </p>
             </div>
           </CardContent>
