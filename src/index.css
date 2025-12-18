@@ -16,24 +16,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 13% 10%;
 
-    /* Primary - Dark Lemon Green (#84CC16 / HSL: 84 81% 44%) */
-    --primary: 84 81% 44%;
-    --primary-foreground: 220 13% 10%;
-    --primary-hover: 84 81% 38%;
+    /* Primary - Darker Lemon Green (#65A30D / HSL: 84 85% 35%) */
+    --primary: 84 85% 35%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 84 85% 28%;
     
     /* Secondary - Dark for contrast */
     --secondary: 220 13% 15%;
     --secondary-foreground: 0 0% 100%;
     
     /* Success Green */
-    --success: 84 81% 44%;
-    --success-foreground: 220 13% 10%;
+    --success: 84 85% 35%;
+    --success-foreground: 0 0% 100%;
 
     /* Muted - Darker for better readability */
     --muted: 220 13% 96%;
-    --muted-foreground: 220 13% 25%;
+    --muted-foreground: 220 13% 20%;
 
-    --accent: 84 81% 92%;
+    --accent: 84 85% 92%;
     --accent-foreground: 220 13% 10%;
 
     /* Status Colors */
@@ -46,24 +46,24 @@
     /* Borders & Inputs */
     --border: 220 13% 88%;
     --input: 220 13% 88%;
-    --ring: 84 81% 44%;
+    --ring: 84 85% 35%;
 
-    /* Gradients - Dark Lemon Green theme */
-    --gradient-primary: linear-gradient(135deg, hsl(84 81% 44%), hsl(84 81% 38%));
-    --gradient-hero: linear-gradient(135deg, hsl(84 81% 44% / 0.05) 0%, hsl(84 81% 44% / 0.15) 100%);
+    /* Gradients - Darker Lemon Green theme */
+    --gradient-primary: linear-gradient(135deg, hsl(84 85% 35%), hsl(84 85% 28%));
+    --gradient-hero: linear-gradient(135deg, hsl(84 85% 35% / 0.05) 0%, hsl(84 85% 35% / 0.15) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 13% 98%));
-    --gradient-button: linear-gradient(135deg, hsl(84 81% 44%), hsl(84 81% 38%));
+    --gradient-button: linear-gradient(135deg, hsl(84 85% 35%), hsl(84 85% 28%));
     
-    /* Level Colors - Lemon Green gradients */
-    --level-beginner: 84 81% 88%;
-    --level-professional: 84 81% 78%;
-    --level-practitioner: 84 81% 62%;
+    /* Level Colors - Darker Lemon Green gradients */
+    --level-beginner: 84 85% 85%;
+    --level-professional: 84 85% 72%;
+    --level-practitioner: 84 85% 55%;
     
-    /* Shadows - Subtle with lemon green glow */
+    /* Shadows - Subtle with darker lemon green glow */
     --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
     --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 25px rgba(132, 204, 22, 0.4);
+    --shadow-glow: 0 0 25px rgba(101, 163, 13, 0.4);
     
     /* Smooth Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,7 +78,7 @@
     --sidebar-accent: 220 13% 96%;
     --sidebar-accent-foreground: 220 13% 10%;
     --sidebar-border: 220 13% 88%;
-    --sidebar-ring: 84 81% 44%;
+    --sidebar-ring: 84 85% 35%;
   }
 
   .dark {
@@ -88,9 +88,9 @@
     --card-foreground: 0 0% 95%;
     --muted: 220 13% 18%;
     --muted-foreground: 220 9% 75%;
-    --primary: 84 81% 44%;
-    --primary-foreground: 220 13% 10%;
-    --accent: 84 81% 20%;
+    --primary: 84 85% 40%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 84 85% 20%;
   }
 }
 
@@ -127,8 +127,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(132, 204, 22, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(132, 204, 22, 0.6); }
+    0%, 100% { box-shadow: 0 0 20px rgba(101, 163, 13, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(101, 163, 13, 0.6); }
   }
 
   @keyframes slide-up {
@@ -179,8 +179,8 @@
   }
 
   @keyframes glow-pulse {
-    0%, 100% { filter: drop-shadow(0 0 15px rgba(132, 204, 22, 0.4)); }
-    50% { filter: drop-shadow(0 0 30px rgba(132, 204, 22, 0.7)); }
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(101, 163, 13, 0.4)); }
+    50% { filter: drop-shadow(0 0 30px rgba(101, 163, 13, 0.7)); }
   }
 
   .animate-float { animation: float 3s ease-in-out infinite; }
@@ -228,17 +228,17 @@
     box-shadow: var(--shadow-strong);
   }
 
-  /* Level card gradients - Dark Lemon Green theme */
+  /* Level card gradients - Darker Lemon Green theme */
   .level-beginner {
-    background: linear-gradient(135deg, hsl(84 81% 88%), hsl(84 81% 82%));
+    background: linear-gradient(135deg, hsl(84 85% 82%), hsl(84 85% 75%));
   }
 
   .level-professional {
-    background: linear-gradient(135deg, hsl(84 81% 78%), hsl(84 81% 68%));
+    background: linear-gradient(135deg, hsl(84 85% 70%), hsl(84 85% 60%));
   }
 
   .level-practitioner {
-    background: linear-gradient(135deg, hsl(84 81% 62%), hsl(84 81% 50%));
+    background: linear-gradient(135deg, hsl(84 85% 55%), hsl(84 85% 42%));
   }
 
   /* Testimonial card */
