@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Star, Sparkles, Play, CheckCircle2, Lock, Crown } from "lucide-react";
+import { ArrowRight, Users, Star, CheckCircle2, BookOpen, Sparkles, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CountdownTimer } from "./CountdownTimer";
 import { SkillsChart } from "./SkillsChart";
 import { Badge } from "./ui/badge";
 
@@ -9,24 +8,8 @@ export const HeroSection = () => {
   return (
     <section className="min-h-screen bg-background pt-24 relative overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-blob" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: '2s' }} />
-      
-      {/* Urgency Banner - Top */}
-      <div className="bg-primary/10 border-b border-primary/20 py-3">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-center gap-3 flex-wrap">
-          <Sparkles className="w-5 h-5 text-primary animate-bounce-subtle" />
-          <span className="text-foreground font-medium">
-            🔥 Limited Time: 60% OFF all plans! Offer ends in: 
-          </span>
-          <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full font-bold">
-            <CountdownTimer initialMinutes={10} />
-          </span>
-          <Badge variant="secondary" className="bg-success/10 text-success border-success/20">
-            5 FREE lessons per course
-          </Badge>
-        </div>
-      </div>
+      <div className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
       
       {/* Main Hero Area */}
       <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 relative z-10">
@@ -34,70 +17,51 @@ export const HeroSection = () => {
           {/* Left Content */}
           <div className="animate-slide-in-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6 animate-bounce-subtle">
-              <Crown className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">#1 QA Automation Learning Platform</span>
+            <div className="inline-flex items-center gap-2 bg-primary/20 rounded-full px-4 py-2 mb-6">
+              <Sparkles className="w-4 h-4 text-foreground" />
+              <span className="text-sm font-semibold text-foreground">100% FREE LEARNING PLATFORM</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.1] mb-6">
               Master QA Automation
               <br />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-gradient">
+              <span className="text-foreground">
                 Get Hired Faster
               </span>
             </h1>
             
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed max-w-lg">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg">
               Join <span className="text-foreground font-semibold">782+ learners</span> who transformed their careers with production-grade TypeScript, Playwright, Cypress, and AI automation skills.
             </p>
 
-            {/* Trial Info */}
-            <div className="bg-muted/50 rounded-2xl p-4 mb-6 border border-border">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                  <Lock className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">Try Before You Buy</p>
-                  <p className="text-sm text-muted-foreground">First 5 lessons of each course are completely FREE</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {['TypeScript', 'Playwright', 'Cypress', 'AI in QA', 'Test Management'].map((course) => (
-                  <Badge key={course} variant="outline" className="bg-background">
-                    {course} • 5 free
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
             {/* Feature List */}
-            <div className="flex flex-col gap-2 mb-6">
+            <div className="flex flex-col gap-3 mb-8">
               {[
-                '160+ lessons per course',
+                'All 500+ lessons completely FREE',
                 'Production-grade code examples',
-                'Junior to Director career path'
+                'Junior to Director career path',
+                'No credit card required'
               ].map((feature, i) => (
-                <div key={feature} className="flex items-center gap-2 animate-slide-up" style={{ animationDelay: `${0.3 + i * 0.1}s` }}>
+                <div key={feature} className="flex items-center gap-3 animate-slide-up" style={{ animationDelay: `${0.3 + i * 0.1}s` }}>
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="text-muted-foreground">{feature}</span>
+                  <span className="text-foreground">{feature}</span>
                 </div>
               ))}
             </div>
             
-            <div className="flex items-center gap-4 mb-8">
-              <Button 
-                size="lg"
-                className="bg-foreground hover:bg-foreground/90 text-background px-8 py-6 rounded-xl text-base font-semibold transition-all hover:scale-105 group shadow-strong"
-                onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Start Free Trial
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-foreground">€2.99</p>
-                <p className="text-xs text-muted-foreground">/week after trial</p>
-              </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+              <Link to="/auth">
+                <Button 
+                  size="lg"
+                  className="bg-primary hover:bg-primary-hover text-foreground px-8 py-6 rounded-full text-base font-semibold transition-all hover:scale-105 group shadow-medium"
+                >
+                  Start Learning Free
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <p className="text-muted-foreground text-sm">
+                Sign up and access all courses instantly
+              </p>
             </div>
             
             {/* Social Proof */}
@@ -121,9 +85,8 @@ export const HeroSection = () => {
           {/* Right Visual - Skills Chart */}
           <div className="relative hidden lg:block animate-slide-in-right">
             <div className="absolute -top-10 -right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse-glow"></div>
-            <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-secondary/20 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1s' }}></div>
             
-            <div className="relative bg-card border border-border rounded-3xl p-6 shadow-xl">
+            <div className="relative bg-card border border-border rounded-3xl p-6 shadow-medium">
               <h3 className="text-lg font-semibold text-foreground mb-2 text-center">
                 Skills That Get You Hired
               </h3>
@@ -136,11 +99,12 @@ export const HeroSection = () => {
       {/* Course Cards Section */}
       <div id="courses" className="max-w-7xl mx-auto px-6 pb-20">
         <div className="text-center mb-12 animate-fade-in">
-          <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">
-            5 FREE LESSONS INCLUDED
+          <Badge className="bg-primary text-foreground mb-4">
+            <GraduationCap className="w-3 h-3 mr-1" />
+            ALL COURSES FREE
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Choose Your Learning Path</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">Try any course with 5 free lessons. Upgrade to unlock 160+ lessons per course.</p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">All 500+ lessons are completely free. Just sign up and start learning today.</p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6">
@@ -149,7 +113,8 @@ export const HeroSection = () => {
             <div className="level-beginner rounded-3xl p-8 h-full transition-all duration-500 hover:scale-[1.03] hover:shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-foreground/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <Badge className="bg-foreground/10 text-foreground border-foreground/20 mb-3">
-                5 lessons FREE
+                <BookOpen className="w-3 h-3 mr-1" />
+                Free Access
               </Badge>
               <p className="text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wide">For Beginners</p>
               <h3 className="text-2xl font-bold text-foreground mb-4">
@@ -159,7 +124,7 @@ export const HeroSection = () => {
               </h3>
               <p className="text-foreground/60 text-sm mb-6">Foundation concepts, basic automation, and essential testing skills.</p>
               <div className="flex items-center text-foreground font-medium group-hover:gap-3 gap-2 transition-all">
-                <span>Start Free</span>
+                <span>Start Learning</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
@@ -170,7 +135,8 @@ export const HeroSection = () => {
             <div className="level-professional rounded-3xl p-8 h-full transition-all duration-500 hover:scale-[1.03] hover:shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-foreground/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <Badge className="bg-foreground/10 text-foreground border-foreground/20 mb-3">
-                5 lessons FREE
+                <BookOpen className="w-3 h-3 mr-1" />
+                Free Access
               </Badge>
               <p className="text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wide">For Professionals</p>
               <h3 className="text-2xl font-bold text-foreground mb-4">
@@ -180,7 +146,7 @@ export const HeroSection = () => {
               </h3>
               <p className="text-foreground/60 text-sm mb-6">TypeScript, frameworks, CI/CD, and professional patterns.</p>
               <div className="flex items-center text-foreground font-medium group-hover:gap-3 gap-2 transition-all">
-                <span>Start Free</span>
+                <span>Start Learning</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
@@ -191,7 +157,8 @@ export const HeroSection = () => {
             <div className="level-practitioner rounded-3xl p-8 h-full transition-all duration-500 hover:scale-[1.03] hover:shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-foreground/5 rounded-full -translate-y-1/2 translate-x-1/2" />
               <Badge className="bg-foreground/10 text-foreground border-foreground/20 mb-3">
-                5 lessons FREE
+                <BookOpen className="w-3 h-3 mr-1" />
+                Free Access
               </Badge>
               <p className="text-sm font-semibold text-foreground/70 mb-2 uppercase tracking-wide">For Practitioners</p>
               <h3 className="text-2xl font-bold text-foreground mb-4">
@@ -201,7 +168,7 @@ export const HeroSection = () => {
               </h3>
               <p className="text-foreground/60 text-sm mb-6">Team leadership, test strategy, and enterprise governance.</p>
               <div className="flex items-center text-foreground font-medium group-hover:gap-3 gap-2 transition-all">
-                <span>Start Free</span>
+                <span>Start Learning</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>

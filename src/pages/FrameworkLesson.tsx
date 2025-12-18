@@ -1,18 +1,14 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight, Clock, Lock, BookOpen, MessageCircle, Crown } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, BookOpen } from "lucide-react";
 import { allFrameworksCourses } from "@/data/frameworksLessons";
-import { useSubscription } from "@/hooks/useSubscription";
-import { UpgradeModal } from "@/components/UpgradeModal";
 
 const FrameworkLesson = () => {
   const { lessonId } = useParams<{ lessonId: string }>();
-  const navigate = useNavigate();
-  const { isPremium, checkAccess, showUpgradeModal, setShowUpgradeModal, triggerSource } = useSubscription();
 
   // Find the lesson across all courses
   let currentLesson = null;
@@ -47,53 +43,6 @@ const FrameworkLesson = () => {
   const prevLesson = lessonIndex > 0 ? allLessons[lessonIndex - 1] : null;
   const nextLesson = lessonIndex < allLessons.length - 1 ? allLessons[lessonIndex + 1] : null;
 
-  const canAccessLesson = currentLesson.isFree || isPremium();
-
-  const whatsappNumber = "31616270233";
-  const whatsappMessage = encodeURIComponent(`Hi! I want to access the lesson "${currentLesson.title}" in the Frameworks course. Please help me subscribe (€2.99/month).`);
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-
-  if (!canAccessLesson) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <div className="pt-32 pb-16 px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
-              <Lock className="w-10 h-10 text-muted-foreground" />
-            </div>
-            <h1 className="text-3xl font-bold mb-4">Premium Content</h1>
-            <p className="text-muted-foreground mb-8">
-              This lesson requires a premium subscription. Unlock all {allLessons.length}+ framework lessons for just €2.99/month.
-            </p>
-            <Card className="bg-gradient-to-br from-primary/10 to-background border-primary/30 mb-6">
-              <CardContent className="p-6">
-                <Crown className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">{currentLesson.title}</h3>
-                <p className="text-muted-foreground mb-4">{currentLesson.description}</p>
-                <Button 
-                  size="lg"
-                  className="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white gap-2"
-                  onClick={() => window.open(whatsappLink, '_blank')}
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Unlock via WhatsApp - €2.99/month
-                </Button>
-              </CardContent>
-            </Card>
-            <Link to="/frameworks">
-              <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Frameworks
-              </Button>
-            </Link>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -113,9 +62,7 @@ const FrameworkLesson = () => {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
               <Badge variant="secondary">{currentCourse.icon} {currentCourse.title}</Badge>
-              {currentLesson.isFree && (
-                <Badge variant="outline" className="text-success border-success/30">FREE</Badge>
-              )}
+              <Badge className="bg-primary text-foreground">Free Access</Badge>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">{currentLesson.title}</h1>
             <div className="flex items-center gap-4 text-muted-foreground">
@@ -164,7 +111,7 @@ const FrameworkLesson = () => {
                 <p className="text-center text-muted-foreground">
                   Full lesson content including video, code samples, and exercises coming soon. 
                   <br />
-                  <span className="text-primary">Subscribe to get notified when this lesson is published!</span>
+                  <span className="text-primary">Sign up to get notified when this lesson is published!</span>
                 </p>
               </div>
             </CardContent>
@@ -185,14 +132,14 @@ const FrameworkLesson = () => {
             
             {nextLesson ? (
               <Link to={`/framework-lesson/${nextLesson.id}`}>
-                <Button className="gap-2 bg-primary hover:bg-primary-hover">
+                <Button className="gap-2 bg-primary hover:bg-primary-hover text-foreground">
                   Next: {nextLesson.title.slice(0, 30)}...
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
             ) : (
               <Link to="/frameworks">
-                <Button className="gap-2 bg-success hover:bg-success/90">
+                <Button className="gap-2 bg-primary hover:bg-primary-hover text-foreground">
                   Complete Course
                   <ArrowRight className="w-4 h-4" />
                 </Button>
@@ -203,12 +150,6 @@ const FrameworkLesson = () => {
       </div>
 
       <Footer />
-
-      <UpgradeModal 
-        isOpen={showUpgradeModal} 
-        onClose={() => setShowUpgradeModal(false)}
-        triggerSource={triggerSource}
-      />
     </div>
   );
 };
