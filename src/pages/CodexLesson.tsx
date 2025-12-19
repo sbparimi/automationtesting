@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, Clock, BookOpen, CheckCircle2, Code, Lightbulb, Target, Zap, Bot, AlertTriangle, Star, GraduationCap, Wrench, Rocket, ListChecks } from "lucide-react";
 import { codexPhases, getAllCodexLessons, getCodexLessonById, getAdjacentLessons } from "@/data/codexCourseData";
 import { generateCodexCourseContent } from "@/utils/generateCodexCourseContent";
+import { parseMarkdown } from "@/utils/parseMarkdown";
 
 const CodexLesson = () => {
   const { lessonId } = useParams();
@@ -126,23 +127,23 @@ const CodexLesson = () => {
                   {block.type === 'explanation' && (
                     <div className="prose prose-sm max-w-none">
                       {block.content.split('\n\n').map((para, pi) => (
-                        <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{para}</p>
+                        <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{parseMarkdown(para)}</p>
                       ))}
                     </div>
                   )}
                   
                   {block.type === 'steps' && block.steps && (
                     <div className="space-y-4">
-                      <p className="text-foreground/80 mb-4">{block.content}</p>
+                      <p className="text-foreground/80 mb-4">{parseMarkdown(block.content)}</p>
                       {block.steps.map((step) => (
-                        <div key={step.step} className="bg-secondary/50 rounded-lg p-4">
+                        <div key={step.step} className="bg-white dark:bg-card border border-border rounded-lg p-4">
                           <div className="flex items-start gap-3">
                             <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                               {step.step}
                             </span>
                             <div className="flex-1">
-                              <h4 className="font-semibold text-foreground">{step.action}</h4>
-                              <p className="text-sm text-foreground/70 mt-1">{step.details}</p>
+                              <h4 className="font-semibold text-gray-900 dark:text-foreground">{step.action}</h4>
+                              <p className="text-sm text-gray-700 dark:text-foreground/70 mt-1">{parseMarkdown(step.details)}</p>
                               {step.verification && (
                                 <p className="text-sm text-green-600 dark:text-green-400 mt-2 flex items-center gap-1">
                                   <CheckCircle2 className="w-3 h-3" />
@@ -160,7 +161,7 @@ const CodexLesson = () => {
                     <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
                       <div className="prose prose-sm max-w-none">
                         {block.content.split('\n').map((line, li) => (
-                          <p key={li} className="text-foreground/80 mb-1">{line}</p>
+                          <p key={li} className="text-foreground/80 mb-1">{parseMarkdown(line)}</p>
                         ))}
                       </div>
                     </div>
@@ -191,7 +192,7 @@ const CodexLesson = () => {
                   
                   <div className="prose prose-sm max-w-none">
                     {block.content.split('\n\n').map((para, pi) => (
-                      <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{para}</p>
+                      <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{parseMarkdown(para)}</p>
                     ))}
                   </div>
                   
@@ -229,7 +230,7 @@ const CodexLesson = () => {
                   
                   <div className="prose prose-sm max-w-none">
                     {block.content.split('\n\n').map((para, pi) => (
-                      <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{para}</p>
+                      <p key={pi} className="text-foreground/80 whitespace-pre-wrap mb-4 last:mb-0">{parseMarkdown(para)}</p>
                     ))}
                   </div>
                 </div>
