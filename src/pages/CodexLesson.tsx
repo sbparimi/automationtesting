@@ -136,14 +136,14 @@ const CodexLesson = () => {
                     <div className="space-y-4">
                       <p className="text-foreground/80 mb-4">{parseMarkdown(block.content)}</p>
                       {block.steps.map((step) => (
-                        <div key={step.step} className="bg-white dark:bg-card border border-border rounded-lg p-4">
+                        <div key={step.step} className="bg-background border border-border rounded-lg p-4">
                           <div className="flex items-start gap-3">
                             <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                               {step.step}
                             </span>
                             <div className="flex-1">
-                              <h4 className="font-semibold text-gray-900 dark:text-foreground">{step.action}</h4>
-                              <p className="text-sm text-gray-700 dark:text-foreground/70 mt-1">{parseMarkdown(step.details)}</p>
+                              <h4 className="font-semibold text-foreground">{step.action}</h4>
+                              <p className="text-sm text-foreground/80 mt-1">{parseMarkdown(step.details)}</p>
                               {step.verification && (
                                 <p className="text-sm text-green-600 dark:text-green-400 mt-2 flex items-center gap-1">
                                   <CheckCircle2 className="w-3 h-3" />
