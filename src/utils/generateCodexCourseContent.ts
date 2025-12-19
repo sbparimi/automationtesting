@@ -3088,10 +3088,1655 @@ export default defineConfig({
 }
 
 function generateIntermediateContent(lessonNumber: number, title: string): LessonSection {
+  const intermediateContents: Record<number, SectionContent[]> = {
+    12: [
+      { type: 'explanation', title: "Test Automation Strategy Framework", content: `**Building Your Automation Strategy:**
+
+**The 4-Quadrant Model:**
+
+| Quadrant | Characteristics | Automation Level |
+|----------|----------------|------------------|
+| Q1: High Value + Low Effort | Critical paths, stable UI | 100% automated |
+| Q2: High Value + High Effort | Complex workflows | Selective automation |
+| Q3: Low Value + Low Effort | Simple validations | Opportunistic |
+| Q4: Low Value + High Effort | Rarely used features | Don't automate |
+
+**Prioritization Matrix:**
+1. **Start with smoke tests** - Core business flows
+2. **Add regression tests** - Protect existing functionality  
+3. **Build data-driven tests** - Maximize coverage from single tests
+4. **Create edge case tests** - Harden critical paths
+
+**Metrics to Track:**
+- Test execution time
+- Flakiness rate
+- Code coverage
+- Defect escape rate
+- Maintenance cost per test` },
+      { type: 'code', title: "ROI Calculator Implementation", content: "Calculate automation ROI programmatically:", code: `// Test Automation ROI Calculator
+interface TestMetrics {
+  testName: string;
+  manualExecutionMinutes: number;
+  executionsPerMonth: number;
+  automationHours: number;
+  maintenanceHoursPerMonth: number;
+}
+
+function calculateROI(test: TestMetrics, hourlyRate: number = 50): {
+  monthlyManualCost: number;
+  automationCost: number;
+  monthlyMaintenanceCost: number;
+  breakEvenMonths: number;
+  yearlyROI: number;
+} {
+  const monthlyManualCost = (test.manualExecutionMinutes / 60) * 
+    test.executionsPerMonth * hourlyRate;
+  
+  const automationCost = test.automationHours * hourlyRate;
+  const monthlyMaintenanceCost = test.maintenanceHoursPerMonth * hourlyRate;
+  
+  const monthlySavings = monthlyManualCost - monthlyMaintenanceCost;
+  const breakEvenMonths = automationCost / monthlySavings;
+  
+  const yearlyROI = ((monthlySavings * 12) - automationCost) / automationCost * 100;
+  
+  return {
+    monthlyManualCost,
+    automationCost,
+    monthlyMaintenanceCost,
+    breakEvenMonths: Math.ceil(breakEvenMonths),
+    yearlyROI: Math.round(yearlyROI)
+  };
+}
+
+// Example usage
+const loginTest: TestMetrics = {
+  testName: 'Login Flow',
+  manualExecutionMinutes: 5,
+  executionsPerMonth: 200,  // 10 times per day
+  automationHours: 4,
+  maintenanceHoursPerMonth: 0.5
+};
+
+const roi = calculateROI(loginTest);
+console.log(\`Break-even: \${roi.breakEvenMonths} months\`);
+console.log(\`Yearly ROI: \${roi.yearlyROI}%\`);
+// Output: Break-even: 1 months, Yearly ROI: 1150%` },
+      { type: 'steps', title: "Building a Test Inventory", content: "Document and prioritize your tests:", steps: [
+        { step: 1, action: "List all manual tests", details: "Export from test management tool or create spreadsheet with all test cases.", verification: "Complete list of current manual tests." },
+        { step: 2, action: "Categorize by business value", details: "Mark each as Critical (revenue impact), High (user experience), Medium (functionality), Low (edge cases).", verification: "Every test has a value category." },
+        { step: 3, action: "Estimate automation effort", details: "Rate each: Quick (< 2 hours), Medium (2-8 hours), Complex (> 8 hours).", verification: "Effort estimate for all tests." },
+        { step: 4, action: "Plot on 4-quadrant matrix", details: "Place tests on Value vs Effort matrix. Start automating Q1 (High Value, Low Effort).", verification: "Prioritized automation backlog exists." },
+        { step: 5, action: "Calculate ROI for top candidates", details: "Use ROI formula for top 10 candidates. Present to stakeholders.", verification: "Business case for automation investment." }
+      ]}
+    ],
+    17: [
+      { type: 'explanation', title: "AI Code Review Checklist", content: `**Mandatory Review Steps for AI-Generated Code:**
+
+**1. Security Review:**
+□ No hardcoded credentials
+□ No sensitive URLs exposed
+□ No PII in test data
+□ No internal API endpoints revealed
+□ Environment variables used for secrets
+
+**2. Correctness Review:**
+□ Code does what you intended
+□ Assertions verify actual requirements
+□ Edge cases handled
+□ Error handling is appropriate
+□ No unnecessary complexity
+
+**3. Maintainability Review:**
+□ Clear naming conventions
+□ Proper code organization
+□ Follows team patterns
+□ Adequately commented
+□ Easy to modify later
+
+**4. Performance Review:**
+□ No unnecessary waits
+□ Efficient selector strategies
+□ No redundant API calls
+□ Reasonable test scope
+
+**Red Flags in AI Code:**
+- Hardcoded values that should be variables
+- Overly complex solutions
+- Missing error handling
+- Inconsistent with project patterns` },
+      { type: 'code', title: "Safe AI Prompting Patterns", content: "Examples of safe vs unsafe prompts:", code: `// ❌ UNSAFE PROMPT - Contains sensitive info
+// "Write a Cypress test to login to https://internal.company.com
+// with username admin@company.com and password SuperSecret123"
+
+// ✅ SAFE PROMPT - No sensitive details
+// "Write a Cypress test to login using credentials from environment variables"
+
+describe('Login - AI-Generated (Reviewed)', () => {
+  // AI generated this structure, human added env variables
+  it('should login with valid credentials', () => {
+    cy.visit(Cypress.env('LOGIN_URL'))  // Not hardcoded
+    
+    cy.get('[data-testid="email"]')
+      .type(Cypress.env('TEST_USER_EMAIL'))  // From env
+    
+    cy.get('[data-testid="password"]')
+      .type(Cypress.env('TEST_USER_PASSWORD'), { log: false })  // Hidden from logs
+    
+    cy.get('[data-testid="submit"]').click()
+    cy.url().should('include', '/dashboard')
+  })
+})
+
+// ❌ UNSAFE - AI prompt included business logic
+// "Test that users with subscription plan 'Enterprise' 
+// can access /admin/financials showing revenue $4.2M"
+
+// ✅ SAFE - Generic patterns
+// "Test that users with admin role can access admin pages"
+
+// cypress.env.json (git-ignored)
+{
+  "LOGIN_URL": "/login",
+  "TEST_USER_EMAIL": "test@example.com",
+  "TEST_USER_PASSWORD": "TestPassword123"
+}
+
+// cypress.config.ts
+export default defineConfig({
+  env: {
+    LOGIN_URL: process.env.LOGIN_URL,
+    TEST_USER_EMAIL: process.env.TEST_USER_EMAIL,
+    TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD
+  }
+})` },
+      { type: 'steps', title: "AI Code Review Workflow", content: "Process for reviewing AI-generated code:", steps: [
+        { step: 1, action: "Generate code with clean prompt", details: "Write prompt without sensitive data. Be specific about what you want.", verification: "Prompt contains no secrets or internal details." },
+        { step: 2, action: "Read every line before accepting", details: "Don't just Tab-accept. Read the code Copilot suggests line by line.", verification: "You can explain what every line does." },
+        { step: 3, action: "Check for hardcoded values", details: "Search for strings that should be variables. Replace with env vars.", verification: "No sensitive values in code." },
+        { step: 4, action: "Verify assertions match requirements", details: "Compare generated assertions to actual test requirements.", verification: "Test verifies what you actually need." },
+        { step: 5, action: "Run and validate", details: "Execute the test. Verify it passes for right reasons, fails for wrong data.", verification: "Test works correctly and fails appropriately." },
+        { step: 6, action: "Add review comment", details: "Add comment noting AI assistance for audit trail.", verification: "Code documents AI involvement." }
+      ]}
+    ],
+    19: [
+      { type: 'explanation', title: "Screenplay Pattern Deep Dive", content: `**Advanced Screenplay Concepts:**
+
+**Task Composition:**
+Tasks can be composed of smaller tasks, creating reusable workflows.
+
+**Question Pattern:**
+Questions verify system state without performing actions.
+
+**Ability Pattern:**
+Actors have abilities that determine what they can do.
+
+**Benefits of Screenplay:**
+1. **High abstraction** - Tests read like requirements
+2. **Excellent reuse** - Tasks work across many tests
+3. **Clear separation** - WHO does WHAT on WHICH element
+4. **BDD alignment** - Natural fit for Given/When/Then
+
+**When Screenplay Shines:**
+- E-commerce checkout (multi-step)
+- User onboarding flows
+- Multi-role scenarios (admin, user, guest)
+- Complex state machines` },
+      { type: 'code', title: "Advanced Screenplay Implementation", content: "Full-featured Screenplay in Cypress:", code: `// ============ CORE INTERFACES ============
+interface Task {
+  performAs(actor: Actor): void;
+  describedAs?: string;
+}
+
+interface Question<T> {
+  answeredBy(actor: Actor): T;
+}
+
+interface Ability {
+  can(action: string): boolean;
+}
+
+// ============ ACTOR CLASS ============
+class Actor {
+  private abilities: Map<string, Ability> = new Map();
+  
+  constructor(public readonly name: string) {}
+  
+  static named(name: string): Actor {
+    return new Actor(name);
+  }
+  
+  whoCan(...abilities: [string, Ability][]): Actor {
+    abilities.forEach(([name, ability]) => {
+      this.abilities.set(name, ability);
+    });
+    return this;
+  }
+  
+  attemptsTo(...tasks: Task[]): void {
+    tasks.forEach(task => {
+      cy.log(\`\${this.name} \${task.describedAs || 'performs task'}\`);
+      task.performAs(this);
+    });
+  }
+  
+  asks<T>(question: Question<T>): Cypress.Chainable<T> {
+    return cy.wrap(question.answeredBy(this));
+  }
+}
+
+// ============ TASK IMPLEMENTATIONS ============
+const Navigate = {
+  to: (url: string): Task => ({
+    describedAs: \`navigates to \${url}\`,
+    performAs: () => cy.visit(url)
+  })
+};
+
+const Enter = {
+  theValue: (value: string) => ({
+    into: (selector: string): Task => ({
+      describedAs: \`enters "\${value}" into \${selector}\`,
+      performAs: () => cy.get(selector).clear().type(value)
+    })
+  })
+};
+
+const Click = {
+  on: (selector: string): Task => ({
+    describedAs: \`clicks on \${selector}\`,
+    performAs: () => cy.get(selector).click()
+  })
+};
+
+// ============ COMPOUND TASKS ============
+const Login = {
+  withCredentials: (email: string, password: string): Task => ({
+    describedAs: \`logs in as \${email}\`,
+    performAs: (actor) => {
+      actor.attemptsTo(
+        Navigate.to('/login'),
+        Enter.theValue(email).into('[data-testid="email"]'),
+        Enter.theValue(password).into('[data-testid="password"]'),
+        Click.on('[data-testid="submit"]')
+      );
+    }
+  })
+};
+
+// ============ QUESTIONS ============
+const CurrentUrl: Question<string> = {
+  answeredBy: () => {
+    let url = '';
+    cy.url().then(u => url = u);
+    return url;
+  }
+};
+
+const TextOf = {
+  element: (selector: string): Question<string> => ({
+    answeredBy: () => {
+      let text = '';
+      cy.get(selector).invoke('text').then(t => text = t);
+      return text;
+    }
+  })
+};
+
+// ============ TEST USAGE ============
+describe('Screenplay Pattern Tests', () => {
+  const alice = Actor.named('Alice');
+  const bob = Actor.named('Bob');
+  
+  it('Alice can login as regular user', () => {
+    alice.attemptsTo(
+      Login.withCredentials('alice@test.com', 'password123')
+    );
+    cy.url().should('include', '/dashboard');
+  });
+  
+  it('Bob can login as admin', () => {
+    bob.attemptsTo(
+      Login.withCredentials('bob@admin.com', 'adminpass')
+    );
+    cy.url().should('include', '/admin');
+  });
+});` }
+    ],
+    20: [
+      { type: 'explanation', title: "Hybrid Architecture Design", content: `**Layered Hybrid Architecture:**
+
+\`\`\`
+┌─────────────────────────────────────────┐
+│           TEST SPECS (tests)            │
+│  describe/it blocks, test scenarios     │
+├─────────────────────────────────────────┤
+│           ACTORS (who)                  │
+│  User personas, role-based contexts     │
+├─────────────────────────────────────────┤
+│           TASKS (what)                  │
+│  Business actions, user journeys        │
+├─────────────────────────────────────────┤
+│        PAGE OBJECTS (where)             │
+│  Selectors, element interactions        │
+├─────────────────────────────────────────┤
+│     CUSTOM COMMANDS (utilities)         │
+│  Shared helpers, API shortcuts          │
+└─────────────────────────────────────────┘
+\`\`\`
+
+**Folder Structure:**
+cypress/
+├── e2e/                 # Test specs
+├── actors/              # Actor definitions
+├── tasks/               # Task implementations
+├── pages/               # Page objects
+├── support/
+│   ├── commands.ts      # Custom commands
+│   └── e2e.ts
+└── fixtures/            # Test data
+
+**Design Principles:**
+1. Each layer only knows the layer below it
+2. Tests should read like business requirements
+3. Changes propagate upward (change selector → page object only)
+4. New tests reuse existing tasks` },
+      { type: 'code', title: "Complete Hybrid Framework", content: "Production hybrid architecture:", code: `// ========== cypress/pages/BasePage.ts ==========
+export abstract class BasePage {
+  abstract readonly url: string;
+  
+  visit(): this {
+    cy.visit(this.url);
+    return this;
+  }
+  
+  protected get(selector: string) {
+    return cy.get(selector);
+  }
+}
+
+// ========== cypress/pages/LoginPage.ts ==========
+import { BasePage } from './BasePage';
+
+export class LoginPage extends BasePage {
+  readonly url = '/login';
+  
+  private selectors = {
+    email: '[data-testid="email"]',
+    password: '[data-testid="password"]',
+    submit: '[data-testid="submit"]',
+    error: '[data-testid="error-message"]'
+  };
+  
+  typeEmail(email: string): this {
+    this.get(this.selectors.email).clear().type(email);
+    return this;
+  }
+  
+  typePassword(password: string): this {
+    this.get(this.selectors.password).clear().type(password);
+    return this;
+  }
+  
+  clickSubmit(): this {
+    this.get(this.selectors.submit).click();
+    return this;
+  }
+  
+  getErrorMessage() {
+    return this.get(this.selectors.error);
+  }
+}
+
+// ========== cypress/tasks/loginTasks.ts ==========
+import { LoginPage } from '../pages/LoginPage';
+
+export const LoginTask = {
+  asUser: (email: string, password: string) => {
+    const page = new LoginPage();
+    page.visit()
+        .typeEmail(email)
+        .typePassword(password)
+        .clickSubmit();
+  },
+  
+  withInvalidCredentials: () => {
+    LoginTask.asUser('invalid@test.com', 'wrongpassword');
+  },
+  
+  asAdmin: () => {
+    LoginTask.asUser(
+      Cypress.env('ADMIN_EMAIL'),
+      Cypress.env('ADMIN_PASSWORD')
+    );
+  }
+};
+
+// ========== cypress/actors/actors.ts ==========
+import { LoginTask } from '../tasks/loginTasks';
+
+export class Actor {
+  constructor(
+    public name: string,
+    public email: string,
+    public password: string,
+    public role: 'user' | 'admin'
+  ) {}
+  
+  login() {
+    cy.log(\`\${this.name} logs in\`);
+    LoginTask.asUser(this.email, this.password);
+    return this;
+  }
+}
+
+export const Actors = {
+  regularUser: new Actor('Alice', 'alice@test.com', 'pass123', 'user'),
+  adminUser: new Actor('Bob', 'bob@admin.com', 'admin123', 'admin'),
+  newUser: new Actor('Charlie', 'charlie@test.com', 'newpass', 'user')
+};
+
+// ========== cypress/e2e/login.cy.ts ==========
+import { Actors } from '../actors/actors';
+import { LoginPage } from '../pages/LoginPage';
+
+describe('Login Functionality', () => {
+  it('regular user can access dashboard', () => {
+    Actors.regularUser.login();
+    cy.url().should('include', '/dashboard');
+  });
+  
+  it('admin user can access admin panel', () => {
+    Actors.adminUser.login();
+    cy.url().should('include', '/admin');
+  });
+  
+  it('shows error for invalid credentials', () => {
+    const loginPage = new LoginPage();
+    loginPage.visit()
+             .typeEmail('wrong@email.com')
+             .typePassword('wrongpass')
+             .clickSubmit();
+    
+    loginPage.getErrorMessage()
+             .should('be.visible')
+             .and('contain', 'Invalid credentials');
+  });
+});` }
+    ],
+    21: [
+      { type: 'explanation', title: "Advanced Data Management Patterns", content: `**Factory Pattern for Dynamic Data:**
+
+Factories generate unique data on demand, preventing test interference.
+
+**Benefits:**
+- No data collisions in parallel tests
+- Fresh data for each test run
+- Consistent data structure
+- Easy to create variations
+
+**Data Isolation Strategies:**
+1. **Prefix/Suffix** - Add timestamp or UUID to data
+2. **Cleanup hooks** - Delete test data after each test
+3. **Transactions** - Rollback database after test
+4. **Namespacing** - Isolate data per test file
+
+**API-First Data Setup:**
+- Faster than UI setup
+- More reliable
+- Can create complex relationships
+- Enables parallel test execution` },
+      { type: 'code', title: "Factory Pattern Implementation", content: "Complete data factory setup:", code: `// ========== cypress/factories/userFactory.ts ==========
+import { faker } from '@faker-js/faker';
+
+interface User {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  role: 'user' | 'admin';
+}
+
+interface UserOverrides extends Partial<User> {}
+
+export const UserFactory = {
+  build: (overrides: UserOverrides = {}): User => ({
+    email: faker.internet.email(),
+    password: faker.internet.password({ length: 12 }),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    role: 'user',
+    ...overrides
+  }),
+  
+  buildAdmin: (overrides: UserOverrides = {}): User => 
+    UserFactory.build({ role: 'admin', ...overrides }),
+  
+  buildMany: (count: number, overrides: UserOverrides = {}): User[] =>
+    Array.from({ length: count }, () => UserFactory.build(overrides)),
+  
+  // Create via API and return with ID
+  create: (overrides: UserOverrides = {}): Cypress.Chainable<User & { id: string }> => {
+    const user = UserFactory.build(overrides);
+    return cy.request('POST', '/api/users', user)
+      .then(response => ({ ...user, id: response.body.id }));
+  }
+};
+
+// ========== cypress/factories/productFactory.ts ==========
+interface Product {
+  name: string;
+  price: number;
+  sku: string;
+  category: string;
+}
+
+export const ProductFactory = {
+  build: (overrides: Partial<Product> = {}): Product => ({
+    name: faker.commerce.productName(),
+    price: parseFloat(faker.commerce.price({ min: 10, max: 500 })),
+    sku: faker.string.alphanumeric(10).toUpperCase(),
+    category: faker.commerce.department(),
+    ...overrides
+  }),
+  
+  create: (overrides: Partial<Product> = {}): Cypress.Chainable<Product & { id: string }> => {
+    const product = ProductFactory.build(overrides);
+    return cy.request({
+      method: 'POST',
+      url: '/api/products',
+      body: product,
+      headers: { Authorization: \`Bearer \${Cypress.env('API_TOKEN')}\` }
+    }).then(response => ({ ...product, id: response.body.id }));
+  }
+};
+
+// ========== Usage in Tests ==========
+describe('Product Management', () => {
+  let testUser: User & { id: string };
+  let testProduct: Product & { id: string };
+  
+  beforeEach(() => {
+    // Create fresh data for each test
+    UserFactory.create({ role: 'admin' }).then(user => {
+      testUser = user;
+    });
+    
+    ProductFactory.create().then(product => {
+      testProduct = product;
+    });
+  });
+  
+  afterEach(() => {
+    // Cleanup test data
+    if (testProduct?.id) {
+      cy.request('DELETE', \`/api/products/\${testProduct.id}\`);
+    }
+    if (testUser?.id) {
+      cy.request('DELETE', \`/api/users/\${testUser.id}\`);
+    }
+  });
+  
+  it('admin can update product price', () => {
+    cy.login(testUser.email, testUser.password);
+    cy.visit(\`/products/\${testProduct.id}/edit\`);
+    
+    const newPrice = 99.99;
+    cy.get('[data-testid="price"]').clear().type(newPrice.toString());
+    cy.get('[data-testid="save"]').click();
+    
+    cy.get('[data-testid="price-display"]')
+      .should('contain', '$99.99');
+  });
+});` }
+    ],
+    23: [
+      { type: 'explanation', title: "Root Causes of Flaky Tests", content: `**Why Tests Become Flaky:**
+
+**1. Timing Issues (Most Common)**
+- Element not loaded yet
+- Animation in progress
+- API response pending
+- Page transition incomplete
+
+**2. Test Data Dependencies**
+- Shared state between tests
+- External data changes
+- Database not reset
+- Cached data interference
+
+**3. Environment Factors**
+- Network latency variations
+- Server response times
+- Resource contention
+- Browser rendering differences
+
+**4. Test Design Problems**
+- Brittle selectors
+- Order-dependent tests
+- Missing assertions
+- Async operations mishandled
+
+**Flakiness Metrics:**
+- **Flake Rate** = (Inconsistent Runs / Total Runs) × 100
+- Target: < 1% flake rate
+- Action Threshold: > 5% needs immediate fix` },
+      { type: 'code', title: "Anti-Flaky Patterns", content: "Techniques to eliminate flakiness:", code: `// ❌ FLAKY: Fixed wait time
+cy.wait(5000);  // Arbitrary wait, might be too short or too long
+cy.get('[data-testid="result"]').should('be.visible');
+
+// ✅ STABLE: Wait for specific condition
+cy.get('[data-testid="result"]', { timeout: 10000 })
+  .should('be.visible');
+
+// ❌ FLAKY: Checking element that might not exist
+cy.get('.loading-spinner').should('not.exist');
+
+// ✅ STABLE: Wait for loading to complete
+cy.get('[data-testid="content"]').should('be.visible');
+// Or use intercept to wait for API
+cy.intercept('GET', '/api/data').as('getData');
+cy.visit('/page');
+cy.wait('@getData');
+cy.get('[data-testid="content"]').should('be.visible');
+
+// ❌ FLAKY: Animation not complete
+cy.get('[data-testid="modal"]').click();  // Modal still animating
+
+// ✅ STABLE: Wait for animation
+cy.get('[data-testid="modal"]')
+  .should('be.visible')
+  .and('not.have.class', 'animating')
+  .click();
+
+// ❌ FLAKY: Race condition with multiple elements
+cy.get('.list-item').first().click();  // List might not be fully loaded
+
+// ✅ STABLE: Verify list is complete
+cy.get('.list-item').should('have.length.greaterThan', 0);
+cy.get('.list-item').first().click();
+
+// ============ RETRY CONFIGURATION ============
+// cypress.config.ts
+export default defineConfig({
+  retries: {
+    runMode: 2,      // CI retries
+    openMode: 0      // Local retries (keep at 0 for debugging)
+  },
+  defaultCommandTimeout: 10000,  // Increase for slow apps
+  pageLoadTimeout: 30000
+});
+
+// ============ CUSTOM RETRY COMMAND ============
+Cypress.Commands.add('getWithRetry', (
+  selector: string, 
+  options: { maxRetries?: number; delay?: number } = {}
+) => {
+  const { maxRetries = 3, delay = 1000 } = options;
+  let attempts = 0;
+  
+  const attempt = (): Cypress.Chainable => {
+    attempts++;
+    return cy.get('body').then($body => {
+      if ($body.find(selector).length > 0) {
+        return cy.get(selector);
+      }
+      if (attempts < maxRetries) {
+        cy.wait(delay);
+        return attempt();
+      }
+      throw new Error(\`Element \${selector} not found after \${maxRetries} attempts\`);
+    });
+  };
+  
+  return attempt();
+});
+
+// ============ NETWORK STABILITY ============
+// Wait for all pending requests to complete
+Cypress.Commands.add('waitForNetworkIdle', (timeout = 5000) => {
+  cy.window().then(win => {
+    return new Cypress.Promise(resolve => {
+      let lastActivity = Date.now();
+      
+      const checkIdle = () => {
+        if (Date.now() - lastActivity > timeout) {
+          resolve();
+        } else {
+          setTimeout(checkIdle, 100);
+        }
+      };
+      
+      checkIdle();
+    });
+  });
+});` },
+      { type: 'steps', title: "Flaky Test Diagnosis", content: "Steps to identify and fix flaky tests:", steps: [
+        { step: 1, action: "Identify the flaky test", details: "Track which tests fail intermittently. Use CI reports to find patterns.", verification: "You have a list of flaky tests with failure rates." },
+        { step: 2, action: "Reproduce locally", details: "Run the test 10+ times: npx cypress run --spec path/to/test.cy.ts --repeat 10", verification: "You can reproduce the failure locally." },
+        { step: 3, action: "Add debugging", details: "Add cy.pause() and cy.screenshot() at key points. Check what state differs between passes and failures.", verification: "You see what's different when test fails." },
+        { step: 4, action: "Check for timing issues", details: "Look for cy.wait() with fixed times, missing should() assertions, elements that might still be loading.", verification: "Timing issues identified." },
+        { step: 5, action: "Add proper waits", details: "Replace fixed waits with assertion-based waits. Use cy.intercept() to wait for APIs.", verification: "Test uses proper waiting strategies." },
+        { step: 6, action: "Verify fix", details: "Run test 20+ times to confirm stability. Monitor in CI for a week.", verification: "Test passes consistently." }
+      ]}
+    ],
+    24: [
+      { type: 'explanation', title: "Multi-Environment Architecture", content: `**Environment Configuration Strategy:**
+
+**Common Environments:**
+- **Local (localhost)** - Developer machines
+- **Dev** - Latest code, unstable
+- **QA/Test** - Stable for testing
+- **Staging/ACC** - Production mirror
+- **Production** - Live system (read-only tests)
+
+**Configuration Hierarchy:**
+1. cypress.config.ts (defaults)
+2. cypress.env.json (local overrides, git-ignored)
+3. Environment variables (CI/CD)
+4. Command line (highest priority)
+
+**What Varies Per Environment:**
+- Base URL
+- API endpoints
+- Test credentials
+- Feature flags
+- Timeouts
+- Test data` },
+      { type: 'code', title: "Multi-Environment Setup", content: "Complete environment configuration:", code: `// ========== cypress.config.ts ==========
+import { defineConfig } from 'cypress';
+
+export default defineConfig({
+  e2e: {
+    // Default to local
+    baseUrl: 'http://localhost:3000',
+    
+    // Environment-specific settings via env
+    env: {
+      // Common settings
+      apiVersion: 'v1',
+      
+      // Default credentials (overridden per env)
+      testUserEmail: 'test@example.com',
+      testUserPassword: 'defaultPassword'
+    },
+    
+    setupNodeEvents(on, config) {
+      // Load environment-specific config
+      const environment = config.env.environment || 'local';
+      const envConfig = require(\`./cypress/config/\${environment}.json\`);
+      
+      // Merge configs
+      config.baseUrl = envConfig.baseUrl || config.baseUrl;
+      config.env = { ...config.env, ...envConfig.env };
+      
+      return config;
+    }
+  }
+});
+
+// ========== cypress/config/local.json ==========
+{
+  "baseUrl": "http://localhost:3000",
+  "env": {
+    "apiUrl": "http://localhost:3001/api",
+    "testUserEmail": "local@test.com",
+    "testUserPassword": "localpass"
+  }
+}
+
+// ========== cypress/config/staging.json ==========
+{
+  "baseUrl": "https://staging.example.com",
+  "env": {
+    "apiUrl": "https://staging-api.example.com/api",
+    "testUserEmail": "staging@test.com",
+    "testUserPassword": "stagingpass"
+  }
+}
+
+// ========== cypress/config/production.json ==========
+{
+  "baseUrl": "https://www.example.com",
+  "env": {
+    "apiUrl": "https://api.example.com/api",
+    "testUserEmail": "readonly@test.com",
+    "testUserPassword": "prodreadonly",
+    "isProduction": true
+  }
+}
+
+// ========== Running tests ==========
+// Local (default)
+// npx cypress run
+
+// Staging
+// npx cypress run --env environment=staging
+
+// Production (smoke tests only)
+// npx cypress run --env environment=production --spec "cypress/e2e/smoke/**"
+
+// ========== Environment-aware tests ==========
+describe('Feature Tests', () => {
+  before(() => {
+    // Skip destructive tests in production
+    if (Cypress.env('isProduction')) {
+      cy.log('Running in production - read-only tests only');
+    }
+  });
+  
+  it('can view products', () => {
+    // Safe for all environments
+    cy.visit('/products');
+    cy.get('[data-testid="product-list"]').should('be.visible');
+  });
+  
+  it('can create product', function() {
+    // Skip in production
+    if (Cypress.env('isProduction')) {
+      this.skip();
+    }
+    
+    cy.login(
+      Cypress.env('testUserEmail'),
+      Cypress.env('testUserPassword')
+    );
+    cy.visit('/products/new');
+    // ... create product
+  });
+});
+
+// ========== CI/CD Environment Variables ==========
+// GitHub Actions / GitLab CI set these:
+// CYPRESS_baseUrl=https://staging.example.com
+// CYPRESS_testUserEmail=ci@test.com
+// CYPRESS_testUserPassword=${{ secrets.TEST_PASSWORD }}` }
+    ],
+    26: [
+      { type: 'explanation', title: "Nightly Regression Strategy", content: `**Why Nightly Regression?**
+
+**Full regression is too slow for every commit:**
+- Might take hours to run
+- Blocks developer workflow
+- Not all tests need to run every time
+
+**Nightly Strategy:**
+- Run full suite once per day (usually 2 AM)
+- Against stable environment (ACC/PreProd)
+- Comprehensive coverage
+- Results reviewed in morning
+
+**What to Include in Nightly:**
+- All regression tests
+- Cross-browser testing
+- Performance measurements
+- Accessibility scans
+- Visual regression
+- Long-running scenarios
+
+**Notification Strategy:**
+- Slack/Teams alert on failure
+- Email summary to team
+- Dashboard for historical trends
+- Automatic ticket creation for failures` },
+      { type: 'code', title: "Nightly Pipeline Configuration", content: "Complete GitLab nightly setup:", code: `# .gitlab-ci.yml - Nightly Regression Pipeline
+
+stages:
+  - prepare
+  - test
+  - report
+  - notify
+
+variables:
+  CYPRESS_BASE_URL: "https://acc.example.com"
+  TEST_ENVIRONMENT: "acceptance"
+
+# Only run on schedule (nightly) or manual trigger
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"  # Manual trigger
+
+# ========== PREPARE STAGE ==========
+setup:
+  stage: prepare
+  script:
+    - npm ci
+    - npx cypress verify
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 day
+
+# ========== TEST STAGE ==========
+regression_chrome:
+  stage: test
+  needs: [setup]
+  parallel: 4
+  script:
+    - npx cypress run --browser chrome --record --parallel 
+      --group "nightly-chrome" 
+      --ci-build-id "$CI_PIPELINE_ID"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/
+      - cypress/screenshots/
+      - cypress/results/
+    reports:
+      junit: cypress/results/junit-*.xml
+    expire_in: 7 days
+
+regression_firefox:
+  stage: test
+  needs: [setup]
+  script:
+    - npx cypress run --browser firefox --record 
+      --group "nightly-firefox"
+      --ci-build-id "$CI_PIPELINE_ID"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/
+      - cypress/screenshots/
+    expire_in: 7 days
+
+regression_edge:
+  stage: test
+  needs: [setup]
+  script:
+    - npx cypress run --browser edge --record 
+      --group "nightly-edge"
+      --ci-build-id "$CI_PIPELINE_ID"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/
+      - cypress/screenshots/
+    expire_in: 7 days
+
+# ========== REPORT STAGE ==========
+generate_report:
+  stage: report
+  needs: [regression_chrome, regression_firefox, regression_edge]
+  script:
+    - npm run merge-reports
+    - npm run generate-html-report
+  artifacts:
+    paths:
+      - mochawesome-report/
+    expire_in: 30 days
+  when: always
+
+# ========== NOTIFY STAGE ==========
+slack_notification:
+  stage: notify
+  needs: [generate_report]
+  script:
+    - |
+      if [ "$CI_JOB_STATUS" == "failed" ]; then
+        STATUS_EMOJI=":x:"
+        STATUS_TEXT="FAILED"
+        COLOR="danger"
+      else
+        STATUS_EMOJI=":white_check_mark:"
+        STATUS_TEXT="PASSED"
+        COLOR="good"
+      fi
+      
+      curl -X POST $SLACK_WEBHOOK_URL \\
+        -H "Content-Type: application/json" \\
+        -d '{
+          "attachments": [{
+            "color": "'$COLOR'",
+            "title": "'$STATUS_EMOJI' Nightly Regression '$STATUS_TEXT'",
+            "fields": [
+              {"title": "Environment", "value": "'$TEST_ENVIRONMENT'", "short": true},
+              {"title": "Pipeline", "value": "<'$CI_PIPELINE_URL'|View Pipeline>", "short": true}
+            ],
+            "footer": "GitLab CI",
+            "ts": '$(date +%s)'
+          }]
+        }'
+  when: always` }
+    ],
+    27: [
+      { type: 'explanation', title: "Parallel Execution Strategies", content: `**Parallelization Methods:**
+
+**1. CI-Level Parallelization:**
+- Multiple jobs run simultaneously
+- Each job runs subset of tests
+- Built into CI/CD platforms
+
+**2. Cypress Dashboard Parallelization:**
+- Automatic load balancing
+- Spec-level distribution
+- Requires Cypress Dashboard subscription
+
+**3. Manual Sharding:**
+- Split tests into groups
+- Assign groups to runners
+- More control, more setup
+
+**Sharding Strategies:**
+
+**By Folder:**
+- cypress/e2e/auth/ → Runner 1
+- cypress/e2e/products/ → Runner 2
+- cypress/e2e/checkout/ → Runner 3
+
+**By Tag:**
+- @smoke tests → Runner 1
+- @regression tests → Runner 2-4
+
+**By Duration:**
+- Balance test time across runners
+- Fastest total execution
+
+**Optimal Parallel Count:**
+- Start with 4-8 runners
+- Measure total time vs cost
+- Find sweet spot for your suite` },
+      { type: 'code', title: "Sharding Implementation", content: "Multiple parallelization approaches:", code: `// ========== MANUAL SHARDING BY INDEX ==========
+// package.json scripts
+{
+  "scripts": {
+    "cy:shard:1": "cypress run --env shard=1,totalShards=4",
+    "cy:shard:2": "cypress run --env shard=2,totalShards=4",
+    "cy:shard:3": "cypress run --env shard=3,totalShards=4",
+    "cy:shard:4": "cypress run --env shard=4,totalShards=4"
+  }
+}
+
+// cypress/plugins/index.ts - Shard spec files
+module.exports = (on, config) => {
+  const shard = config.env.shard;
+  const totalShards = config.env.totalShards;
+  
+  if (shard && totalShards) {
+    const allSpecs = config.specPattern;
+    const glob = require('glob');
+    const specs = glob.sync(allSpecs);
+    
+    // Distribute specs across shards
+    const shardSpecs = specs.filter((_, index) => 
+      index % totalShards === (shard - 1)
+    );
+    
+    config.specPattern = shardSpecs;
+  }
+  
+  return config;
+};
+
+// ========== GITHUB ACTIONS MATRIX ==========
+# .github/workflows/cypress.yml
+name: Parallel Cypress Tests
+
+on: [push, pull_request]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Run 4 parallel jobs
+        containers: [1, 2, 3, 4]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Cypress Run
+        uses: cypress-io/github-action@v5
+        with:
+          record: true
+          parallel: true
+          group: 'PR Tests'
+          ci-build-id: '\${{ github.run_id }}'
+        env:
+          CYPRESS_RECORD_KEY: \${{ secrets.CYPRESS_RECORD_KEY }}
+
+// ========== GITLAB CI PARALLEL ==========
+# .gitlab-ci.yml
+cypress_tests:
+  stage: test
+  parallel: 4  # GitLab creates 4 jobs automatically
+  script:
+    - npm ci
+    # CI_NODE_INDEX is 1-4, CI_NODE_TOTAL is 4
+    - |
+      SPECS=$(find cypress/e2e -name "*.cy.ts" | sort | 
+        awk "NR % $CI_NODE_TOTAL == ($CI_NODE_INDEX - 1)")
+      npx cypress run --spec "$SPECS"
+
+// ========== BALANCED SHARDING BY DURATION ==========
+// cypress/support/sharding.ts
+interface SpecDuration {
+  spec: string;
+  duration: number;
+}
+
+// Historical durations (update from CI reports)
+const specDurations: SpecDuration[] = [
+  { spec: 'cypress/e2e/auth/login.cy.ts', duration: 45000 },
+  { spec: 'cypress/e2e/auth/logout.cy.ts', duration: 15000 },
+  { spec: 'cypress/e2e/checkout/cart.cy.ts', duration: 120000 },
+  { spec: 'cypress/e2e/checkout/payment.cy.ts', duration: 180000 },
+  // ... more specs
+];
+
+function balanceShards(totalShards: number): string[][] {
+  // Sort by duration descending
+  const sorted = [...specDurations].sort((a, b) => b.duration - a.duration);
+  
+  // Greedy assignment to balance total time
+  const shards: { specs: string[]; totalTime: number }[] = 
+    Array.from({ length: totalShards }, () => ({ specs: [], totalTime: 0 }));
+  
+  sorted.forEach(spec => {
+    // Add to shard with least total time
+    const minShard = shards.reduce((min, shard) => 
+      shard.totalTime < min.totalTime ? shard : min
+    );
+    minShard.specs.push(spec.spec);
+    minShard.totalTime += spec.duration;
+  });
+  
+  return shards.map(s => s.specs);
+}
+
+// Output balanced shards
+console.log(balanceShards(4));` }
+    ],
+    28: [
+      { type: 'explanation', title: "Compliance Testing Requirements", content: `**Regulatory Compliance in Testing:**
+
+**Industries with Testing Requirements:**
+- **Finance** (SOX, PCI-DSS) - Audit trails, change management
+- **Healthcare** (HIPAA, FDA) - Data protection, validation
+- **Government** (FedRAMP) - Security controls, documentation
+- **Automotive** (ISO 26262) - Safety-critical testing
+
+**Key Compliance Elements:**
+
+**1. Traceability Matrix:**
+Requirement → Test Case → Execution → Result
+Every requirement must map to tests.
+
+**2. Evidence Collection:**
+- Screenshots of test execution
+- Video recordings
+- Timestamped logs
+- Environment snapshots
+
+**3. Change Control:**
+- Version-controlled test code
+- Reviewed and approved changes
+- Audit history of modifications
+
+**4. Documentation:**
+- Test plans and strategies
+- Risk assessments
+- Execution reports
+- Defect tracking` },
+      { type: 'code', title: "Compliance Framework Implementation", content: "Building compliance into your tests:", code: `// ========== REQUIREMENT TRACEABILITY ==========
+// cypress/e2e/compliance/payment.cy.ts
+
+/**
+ * Test Suite: Payment Processing
+ * Requirements: REQ-PAY-001 through REQ-PAY-010
+ * Risk Level: High (Financial data)
+ * Last Review: 2024-01-15
+ * Reviewer: John Smith
+ */
+describe('Payment Processing [REQ-PAY]', () => {
+  /**
+   * REQ-PAY-001: Credit card payments must be processed through PCI-compliant gateway
+   * Test Evidence: Screenshot of successful payment + API response
+   */
+  it('REQ-PAY-001: processes credit card via PCI gateway', () => {
+    // Test setup
+    cy.intercept('POST', '/api/payments').as('payment');
+    
+    // Test execution
+    cy.visit('/checkout');
+    cy.get('[data-testid="card-number"]').type('4111111111111111');
+    cy.get('[data-testid="expiry"]').type('12/25');
+    cy.get('[data-testid="cvv"]').type('123');
+    cy.get('[data-testid="pay-button"]').click();
+    
+    // Verification
+    cy.wait('@payment').then(interception => {
+      // Log evidence
+      cy.log(\`Payment API Response: \${interception.response.statusCode}\`);
+      expect(interception.response.body.gateway).to.equal('pci-compliant-gateway');
+    });
+    
+    // Capture evidence
+    cy.screenshot('REQ-PAY-001-payment-success');
+    cy.get('[data-testid="confirmation"]')
+      .should('contain', 'Payment Successful')
+      .screenshot('REQ-PAY-001-confirmation');
+  });
+  
+  /**
+   * REQ-PAY-002: Failed payments must not store card details
+   * Test Evidence: Verify no card data in error response
+   */
+  it('REQ-PAY-002: failed payment does not expose card data', () => {
+    cy.intercept('POST', '/api/payments', {
+      statusCode: 400,
+      body: { error: 'Payment declined' }
+    }).as('failedPayment');
+    
+    cy.visit('/checkout');
+    cy.get('[data-testid="card-number"]').type('4000000000000002'); // Decline card
+    cy.get('[data-testid="expiry"]').type('12/25');
+    cy.get('[data-testid="cvv"]').type('123');
+    cy.get('[data-testid="pay-button"]').click();
+    
+    cy.wait('@failedPayment').then(interception => {
+      // Verify no card data in response
+      const responseBody = JSON.stringify(interception.response.body);
+      expect(responseBody).not.to.contain('4000000000000002');
+      expect(responseBody).not.to.contain('123');
+      
+      cy.log('COMPLIANCE CHECK: No card data in error response');
+    });
+    
+    cy.screenshot('REQ-PAY-002-failed-payment-no-data-leak');
+  });
+});
+
+// ========== AUDIT TRAIL REPORTER ==========
+// cypress/support/auditReporter.ts
+interface AuditEntry {
+  timestamp: string;
+  testId: string;
+  requirementId: string;
+  result: 'pass' | 'fail' | 'skip';
+  evidence: string[];
+  executor: string;
+  environment: string;
+}
+
+Cypress.Commands.add('logAudit', (requirementId: string, details: string) => {
+  const entry: AuditEntry = {
+    timestamp: new Date().toISOString(),
+    testId: Cypress.currentTest.titlePath.join(' > '),
+    requirementId,
+    result: 'pass', // Updated by reporter
+    evidence: [],
+    executor: Cypress.env('CI_USER') || 'local',
+    environment: Cypress.env('TEST_ENVIRONMENT') || 'local'
+  };
+  
+  cy.task('writeAuditLog', entry);
+});
+
+// ========== COMPLIANCE REPORT GENERATOR ==========
+// cypress/plugins/complianceReport.ts
+const generateComplianceReport = (results: AuditEntry[]) => {
+  return {
+    reportDate: new Date().toISOString(),
+    totalRequirements: new Set(results.map(r => r.requirementId)).size,
+    totalTests: results.length,
+    passed: results.filter(r => r.result === 'pass').length,
+    failed: results.filter(r => r.result === 'fail').length,
+    coverage: results.reduce((acc, r) => {
+      acc[r.requirementId] = acc[r.requirementId] || [];
+      acc[r.requirementId].push(r);
+      return acc;
+    }, {} as Record<string, AuditEntry[]>)
+  };
+};` }
+    ],
+    29: [
+      { type: 'explanation', title: "Enterprise AI Governance Framework", content: `**Scaling AI Safely Across Teams:**
+
+**Governance Pillars:**
+
+**1. Policy & Standards**
+- Approved AI tools list
+- Usage guidelines
+- Data classification rules
+- Review requirements
+
+**2. Training & Certification**
+- Mandatory AI safety training
+- Tool-specific training
+- Regular refreshers
+- Competency verification
+
+**3. Monitoring & Audit**
+- Usage tracking
+- Compliance verification
+- Incident reporting
+- Regular audits
+
+**4. Risk Management**
+- Risk assessment framework
+- Mitigation strategies
+- Incident response plan
+- Continuous improvement
+
+**AI Code Review Checklist:**
+□ No credentials or secrets
+□ No internal URLs exposed
+□ No PII or sensitive data
+□ Code reviewed by human
+□ Matches requirements
+□ Follows team patterns
+□ Properly tested` },
+      { type: 'code', title: "AI Governance Implementation", content: "Tools and processes for AI governance:", code: `// ========== AI USAGE POLICY CHECKER ==========
+// scripts/ai-policy-check.ts
+
+interface PolicyViolation {
+  file: string;
+  line: number;
+  type: 'credential' | 'pii' | 'internal_url' | 'sensitive_data';
+  match: string;
+}
+
+const sensitivePatterns = [
+  { pattern: /password\s*[:=]\s*['"][^'"]+['"]/gi, type: 'credential' },
+  { pattern: /api[_-]?key\s*[:=]\s*['"][^'"]+['"]/gi, type: 'credential' },
+  { pattern: /internal\\.company\\.com/gi, type: 'internal_url' },
+  { pattern: /\\b[A-Za-z0-9._%+-]+@company\\.com\\b/gi, type: 'pii' },
+  { pattern: /ssn|social.security/gi, type: 'sensitive_data' }
+];
+
+function checkFile(content: string, filename: string): PolicyViolation[] {
+  const violations: PolicyViolation[] = [];
+  const lines = content.split('\\n');
+  
+  lines.forEach((line, index) => {
+    sensitivePatterns.forEach(({ pattern, type }) => {
+      const matches = line.match(pattern);
+      if (matches) {
+        violations.push({
+          file: filename,
+          line: index + 1,
+          type: type as PolicyViolation['type'],
+          match: matches[0]
+        });
+      }
+    });
+  });
+  
+  return violations;
+}
+
+// ========== AI CODE ANNOTATION ==========
+// Add to all AI-generated code files
+
+/**
+ * @ai-generated
+ * @ai-tool GitHub Copilot
+ * @generated-date 2024-01-15
+ * @reviewed-by john.smith@company.com
+ * @review-date 2024-01-16
+ * @policy-check PASSED
+ */
+describe('User Registration', () => {
+  // AI-assisted implementation, human reviewed
+  it('should register new user', () => {
+    cy.visit('/register');
+    // ... test code
+  });
+});
+
+// ========== PRE-COMMIT HOOK ==========
+// .husky/pre-commit
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running AI policy check..."
+npx ts-node scripts/ai-policy-check.ts
+
+if [ $? -ne 0 ]; then
+  echo "AI Policy Violation Detected!"
+  echo "Please review and remove sensitive information."
+  exit 1
+fi
+
+echo "AI policy check passed."
+
+// ========== AI USAGE TRACKING ==========
+// Track AI tool usage for compliance reporting
+
+interface AIUsageMetric {
+  date: string;
+  developer: string;
+  tool: string;
+  action: 'generate' | 'accept' | 'reject' | 'modify';
+  linesGenerated: number;
+  linesModified: number;
+  reviewStatus: 'pending' | 'approved' | 'rejected';
+}
+
+// VS Code extension could track this automatically
+// Report aggregates for compliance audits
+
+const monthlyReport = {
+  totalAIGenerated: 1500,
+  totalAccepted: 1200,
+  totalModified: 250,
+  totalRejected: 50,
+  averageModificationRate: '20%',
+  topUsers: [
+    { name: 'Alice', generated: 400, accepted: 350 },
+    { name: 'Bob', generated: 350, accepted: 300 }
+  ],
+  policyViolations: 2,
+  violationsResolved: 2
+};
+
+// ========== TEAM TRAINING CHECKLIST ==========
+const aiTrainingChecklist = {
+  modules: [
+    { name: 'AI Safety Fundamentals', required: true, duration: '30 min' },
+    { name: 'Prompt Engineering for Testing', required: true, duration: '45 min' },
+    { name: 'Code Review for AI Output', required: true, duration: '30 min' },
+    { name: 'Credential Protection', required: true, duration: '20 min' },
+    { name: 'Compliance Requirements', required: true, duration: '30 min' },
+    { name: 'Advanced Prompting', required: false, duration: '60 min' }
+  ],
+  certification: {
+    passingScore: 80,
+    validityPeriod: '12 months',
+    renewalRequired: true
+  }
+};` }
+    ],
+    30: [
+      { type: 'explanation', title: "Capstone Project Requirements", content: `**Your Enterprise Framework Deliverables:**
+
+**1. Project Structure (10%)**
+□ Proper folder organization
+□ TypeScript configuration
+□ ESLint and Prettier
+□ README with setup instructions
+
+**2. Page Objects (20%)**
+□ Base page class
+□ At least 5 page objects
+□ Proper encapsulation
+□ Fluent interface methods
+
+**3. Custom Commands (15%)**
+□ Login command (UI and API)
+□ Data-testid helper
+□ At least 3 domain commands
+□ TypeScript declarations
+
+**4. Test Suites (25%)**
+□ Authentication tests (login/logout)
+□ Core user journey tests
+□ API integration tests
+□ Data-driven tests
+
+**5. CI/CD Pipeline (20%)**
+□ GitHub Actions or GitLab CI
+□ Parallel execution
+□ Artifact collection
+□ Notifications
+
+**6. Documentation (10%)**
+□ Test strategy document
+□ Contribution guidelines
+□ Environment setup guide` },
+      { type: 'code', title: "Capstone Starter Template", content: "Complete project structure to build from:", code: `// ========== PROJECT STRUCTURE ==========
+/*
+my-enterprise-cypress/
+├── .github/
+│   └── workflows/
+│       ├── ci.yml              # PR checks
+│       └── nightly.yml         # Full regression
+├── cypress/
+│   ├── e2e/
+│   │   ├── auth/
+│   │   │   ├── login.cy.ts
+│   │   │   └── logout.cy.ts
+│   │   ├── products/
+│   │   │   ├── list.cy.ts
+│   │   │   └── crud.cy.ts
+│   │   └── checkout/
+│   │       ├── cart.cy.ts
+│   │       └── payment.cy.ts
+│   ├── fixtures/
+│   │   ├── users.json
+│   │   └── products.json
+│   ├── pages/
+│   │   ├── BasePage.ts
+│   │   ├── LoginPage.ts
+│   │   ├── DashboardPage.ts
+│   │   └── ProductsPage.ts
+│   ├── support/
+│   │   ├── commands.ts
+│   │   ├── e2e.ts
+│   │   └── index.d.ts
+│   └── factories/
+│       └── userFactory.ts
+├── cypress.config.ts
+├── tsconfig.json
+├── package.json
+├── README.md
+└── docs/
+    ├── TEST_STRATEGY.md
+    └── CONTRIBUTING.md
+*/
+
+// ========== cypress/pages/BasePage.ts ==========
+export abstract class BasePage {
+  abstract readonly url: string;
+  abstract readonly pageIdentifier: string;
+  
+  visit(): this {
+    cy.visit(this.url);
+    this.verifyPage();
+    return this;
+  }
+  
+  verifyPage(): this {
+    cy.get(this.pageIdentifier).should('be.visible');
+    return this;
+  }
+  
+  protected getByTestId(testId: string) {
+    return cy.get(\`[data-testid="\${testId}"]\`);
+  }
+}
+
+// ========== cypress/support/commands.ts ==========
+import './index.d.ts';
+
+Cypress.Commands.add('getByTestId', (testId: string) => {
+  return cy.get(\`[data-testid="\${testId}"]\`);
+});
+
+Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.session([email, password], () => {
+    cy.visit('/login');
+    cy.getByTestId('email').type(email);
+    cy.getByTestId('password').type(password);
+    cy.getByTestId('submit').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+
+Cypress.Commands.add('loginViaApi', (email: string, password: string) => {
+  cy.request('POST', '/api/auth/login', { email, password })
+    .then(response => {
+      window.localStorage.setItem('token', response.body.token);
+    });
+});
+
+// ========== cypress/support/index.d.ts ==========
+declare namespace Cypress {
+  interface Chainable {
+    getByTestId(testId: string): Chainable<JQuery<HTMLElement>>;
+    login(email: string, password: string): Chainable<void>;
+    loginViaApi(email: string, password: string): Chainable<void>;
+  }
+}
+
+// ========== .github/workflows/ci.yml ==========
+name: CI Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        containers: [1, 2, 3]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          record: true
+          parallel: true
+          group: 'CI Tests'
+        env:
+          CYPRESS_RECORD_KEY: \${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots` }
+    ]
+  };
+  
   return {
     title: `Intermediate: ${title} in Practice`,
     duration: "20 minutes",
-    content: [
+    content: intermediateContents[lessonNumber] || [
       { type: 'explanation', title: "Building on the Fundamentals", content: `Now let's apply ${title} concepts in real-world scenarios.\n\n**In This Section:**\n- Write production-quality code\n- Handle edge cases\n- Follow industry best practices\n- Build maintainable solutions` },
       { type: 'code', title: "Implementation Example", content: "Production-ready implementation:", code: `describe('${title} - Practical Example', () => {
   beforeEach(() => {
@@ -3112,10 +4757,1704 @@ function generateIntermediateContent(lessonNumber: number, title: string): Lesso
 }
 
 function generateAdvancedContent(lessonNumber: number, title: string): LessonSection {
+  const advancedContents: Record<number, SectionContent[]> = {
+    12: [
+      { type: 'explanation', title: "Enterprise Automation Governance", content: `**Scaling Automation Across Teams:**
+
+**Center of Excellence (CoE) Model:**
+- Central team defines standards and patterns
+- Provides shared libraries and frameworks
+- Conducts training and mentoring
+- Reviews and approves automation projects
+
+**Federated Model:**
+- Each team owns their automation
+- Central team provides guidelines
+- Shared tools but independent execution
+- Regular sync meetings for alignment
+
+**Metrics Dashboard:**
+- Test execution trends
+- Coverage by feature/team
+- Flakiness tracking
+- ROI by automation project
+- Technical debt indicators
+
+**Continuous Improvement:**
+- Monthly automation retrospectives
+- Quarterly strategy reviews
+- Annual maturity assessments` },
+      { type: 'warning', title: "Automation Anti-Patterns", content: `**Avoid These Common Mistakes:**
+
+1. **Automating Everything**
+   - Not all tests should be automated
+   - Manual exploratory testing remains valuable
+
+2. **Ignoring Maintenance**
+   - Factor 20-30% time for maintenance
+   - Flaky tests erode trust
+
+3. **Testing Through UI Only**
+   - Use API tests where possible
+   - UI tests for critical paths only
+
+4. **No Test Strategy**
+   - Automation without strategy wastes effort
+   - Align with business priorities
+
+5. **Lack of Ownership**
+   - Every test needs an owner
+   - Review and update regularly` }
+    ],
+    17: [
+      { type: 'explanation', title: "AI Risk Assessment Matrix", content: `**Enterprise AI Risk Categories:**
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| Credential Leak | Medium | Critical | Never include in prompts |
+| Incorrect Code | High | Medium | Mandatory code review |
+| IP Exposure | Low | High | Sanitize business logic |
+| Compliance Gap | Medium | High | Audit trail + training |
+| Over-reliance | High | Medium | Human review gates |
+
+**Risk-Based Controls:**
+
+**High Risk (Financial, Healthcare, Government)**
+- All AI code requires senior review
+- No AI for security-critical functions
+- Quarterly compliance audits
+
+**Medium Risk (General Enterprise)**
+- Peer code review required
+- Team leads spot-check weekly
+- Annual training refresh
+
+**Low Risk (Internal Tools, Prototypes)**
+- Standard code review
+- Self-assessment checklists` },
+      { type: 'code', title: "AI Audit Configuration", content: "Implementing audit trails for AI usage:", code: `// ========== AI AUDIT LOGGER ==========
+// Integrate with your test framework
+
+interface AIAuditEvent {
+  timestamp: string;
+  developer: string;
+  action: 'prompt' | 'accept' | 'modify' | 'reject';
+  tool: 'copilot' | 'chatgpt' | 'other';
+  codeContext: string;
+  reviewStatus?: 'pending' | 'approved' | 'rejected';
+  reviewer?: string;
+}
+
+class AIAuditLogger {
+  private events: AIAuditEvent[] = [];
+  
+  logEvent(event: Omit<AIAuditEvent, 'timestamp'>) {
+    this.events.push({
+      ...event,
+      timestamp: new Date().toISOString()
+    });
+  }
+  
+  generateReport(): string {
+    const summary = {
+      totalEvents: this.events.length,
+      acceptanceRate: this.calculateAcceptanceRate(),
+      modificationRate: this.calculateModificationRate(),
+      pendingReviews: this.events.filter(e => e.reviewStatus === 'pending').length,
+      byDeveloper: this.groupByDeveloper()
+    };
+    
+    return JSON.stringify(summary, null, 2);
+  }
+  
+  private calculateAcceptanceRate(): number {
+    const accepted = this.events.filter(e => e.action === 'accept').length;
+    const total = this.events.filter(e => 
+      ['accept', 'reject'].includes(e.action)
+    ).length;
+    return total > 0 ? (accepted / total) * 100 : 0;
+  }
+  
+  private calculateModificationRate(): number {
+    const modified = this.events.filter(e => e.action === 'modify').length;
+    const accepted = this.events.filter(e => 
+      ['accept', 'modify'].includes(e.action)
+    ).length;
+    return accepted > 0 ? (modified / accepted) * 100 : 0;
+  }
+  
+  private groupByDeveloper(): Record<string, number> {
+    return this.events.reduce((acc, event) => {
+      acc[event.developer] = (acc[event.developer] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  }
+}
+
+// Usage in CI pipeline
+const auditLogger = new AIAuditLogger();
+
+// Log when code is reviewed
+auditLogger.logEvent({
+  developer: process.env.GIT_AUTHOR_NAME || 'unknown',
+  action: 'accept',
+  tool: 'copilot',
+  codeContext: 'cypress/e2e/login.cy.ts',
+  reviewStatus: 'approved',
+  reviewer: 'senior.dev@company.com'
+});` }
+    ],
+    19: [
+      { type: 'explanation', title: "Screenplay vs POM Decision Guide", content: `**When to Choose Each Pattern:**
+
+**Choose Page Object Model When:**
+- Team is new to automation
+- Application has simple page-based flows
+- Quick implementation needed
+- Most tests follow CRUD patterns
+- Maintenance budget is limited
+
+**Choose Screenplay Pattern When:**
+- Complex multi-step workflows
+- Multiple user personas/roles
+- BDD/Gherkin integration needed
+- Large team with varied skill levels
+- Tests should read like requirements
+- Long-term maintainability is priority
+
+**Hybrid Approach Benefits:**
+- POMs handle selectors (most change)
+- Tasks handle business logic (stable)
+- Actors enable multi-user scenarios
+- Best of both worlds
+
+**Migration Path:**
+POM → Hybrid → Full Screenplay
+Add layers incrementally as complexity grows.` },
+      { type: 'code', title: "Advanced Actor Abilities", content: "Screenplay with abilities pattern:", code: `// ========== ABILITIES PATTERN ==========
+// Actors have abilities that determine what they can do
+
+interface Ability {
+  name: string;
+}
+
+class BrowseTheWeb implements Ability {
+  name = 'BrowseTheWeb';
+  
+  navigateTo(url: string) {
+    cy.visit(url);
+  }
+  
+  find(selector: string) {
+    return cy.get(selector);
+  }
+}
+
+class CallAPIs implements Ability {
+  name = 'CallAPIs';
+  private token?: string;
+  
+  setToken(token: string) {
+    this.token = token;
+  }
+  
+  get(endpoint: string) {
+    return cy.request({
+      method: 'GET',
+      url: endpoint,
+      headers: this.token ? { Authorization: \`Bearer \${this.token}\` } : {}
+    });
+  }
+  
+  post(endpoint: string, body: object) {
+    return cy.request({
+      method: 'POST',
+      url: endpoint,
+      body,
+      headers: this.token ? { Authorization: \`Bearer \${this.token}\` } : {}
+    });
+  }
+}
+
+// Actor with abilities
+class Actor {
+  private abilities: Map<string, Ability> = new Map();
+  
+  constructor(public name: string) {}
+  
+  static named(name: string) {
+    return new Actor(name);
+  }
+  
+  whoCan<T extends Ability>(ability: T): this {
+    this.abilities.set(ability.name, ability);
+    return this;
+  }
+  
+  abilityTo<T extends Ability>(abilityType: new () => T): T {
+    const ability = Array.from(this.abilities.values())
+      .find(a => a instanceof abilityType);
+    if (!ability) {
+      throw new Error(\`Actor does not have ability: \${abilityType.name}\`);
+    }
+    return ability as T;
+  }
+}
+
+// Usage
+describe('Actor with Abilities', () => {
+  const alice = Actor.named('Alice')
+    .whoCan(new BrowseTheWeb())
+    .whoCan(new CallAPIs());
+  
+  it('Alice can browse and call APIs', () => {
+    // Use web ability
+    alice.abilityTo(BrowseTheWeb).navigateTo('/home');
+    alice.abilityTo(BrowseTheWeb).find('[data-testid="title"]')
+      .should('contain', 'Welcome');
+    
+    // Use API ability
+    alice.abilityTo(CallAPIs).get('/api/user').then(response => {
+      expect(response.status).to.equal(200);
+    });
+  });
+});` }
+    ],
+    20: [
+      { type: 'explanation', title: "Enterprise Hybrid Architecture", content: `**Production Hybrid Framework:**
+
+**Layer Responsibilities:**
+
+**1. Commands Layer (Foundation)**
+- Generic utilities: getByTestId, waitForApi
+- No business logic
+- Used by all layers above
+
+**2. Pages Layer (Selectors)**  
+- Element selectors
+- Low-level interactions
+- One page object per page/component
+- No assertions
+
+**3. Tasks Layer (Actions)**
+- Business actions: "Login", "Add to cart"
+- Composes page methods
+- May include assertions
+- Reusable across tests
+
+**4. Actors Layer (Context)**
+- User personas
+- Role-based permissions
+- Test data associations
+
+**5. Specs Layer (Tests)**
+- describe/it blocks
+- High-level scenarios
+- Minimal code, maximum readability
+
+**Benefits:**
+- Changes isolated to appropriate layer
+- Easy onboarding for new team members
+- Scales to large test suites
+- Supports multiple applications` },
+      { type: 'code', title: "Complete Enterprise Example", content: "Full hybrid framework in action:", code: `// ========== E2E Test Using Full Stack ==========
+// cypress/e2e/checkout/complete-purchase.cy.ts
+
+import { Actors } from '../../actors';
+import { AddToCartTask, CheckoutTask, VerifyOrderTask } from '../../tasks';
+
+describe('Complete Purchase Flow', () => {
+  describe('as a registered user', () => {
+    const customer = Actors.registeredCustomer;
+    
+    beforeEach(() => {
+      customer.login();
+    });
+    
+    it('can complete purchase with credit card', () => {
+      customer.performs(
+        AddToCartTask.forProduct('SKU-12345', { quantity: 2 })
+      );
+      
+      customer.performs(
+        CheckoutTask.withPayment({
+          method: 'credit_card',
+          card: '4111111111111111',
+          expiry: '12/25',
+          cvv: '123'
+        })
+      );
+      
+      customer.performs(
+        VerifyOrderTask.isConfirmed({
+          productSku: 'SKU-12345',
+          quantity: 2
+        })
+      );
+    });
+  });
+  
+  describe('as a guest user', () => {
+    const guest = Actors.guestUser;
+    
+    it('can complete purchase with PayPal', () => {
+      guest.performs(
+        AddToCartTask.forProduct('SKU-67890', { quantity: 1 })
+      );
+      
+      guest.performs(
+        CheckoutTask.asGuest({
+          email: guest.email,
+          payment: { method: 'paypal' }
+        })
+      );
+      
+      guest.performs(
+        VerifyOrderTask.isConfirmed({
+          productSku: 'SKU-67890',
+          quantity: 1
+        })
+      );
+    });
+  });
+});
+
+// Test reads like a business requirement:
+// "A registered customer can complete a purchase with credit card"
+// "A guest user can complete a purchase with PayPal"
+
+// All complexity is hidden in Tasks and Pages` }
+    ],
+    21: [
+      { type: 'explanation', title: "Enterprise Data Strategies", content: `**Data Management at Scale:**
+
+**1. Test Data Service**
+- Centralized data generation
+- API for creating/cleaning data
+- Supports parallel execution
+- Tracks data lifecycle
+
+**2. Data Pools**
+- Pre-created test accounts
+- Allocated per test run
+- Released after completion
+- Prevents collisions
+
+**3. Synthetic Data Generation**
+- Realistic but fake data
+- GDPR/privacy compliant
+- Consistent format
+- Unlimited supply
+
+**4. Data Versioning**
+- Fixtures in version control
+- Changes tracked with tests
+- Rollback capability
+- Environment-specific data
+
+**Clean Data Principles:**
+- Each test creates its own data
+- Tests don't depend on shared state
+- Data cleaned after each test
+- Isolation enables parallelization` },
+      { type: 'code', title: "Enterprise Data Service", content: "Centralized test data management:", code: `// ========== TEST DATA SERVICE ==========
+// A service that manages test data lifecycle
+
+interface TestData {
+  id: string;
+  type: string;
+  data: Record<string, unknown>;
+  createdAt: string;
+  testId?: string;
+}
+
+class TestDataService {
+  private apiUrl = Cypress.env('DATA_SERVICE_URL') || '/api/test-data';
+  private createdData: TestData[] = [];
+  
+  // Create data via API
+  create<T extends Record<string, unknown>>(
+    type: string, 
+    data: T
+  ): Cypress.Chainable<T & { id: string }> {
+    return cy.request('POST', \`\${this.apiUrl}/\${type}\`, data)
+      .then(response => {
+        const created = response.body;
+        this.createdData.push({
+          id: created.id,
+          type,
+          data: created,
+          createdAt: new Date().toISOString(),
+          testId: Cypress.currentTest?.title
+        });
+        return created;
+      });
+  }
+  
+  // Cleanup all data created in this test
+  cleanup(): Cypress.Chainable<void> {
+    const deletePromises = this.createdData.map(item =>
+      cy.request({
+        method: 'DELETE',
+        url: \`\${this.apiUrl}/\${item.type}/\${item.id}\`,
+        failOnStatusCode: false
+      })
+    );
+    
+    this.createdData = [];
+    return cy.wrap(Promise.all(deletePromises)).then(() => {});
+  }
+  
+  // Get from data pool (pre-created accounts)
+  fromPool(poolName: string): Cypress.Chainable<TestData> {
+    return cy.request('POST', \`\${this.apiUrl}/pool/\${poolName}/acquire\`)
+      .then(response => response.body);
+  }
+  
+  // Release back to pool
+  releaseToPool(poolName: string, id: string): Cypress.Chainable<void> {
+    return cy.request('POST', \`\${this.apiUrl}/pool/\${poolName}/release/\${id}\`)
+      .then(() => {});
+  }
+}
+
+// Singleton instance
+export const testData = new TestDataService();
+
+// ========== USAGE IN TESTS ==========
+describe('User Profile', () => {
+  let testUser: { id: string; email: string };
+  
+  beforeEach(() => {
+    // Create fresh user for this test
+    testData.create('users', {
+      email: \`test-\${Date.now()}@example.com\`,
+      name: 'Test User'
+    }).then(user => {
+      testUser = user;
+    });
+  });
+  
+  afterEach(() => {
+    // Clean up all created data
+    testData.cleanup();
+  });
+  
+  it('can update profile name', () => {
+    cy.loginViaApi(testUser.email, 'defaultPassword');
+    cy.visit('/profile');
+    cy.getByTestId('name-input').clear().type('New Name');
+    cy.getByTestId('save').click();
+    cy.getByTestId('name-display').should('contain', 'New Name');
+  });
+});
+
+// ========== DATA POOL PATTERN ==========
+describe('Checkout (using data pool)', () => {
+  let premiumAccount: TestData;
+  
+  before(() => {
+    // Acquire account from pool (faster than creating)
+    testData.fromPool('premium-accounts').then(account => {
+      premiumAccount = account;
+    });
+  });
+  
+  after(() => {
+    // Release back to pool for reuse
+    if (premiumAccount) {
+      testData.releaseToPool('premium-accounts', premiumAccount.id);
+    }
+  });
+  
+  it('premium user gets free shipping', () => {
+    cy.loginViaApi(premiumAccount.data.email, premiumAccount.data.password);
+    // ... test code
+  });
+});` }
+    ],
+    23: [
+      { type: 'explanation', title: "Flaky Test Detection System", content: `**Building a Flakiness Detection Pipeline:**
+
+**Detection Methods:**
+1. **Re-run Analysis** - Run each test multiple times
+2. **Historical Tracking** - Compare results over time
+3. **Environment Comparison** - Run across different envs
+4. **Time-based Analysis** - Check if specific times fail more
+
+**Quarantine Strategy:**
+- Identify flaky tests (> 5% failure rate)
+- Move to quarantine suite
+- Don't block deployments
+- Track in separate dashboard
+- Prioritize fixes
+
+**Root Cause Categories:**
+| Category | % of Flakes | Common Fix |
+|----------|-------------|------------|
+| Timing | 45% | Proper waits |
+| Data | 25% | Isolation |
+| Environment | 15% | Stabilize |
+| Test Bug | 10% | Fix test |
+| App Bug | 5% | Fix app |
+
+**Prevention Practices:**
+- Never use fixed waits
+- Always verify preconditions
+- Use unique test data
+- Reset state before tests
+- Review all intermittent failures` },
+      { type: 'code', title: "Flakiness Detection Implementation", content: "Tools to detect and manage flaky tests:", code: `// ========== FLAKY TEST REPORTER ==========
+// Track test results over time
+
+interface TestResult {
+  testId: string;
+  testName: string;
+  passed: boolean;
+  duration: number;
+  timestamp: string;
+  runId: string;
+  error?: string;
+}
+
+interface FlakinessReport {
+  testId: string;
+  testName: string;
+  totalRuns: number;
+  passes: number;
+  failures: number;
+  flakeRate: number;
+  isFlaky: boolean;
+  lastFailure?: string;
+  failurePatterns: string[];
+}
+
+class FlakinessTracker {
+  private results: TestResult[] = [];
+  private flakeThreshold = 0.05; // 5%
+  
+  record(result: TestResult) {
+    this.results.push(result);
+  }
+  
+  analyze(): FlakinessReport[] {
+    const grouped = this.groupByTest();
+    
+    return Object.entries(grouped).map(([testId, results]) => {
+      const failures = results.filter(r => !r.passed);
+      const flakeRate = failures.length / results.length;
+      
+      return {
+        testId,
+        testName: results[0].testName,
+        totalRuns: results.length,
+        passes: results.filter(r => r.passed).length,
+        failures: failures.length,
+        flakeRate,
+        isFlaky: flakeRate > this.flakeThreshold && flakeRate < 1,
+        lastFailure: failures.length > 0 ? 
+          failures[failures.length - 1].error : undefined,
+        failurePatterns: this.extractPatterns(failures)
+      };
+    }).filter(r => r.isFlaky);
+  }
+  
+  private groupByTest(): Record<string, TestResult[]> {
+    return this.results.reduce((acc, result) => {
+      acc[result.testId] = acc[result.testId] || [];
+      acc[result.testId].push(result);
+      return acc;
+    }, {} as Record<string, TestResult[]>);
+  }
+  
+  private extractPatterns(failures: TestResult[]): string[] {
+    const errors = failures.map(f => f.error || '').filter(Boolean);
+    const patterns = new Set<string>();
+    
+    errors.forEach(error => {
+      if (error.includes('timeout')) patterns.add('TIMEOUT');
+      if (error.includes('not found')) patterns.add('ELEMENT_NOT_FOUND');
+      if (error.includes('assertion')) patterns.add('ASSERTION_FAILED');
+      if (error.includes('network')) patterns.add('NETWORK_ERROR');
+    });
+    
+    return Array.from(patterns);
+  }
+}
+
+// ========== QUARANTINE SYSTEM ==========
+// cypress.config.ts
+
+const quarantinedTests = [
+  'cypress/e2e/checkout/payment.cy.ts',
+  'cypress/e2e/auth/oauth.cy.ts'
+];
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // Exclude quarantined tests from main run
+      if (config.env.excludeQuarantine) {
+        const glob = require('glob');
+        const allSpecs = glob.sync(config.specPattern);
+        config.specPattern = allSpecs.filter(
+          spec => !quarantinedTests.some(q => spec.includes(q))
+        );
+      }
+      
+      // Run only quarantined tests
+      if (config.env.quarantineOnly) {
+        config.specPattern = quarantinedTests;
+      }
+      
+      return config;
+    }
+  }
+});
+
+// Run commands:
+// Regular tests (excluding quarantine):
+// npx cypress run --env excludeQuarantine=true
+
+// Quarantine tests (non-blocking):
+// npx cypress run --env quarantineOnly=true || true
+
+// ========== STABILITY COMMAND ==========
+Cypress.Commands.add('stableGet', (
+  selector: string,
+  options: { timeout?: number; stable?: number } = {}
+) => {
+  const { timeout = 10000, stable = 500 } = options;
+  
+  // Wait for element to be stable (not changing) for 'stable' ms
+  cy.get(selector, { timeout }).should($el => {
+    // Element exists
+    expect($el).to.exist;
+  }).then($el => {
+    // Wait for stability
+    const initialHtml = $el.html();
+    cy.wait(stable);
+    cy.get(selector).should($newEl => {
+      expect($newEl.html()).to.equal(initialHtml);
+    });
+  });
+  
+  return cy.get(selector);
+});` }
+    ],
+    24: [
+      { type: 'explanation', title: "Secrets Management", content: `**Enterprise Secrets Handling:**
+
+**Never Store Secrets In:**
+- Source code
+- Git history
+- cypress.env.json (if committed)
+- Test files
+- Log output
+
+**Secure Secret Sources:**
+- CI/CD secret variables
+- Vault systems (HashiCorp, AWS Secrets Manager)
+- Environment variables
+- Encrypted config files
+
+**Secrets Hierarchy:**
+1. CI/CD variables (highest priority)
+2. Environment variables
+3. cypress.env.json (local only, git-ignored)
+4. cypress.config.ts (defaults only)
+
+**Access Pattern:**
+Test code → Cypress.env() → CI/CD variable → Vault
+
+**Audit Requirements:**
+- Track who accessed secrets
+- Rotate credentials regularly
+- Use service accounts
+- Minimum necessary permissions` },
+      { type: 'code', title: "Secure Configuration", content: "Enterprise secrets management:", code: `// ========== SECURE CONFIG SETUP ==========
+// cypress.config.ts
+
+import { defineConfig } from 'cypress';
+
+export default defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // Load secrets from environment variables (set by CI/CD)
+      config.env.testUserEmail = process.env.TEST_USER_EMAIL;
+      config.env.testUserPassword = process.env.TEST_USER_PASSWORD;
+      config.env.apiKey = process.env.API_KEY;
+      
+      // Validate required secrets exist
+      const required = ['testUserEmail', 'testUserPassword'];
+      const missing = required.filter(key => !config.env[key]);
+      
+      if (missing.length > 0 && !process.env.CI) {
+        console.warn(\`Missing env vars: \${missing.join(', ')}\`);
+        console.warn('Using cypress.env.json for local development');
+      }
+      
+      return config;
+    }
+  }
+});
+
+// ========== LOCAL DEVELOPMENT ==========
+// cypress.env.json (git-ignored!)
+{
+  "testUserEmail": "local@test.com",
+  "testUserPassword": "localDevPassword",
+  "apiKey": "local-dev-key"
+}
+
+// .gitignore
+cypress.env.json
+
+// ========== CI/CD CONFIGURATION ==========
+# GitHub Actions
+env:
+  TEST_USER_EMAIL: \${{ secrets.TEST_USER_EMAIL }}
+  TEST_USER_PASSWORD: \${{ secrets.TEST_USER_PASSWORD }}
+  API_KEY: \${{ secrets.API_KEY }}
+
+# GitLab CI - set in CI/CD Settings > Variables
+# Mark as "Protected" and "Masked"
+
+// ========== SECURE USAGE IN TESTS ==========
+describe('Secure Test Example', () => {
+  it('logs in securely', () => {
+    const email = Cypress.env('testUserEmail');
+    const password = Cypress.env('testUserPassword');
+    
+    // Verify secrets exist
+    expect(email, 'testUserEmail should be set').to.exist;
+    expect(password, 'testUserPassword should be set').to.exist;
+    
+    cy.visit('/login');
+    cy.get('[data-testid="email"]').type(email);
+    
+    // Hide password from logs
+    cy.get('[data-testid="password"]').type(password, { log: false });
+    
+    cy.get('[data-testid="submit"]').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+
+// ========== VAULT INTEGRATION ==========
+// For enterprise: fetch secrets from vault at runtime
+
+interface VaultSecret {
+  key: string;
+  value: string;
+  version: number;
+}
+
+async function fetchFromVault(secretPath: string): Promise<VaultSecret> {
+  const vaultUrl = process.env.VAULT_URL;
+  const vaultToken = process.env.VAULT_TOKEN;
+  
+  const response = await fetch(\`\${vaultUrl}/v1/\${secretPath}\`, {
+    headers: { 'X-Vault-Token': vaultToken }
+  });
+  
+  return response.json();
+}
+
+// In setupNodeEvents:
+on('task', {
+  async getSecret(path: string) {
+    const secret = await fetchFromVault(path);
+    return secret.value;
+  }
+});
+
+// In test:
+cy.task('getSecret', 'secret/data/test-credentials').then(creds => {
+  // Use credentials
+});` }
+    ],
+    26: [
+      { type: 'explanation', title: "Nightly Test Strategy", content: `**What Belongs in Nightly Runs:**
+
+**Include:**
+- Full regression suite
+- Cross-browser matrix
+- Performance measurements
+- Visual regression
+- Accessibility audits
+- Security scans
+- Data integrity checks
+- Long-running scenarios
+
+**Exclude:**
+- Smoke tests (run on every commit)
+- Tests still in development
+- Known flaky tests (quarantine)
+
+**Scheduling Considerations:**
+- Run during off-peak hours
+- Allow enough time to complete
+- Leave buffer for retries
+- Consider time zones for global teams
+
+**Environment Requirements:**
+- Stable test environment
+- Refreshed test data
+- No other deployments during run
+- Monitoring enabled` },
+      { type: 'code', title: "Complete Nightly Pipeline", content: "Full-featured nightly regression:", code: `# .github/workflows/nightly.yml
+
+name: Nightly Regression Suite
+
+on:
+  schedule:
+    # Run at 2 AM UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - acceptance
+
+env:
+  TEST_ENVIRONMENT: \${{ github.event.inputs.environment || 'staging' }}
+
+jobs:
+  # ========== SETUP ==========
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      base-url: \${{ steps.config.outputs.base-url }}
+    steps:
+      - uses: actions/checkout@v3
+      
+      - id: config
+        run: |
+          if [ "\${{ env.TEST_ENVIRONMENT }}" == "staging" ]; then
+            echo "base-url=https://staging.example.com" >> $GITHUB_OUTPUT
+          else
+            echo "base-url=https://acc.example.com" >> $GITHUB_OUTPUT
+          fi
+
+  # ========== CROSS-BROWSER TESTS ==========
+  browser-matrix:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox, edge]
+        containers: [1, 2, 3, 4]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Cypress \${{ matrix.browser }}
+        uses: cypress-io/github-action@v5
+        with:
+          browser: \${{ matrix.browser }}
+          record: true
+          parallel: true
+          group: 'nightly-\${{ matrix.browser }}'
+          ci-build-id: \${{ github.run_id }}
+        env:
+          CYPRESS_baseUrl: \${{ needs.setup.outputs.base-url }}
+          CYPRESS_RECORD_KEY: \${{ secrets.CYPRESS_RECORD_KEY }}
+          
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: \${{ matrix.browser }}-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
+
+  # ========== VISUAL REGRESSION ==========
+  visual-tests:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Visual Regression
+        uses: cypress-io/github-action@v5
+        with:
+          spec: cypress/e2e/visual/**
+          browser: chrome
+        env:
+          CYPRESS_baseUrl: \${{ needs.setup.outputs.base-url }}
+          PERCY_TOKEN: \${{ secrets.PERCY_TOKEN }}
+
+  # ========== ACCESSIBILITY ==========
+  accessibility:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Accessibility Scan
+        uses: cypress-io/github-action@v5
+        with:
+          spec: cypress/e2e/accessibility/**
+        env:
+          CYPRESS_baseUrl: \${{ needs.setup.outputs.base-url }}
+
+  # ========== NOTIFICATION ==========
+  notify:
+    needs: [browser-matrix, visual-tests, accessibility]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: \${{ job.status }}
+          fields: repo,workflow,job,took
+          text: |
+            Nightly Regression Results
+            Environment: \${{ env.TEST_ENVIRONMENT }}
+            Status: \${{ needs.browser-matrix.result }}
+        env:
+          SLACK_WEBHOOK_URL: \${{ secrets.SLACK_WEBHOOK_URL }}
+          
+      - name: Create Issue on Failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Nightly Regression Failed - ' + new Date().toISOString().split('T')[0],
+              body: 'Nightly regression suite failed. Check workflow run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId,
+              labels: ['bug', 'nightly-failure', 'priority:high']
+            })` }
+    ],
+    27: [
+      { type: 'explanation', title: "Advanced Parallelization", content: `**Optimization Techniques:**
+
+**1. Load Balancing:**
+- Track historical test durations
+- Distribute evenly by time, not count
+- Rebalance after test changes
+
+**2. Fail-Fast Mode:**
+- Stop all runners on first failure
+- Saves CI minutes
+- Use for PR checks
+
+**3. Selective Runs:**
+- Only run affected tests
+- Based on changed files
+- Requires test→code mapping
+
+**4. Speculative Execution:**
+- Run likely-to-fail tests first
+- Based on historical data
+- Faster feedback for failures
+
+**Cost Optimization:**
+- More runners = faster but costly
+- Find optimal runner count
+- Measure total time × cost
+- Consider spot instances` },
+      { type: 'code', title: "Advanced Parallel Strategies", content: "Sophisticated parallelization:", code: `// ========== SMART TEST DISTRIBUTION ==========
+// Distribute tests based on historical duration
+
+interface TestDuration {
+  specPath: string;
+  avgDuration: number;
+  lastRun: string;
+}
+
+// Load historical data (from previous runs)
+async function loadTestDurations(): Promise<TestDuration[]> {
+  // In practice, load from database or artifact
+  return [
+    { specPath: 'cypress/e2e/checkout/payment.cy.ts', avgDuration: 180000, lastRun: '2024-01-15' },
+    { specPath: 'cypress/e2e/auth/login.cy.ts', avgDuration: 45000, lastRun: '2024-01-15' },
+    { specPath: 'cypress/e2e/products/list.cy.ts', avgDuration: 60000, lastRun: '2024-01-15' },
+    // ... more tests
+  ];
+}
+
+function distributeByDuration(
+  tests: TestDuration[],
+  numShards: number
+): string[][] {
+  // Sort by duration descending
+  const sorted = [...tests].sort((a, b) => b.avgDuration - a.avgDuration);
+  
+  // Create shards with running totals
+  const shards: { specs: string[]; totalTime: number }[] = 
+    Array.from({ length: numShards }, () => ({ specs: [], totalTime: 0 }));
+  
+  // Assign each test to the shard with lowest total time
+  sorted.forEach(test => {
+    const minShard = shards.reduce((min, shard) =>
+      shard.totalTime < min.totalTime ? shard : min
+    );
+    minShard.specs.push(test.specPath);
+    minShard.totalTime += test.avgDuration;
+  });
+  
+  return shards.map(s => s.specs);
+}
+
+// ========== AFFECTED TESTS ONLY ==========
+// Run only tests related to changed files
+
+async function findAffectedTests(changedFiles: string[]): Promise<string[]> {
+  const testToFileMap: Record<string, string[]> = {
+    'cypress/e2e/auth/login.cy.ts': [
+      'src/components/Login.tsx',
+      'src/services/auth.ts',
+      'src/hooks/useAuth.ts'
+    ],
+    'cypress/e2e/products/list.cy.ts': [
+      'src/components/ProductList.tsx',
+      'src/services/products.ts'
+    ],
+    // ... mapping
+  };
+  
+  const affectedTests = new Set<string>();
+  
+  Object.entries(testToFileMap).forEach(([test, dependencies]) => {
+    if (dependencies.some(dep => changedFiles.includes(dep))) {
+      affectedTests.add(test);
+    }
+  });
+  
+  // Always run smoke tests
+  affectedTests.add('cypress/e2e/smoke/**');
+  
+  return Array.from(affectedTests);
+}
+
+// ========== FAIL-FAST IMPLEMENTATION ==========
+# GitHub Actions with fail-fast
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true  # Stop all jobs if one fails
+      matrix:
+        containers: [1, 2, 3, 4]
+    steps:
+      - uses: cypress-io/github-action@v5
+        with:
+          record: true
+          parallel: true
+
+// ========== SPECULATIVE EXECUTION ==========
+// Run historically-failing tests first
+
+interface TestHistory {
+  specPath: string;
+  recentFailureRate: number;
+  lastFailure?: string;
+}
+
+function prioritizeByFailureRate(tests: TestHistory[]): string[] {
+  return [...tests]
+    .sort((a, b) => b.recentFailureRate - a.recentFailureRate)
+    .map(t => t.specPath);
+}
+
+// First shard runs tests most likely to fail
+// Other shards run remaining tests
+// Result: faster feedback on failures` }
+    ],
+    28: [
+      { type: 'explanation', title: "Audit Trail Implementation", content: `**Complete Audit Trail Components:**
+
+**1. Test Execution Records:**
+- Test ID and name
+- Execution timestamp
+- Environment details
+- Executor identity
+- Duration and result
+- Evidence (screenshots, videos)
+
+**2. Change History:**
+- Git commit for test code
+- Git commit for app code
+- Deployment version
+- Configuration changes
+
+**3. Review Records:**
+- Reviewer identity
+- Review timestamp
+- Approval status
+- Comments
+
+**4. Evidence Storage:**
+- Screenshots with timestamps
+- Video recordings
+- Log files
+- Network traces
+- Database snapshots
+
+**Retention Requirements:**
+- Regulated industries: 7+ years
+- Standard: 1-3 years
+- Archive older records
+- Secure deletion policy` },
+      { type: 'code', title: "Complete Audit System", content: "Enterprise audit trail:", code: `// ========== AUDIT INTERFACES ==========
+interface AuditRecord {
+  id: string;
+  timestamp: string;
+  type: 'execution' | 'review' | 'change' | 'access';
+  actor: AuditActor;
+  action: string;
+  target: AuditTarget;
+  result: 'success' | 'failure' | 'pending';
+  evidence: AuditEvidence[];
+  metadata: Record<string, unknown>;
+}
+
+interface AuditActor {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  ipAddress?: string;
+}
+
+interface AuditTarget {
+  type: 'test' | 'suite' | 'environment' | 'config';
+  id: string;
+  name: string;
+  version?: string;
+}
+
+interface AuditEvidence {
+  type: 'screenshot' | 'video' | 'log' | 'artifact';
+  path: string;
+  hash: string;
+  timestamp: string;
+}
+
+// ========== AUDIT LOGGER ==========
+class AuditLogger {
+  private storageUrl = Cypress.env('AUDIT_STORAGE_URL');
+  
+  async logExecution(test: Mocha.Test, result: 'passed' | 'failed') {
+    const record: AuditRecord = {
+      id: this.generateId(),
+      timestamp: new Date().toISOString(),
+      type: 'execution',
+      actor: this.getActor(),
+      action: 'test_execution',
+      target: {
+        type: 'test',
+        id: test.title,
+        name: test.fullTitle(),
+        version: Cypress.env('APP_VERSION')
+      },
+      result: result === 'passed' ? 'success' : 'failure',
+      evidence: [],
+      metadata: {
+        duration: test.duration,
+        browser: Cypress.browser.name,
+        environment: Cypress.env('TEST_ENVIRONMENT'),
+        baseUrl: Cypress.config('baseUrl'),
+        retries: test.retries(),
+        gitCommit: Cypress.env('GIT_COMMIT')
+      }
+    };
+    
+    // Capture evidence
+    if (result === 'failed') {
+      const screenshotPath = \`audit/\${record.id}/failure.png\`;
+      cy.screenshot(screenshotPath);
+      record.evidence.push({
+        type: 'screenshot',
+        path: screenshotPath,
+        hash: '', // Calculate after capture
+        timestamp: new Date().toISOString()
+      });
+    }
+    
+    await this.store(record);
+  }
+  
+  private getActor(): AuditActor {
+    return {
+      id: Cypress.env('CI_USER_ID') || 'local',
+      name: Cypress.env('CI_USER_NAME') || 'Local Developer',
+      email: Cypress.env('CI_USER_EMAIL') || 'local@dev.com',
+      role: Cypress.env('CI_USER_ROLE') || 'developer'
+    };
+  }
+  
+  private generateId(): string {
+    return \`audit-\${Date.now()}-\${Math.random().toString(36).substr(2, 9)}\`;
+  }
+  
+  private async store(record: AuditRecord): Promise<void> {
+    // Store to audit service
+    await fetch(this.storageUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record)
+    });
+  }
+}
+
+// ========== COMPLIANCE REPORTER ==========
+// Generate compliance reports from audit data
+
+interface ComplianceReport {
+  reportId: string;
+  generatedAt: string;
+  period: { start: string; end: string };
+  summary: {
+    totalTests: number;
+    passed: number;
+    failed: number;
+    coverage: number;
+  };
+  requirementsCoverage: RequirementCoverage[];
+  evidenceInventory: EvidenceRecord[];
+}
+
+interface RequirementCoverage {
+  requirementId: string;
+  description: string;
+  testsCovering: string[];
+  lastPassed: string;
+  status: 'covered' | 'partial' | 'uncovered';
+}
+
+function generateComplianceReport(
+  auditRecords: AuditRecord[],
+  requirements: string[]
+): ComplianceReport {
+  // Implementation generates compliance report
+  // from audit records and requirements list
+  return {
+    reportId: \`CR-\${Date.now()}\`,
+    generatedAt: new Date().toISOString(),
+    period: {
+      start: auditRecords[0]?.timestamp || '',
+      end: auditRecords[auditRecords.length - 1]?.timestamp || ''
+    },
+    summary: {
+      totalTests: auditRecords.length,
+      passed: auditRecords.filter(r => r.result === 'success').length,
+      failed: auditRecords.filter(r => r.result === 'failure').length,
+      coverage: calculateCoverage(auditRecords, requirements)
+    },
+    requirementsCoverage: mapRequirementsCoverage(auditRecords, requirements),
+    evidenceInventory: collectEvidence(auditRecords)
+  };
+}` }
+    ],
+    29: [
+      { type: 'explanation', title: "AI Center of Excellence", content: `**Building an AI Testing CoE:**
+
+**Mission:**
+Enable safe, effective use of AI for test automation across the organization.
+
+**Responsibilities:**
+1. **Policy Development**
+   - Define AI usage guidelines
+   - Set review requirements
+   - Establish compliance standards
+
+2. **Training & Support**
+   - Develop training curriculum
+   - Conduct workshops
+   - Provide mentoring
+   - Maintain documentation
+
+3. **Tool Management**
+   - Evaluate AI tools
+   - Manage licenses
+   - Configure security
+   - Monitor usage
+
+4. **Quality Assurance**
+   - Review AI-generated code
+   - Track quality metrics
+   - Identify patterns
+   - Share best practices
+
+**Maturity Levels:**
+Level 1: Ad-hoc AI usage
+Level 2: Basic policies in place
+Level 3: Formal training program
+Level 4: Metrics-driven improvement
+Level 5: Continuous optimization` },
+      { type: 'code', title: "AI CoE Implementation", content: "Tools for AI governance:", code: `// ========== AI POLICY ENFORCEMENT ==========
+// Pre-commit hook to check AI-generated code
+
+#!/bin/bash
+# .husky/pre-commit
+
+echo "🤖 Checking AI-generated code compliance..."
+
+# Find files with AI annotations
+AI_FILES=$(git diff --cached --name-only | xargs grep -l "@ai-generated" 2>/dev/null)
+
+if [ -n "$AI_FILES" ]; then
+  echo "Found AI-generated code in:"
+  echo "$AI_FILES"
+  
+  # Check for required review annotation
+  for file in $AI_FILES; do
+    if ! grep -q "@reviewed-by" "$file"; then
+      echo "❌ ERROR: $file has @ai-generated but no @reviewed-by"
+      echo "Add reviewer annotation: @reviewed-by your.email@company.com"
+      exit 1
+    fi
+    
+    # Check for sensitive patterns
+    if grep -qE "(password|secret|api.?key)\s*[:=]\s*['\"]" "$file"; then
+      echo "❌ ERROR: Potential secret in AI-generated code: $file"
+      exit 1
+    fi
+  done
+  
+  echo "✅ AI compliance check passed"
+fi
+
+// ========== TRAINING TRACKER ==========
+interface TrainingRecord {
+  employeeId: string;
+  employeeName: string;
+  modules: ModuleCompletion[];
+  certified: boolean;
+  certificationDate?: string;
+  expirationDate?: string;
+}
+
+interface ModuleCompletion {
+  moduleId: string;
+  moduleName: string;
+  completedAt: string;
+  score: number;
+  passed: boolean;
+}
+
+class AITrainingTracker {
+  private records: Map<string, TrainingRecord> = new Map();
+  
+  requiredModules = [
+    { id: 'ai-safety', name: 'AI Safety Fundamentals', passingScore: 80 },
+    { id: 'prompt-eng', name: 'Prompt Engineering', passingScore: 75 },
+    { id: 'code-review', name: 'AI Code Review', passingScore: 80 },
+    { id: 'compliance', name: 'Compliance Requirements', passingScore: 90 }
+  ];
+  
+  recordCompletion(
+    employeeId: string,
+    moduleId: string,
+    score: number
+  ): void {
+    const record = this.records.get(employeeId) || this.createRecord(employeeId);
+    const module = this.requiredModules.find(m => m.id === moduleId);
+    
+    if (!module) return;
+    
+    record.modules.push({
+      moduleId,
+      moduleName: module.name,
+      completedAt: new Date().toISOString(),
+      score,
+      passed: score >= module.passingScore
+    });
+    
+    // Check if all modules passed
+    const allPassed = this.requiredModules.every(req =>
+      record.modules.some(m => m.moduleId === req.id && m.passed)
+    );
+    
+    if (allPassed && !record.certified) {
+      record.certified = true;
+      record.certificationDate = new Date().toISOString();
+      // Certification valid for 12 months
+      const expiry = new Date();
+      expiry.setFullYear(expiry.getFullYear() + 1);
+      record.expirationDate = expiry.toISOString();
+    }
+    
+    this.records.set(employeeId, record);
+  }
+  
+  isCertified(employeeId: string): boolean {
+    const record = this.records.get(employeeId);
+    if (!record || !record.certified) return false;
+    
+    // Check expiration
+    if (record.expirationDate) {
+      return new Date(record.expirationDate) > new Date();
+    }
+    
+    return true;
+  }
+  
+  private createRecord(employeeId: string): TrainingRecord {
+    return {
+      employeeId,
+      employeeName: '',
+      modules: [],
+      certified: false
+    };
+  }
+}
+
+// ========== AI METRICS DASHBOARD ==========
+interface AIMetrics {
+  period: string;
+  totalCodeGenerated: number;
+  acceptanceRate: number;
+  modificationRate: number;
+  policyViolations: number;
+  certifiedUsers: number;
+  totalUsers: number;
+  topTools: { name: string; usage: number }[];
+  qualityScore: number;
+}
+
+function calculateAIMetrics(
+  auditData: any[],
+  trainingData: TrainingRecord[]
+): AIMetrics {
+  return {
+    period: 'monthly',
+    totalCodeGenerated: auditData.length,
+    acceptanceRate: 0.78,
+    modificationRate: 0.22,
+    policyViolations: 3,
+    certifiedUsers: trainingData.filter(t => t.certified).length,
+    totalUsers: trainingData.length,
+    topTools: [
+      { name: 'GitHub Copilot', usage: 85 },
+      { name: 'ChatGPT', usage: 10 },
+      { name: 'Other', usage: 5 }
+    ],
+    qualityScore: 8.5
+  };
+}` }
+    ],
+    30: [
+      { type: 'explanation', title: "Capstone Evaluation Criteria", content: `**Your Framework Will Be Evaluated On:**
+
+**1. Architecture (25 points)**
+- Clean folder structure (5)
+- Proper TypeScript usage (5)
+- Separation of concerns (5)
+- Scalability potential (5)
+- Documentation (5)
+
+**2. Page Objects (20 points)**
+- Base page implementation (4)
+- Encapsulation quality (4)
+- Fluent methods (4)
+- Maintainability (4)
+- Completeness (4)
+
+**3. Test Quality (20 points)**
+- Coverage breadth (5)
+- Assertion quality (5)
+- Data isolation (5)
+- Reliability (5)
+
+**4. CI/CD (20 points)**
+- Pipeline configuration (5)
+- Parallelization (5)
+- Artifact handling (5)
+- Notifications (5)
+
+**5. Best Practices (15 points)**
+- Custom commands (3)
+- Error handling (3)
+- Environment config (3)
+- Security practices (3)
+- Code style (3)
+
+**Total: 100 points**
+- 90+: Excellent (Enterprise-ready)
+- 80-89: Good (Production-quality)
+- 70-79: Satisfactory (Needs polish)
+- <70: Needs improvement` },
+      { type: 'code', title: "Capstone Rubric Implementation", content: "Self-evaluation checklist:", code: `// ========== CAPSTONE SELF-EVALUATION ==========
+// Run this to evaluate your framework
+
+interface EvaluationCategory {
+  name: string;
+  maxPoints: number;
+  criteria: Criterion[];
+}
+
+interface Criterion {
+  description: string;
+  points: number;
+  check: () => boolean;
+}
+
+const evaluationRubric: EvaluationCategory[] = [
+  {
+    name: 'Architecture',
+    maxPoints: 25,
+    criteria: [
+      {
+        description: 'cypress/pages folder exists with BasePage.ts',
+        points: 5,
+        check: () => {
+          // Check for folder structure
+          const fs = require('fs');
+          return fs.existsSync('cypress/pages/BasePage.ts');
+        }
+      },
+      {
+        description: 'TypeScript configured with strict mode',
+        points: 5,
+        check: () => {
+          const tsconfig = require('./tsconfig.json');
+          return tsconfig.compilerOptions?.strict === true;
+        }
+      },
+      {
+        description: 'README.md exists with setup instructions',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          const readme = fs.readFileSync('README.md', 'utf8');
+          return readme.includes('## Setup') || readme.includes('## Installation');
+        }
+      }
+    ]
+  },
+  {
+    name: 'Page Objects',
+    maxPoints: 20,
+    criteria: [
+      {
+        description: 'At least 3 page objects implemented',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          const glob = require('glob');
+          const pages = glob.sync('cypress/pages/*.ts');
+          return pages.length >= 4; // Including BasePage
+        }
+      },
+      {
+        description: 'Page objects use private selectors',
+        points: 5,
+        check: () => {
+          // Check for private selector pattern
+          const fs = require('fs');
+          const loginPage = fs.readFileSync('cypress/pages/LoginPage.ts', 'utf8');
+          return loginPage.includes('private') && loginPage.includes('selector');
+        }
+      }
+    ]
+  },
+  {
+    name: 'Custom Commands',
+    maxPoints: 15,
+    criteria: [
+      {
+        description: 'login command exists',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          const commands = fs.readFileSync('cypress/support/commands.ts', 'utf8');
+          return commands.includes("Commands.add('login'");
+        }
+      },
+      {
+        description: 'TypeScript declarations for commands',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          return fs.existsSync('cypress/support/index.d.ts');
+        }
+      }
+    ]
+  },
+  {
+    name: 'CI/CD',
+    maxPoints: 20,
+    criteria: [
+      {
+        description: 'CI workflow file exists',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          return fs.existsSync('.github/workflows/cypress.yml') ||
+                 fs.existsSync('.gitlab-ci.yml');
+        }
+      },
+      {
+        description: 'Parallel execution configured',
+        points: 5,
+        check: () => {
+          const fs = require('fs');
+          let config = '';
+          if (fs.existsSync('.github/workflows/cypress.yml')) {
+            config = fs.readFileSync('.github/workflows/cypress.yml', 'utf8');
+          }
+          return config.includes('parallel') || config.includes('matrix');
+        }
+      }
+    ]
+  }
+];
+
+// Run evaluation
+function evaluate(): void {
+  let totalScore = 0;
+  let maxScore = 0;
+  
+  evaluationRubric.forEach(category => {
+    console.log(\`\\n📋 \${category.name} (max \${category.maxPoints})\`);
+    
+    category.criteria.forEach(criterion => {
+      const passed = criterion.check();
+      const points = passed ? criterion.points : 0;
+      totalScore += points;
+      maxScore += criterion.points;
+      
+      const status = passed ? '✅' : '❌';
+      console.log(\`  \${status} \${criterion.description} (\${points}/\${criterion.points})\`);
+    });
+  });
+  
+  console.log(\`\\n========================================\`);
+  console.log(\`Total Score: \${totalScore}/\${maxScore}\`);
+  
+  if (totalScore >= 90) {
+    console.log(\`🏆 EXCELLENT - Enterprise Ready!\`);
+  } else if (totalScore >= 80) {
+    console.log(\`👍 GOOD - Production Quality\`);
+  } else if (totalScore >= 70) {
+    console.log(\`📝 SATISFACTORY - Needs Polish\`);
+  } else {
+    console.log(\`⚠️ NEEDS IMPROVEMENT\`);
+  }
+}
+
+// Run: npx ts-node scripts/evaluate.ts` }
+    ]
+  };
+  
   return {
     title: `Advanced: Enterprise ${title}`,
-    duration: "10 minutes",
-    content: [
+    duration: "15 minutes",
+    content: advancedContents[lessonNumber] || [
       { type: 'explanation', title: "Enterprise Considerations", content: `When implementing ${title} at enterprise scale:\n\n**Key Considerations:**\n- Multi-team coordination\n- Performance optimization\n- Compliance requirements\n- Long-term maintainability\n- Security implications` },
       { type: 'warning', title: "Important Reminders", content: `**Security:**\n- Never commit secrets to code\n- Review all AI-generated code\n- Follow your organization's security policies\n\n**Maintainability:**\n- Document your decisions\n- Follow consistent patterns\n- Plan for scale from the start` }
     ]
