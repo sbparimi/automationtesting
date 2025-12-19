@@ -3,8 +3,9 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, Clock, BookOpen, CheckCircle2, Code, Lightbulb, Target, Zap, Bot } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, BookOpen, CheckCircle2, Code, Lightbulb, Target, Zap, Bot, AlertTriangle, Star } from "lucide-react";
 import { allCodexCourses } from "@/data/codexLessons";
+import { generateCodexContent } from "@/utils/generateCodexContent";
 
 const CodexLesson = () => {
   const { lessonId } = useParams();
@@ -51,6 +52,9 @@ const CodexLesson = () => {
   
   const prevLesson = lessonIndex > 0 ? allLessons[lessonIndex - 1] : null;
   const nextLesson = lessonIndex < allLessons.length - 1 ? allLessons[lessonIndex + 1] : null;
+  
+  // Generate comprehensive content for this lesson
+  const lessonContent = generateCodexContent(currentLesson.id, currentLesson.title);
 
   return (
     <div className="min-h-screen bg-background">
@@ -90,7 +94,7 @@ const CodexLesson = () => {
             </h1>
             
             <p className="text-lg text-muted-foreground">
-              {currentLesson.description}
+              {lessonContent.overview}
             </p>
           </div>
           
@@ -112,7 +116,7 @@ const CodexLesson = () => {
                     Situation
                   </h3>
                   <p className="text-muted-foreground text-sm m-0">
-                    Understand the real-world scenario where this AI-assisted technique applies to Playwright/Cypress automation.
+                    {lessonContent.learningObjectives.situation}
                   </p>
                 </div>
                 
@@ -122,7 +126,7 @@ const CodexLesson = () => {
                     Task
                   </h3>
                   <p className="text-muted-foreground text-sm m-0">
-                    Define the specific automation challenge you'll solve using AI assistance.
+                    {lessonContent.learningObjectives.task}
                   </p>
                 </div>
                 
@@ -132,7 +136,7 @@ const CodexLesson = () => {
                     Action
                   </h3>
                   <p className="text-muted-foreground text-sm m-0">
-                    Step-by-step implementation using Copilot prompts and VSCode workflows.
+                    {lessonContent.learningObjectives.action}
                   </p>
                 </div>
                 
@@ -142,39 +146,102 @@ const CodexLesson = () => {
                     Result
                   </h3>
                   <p className="text-muted-foreground text-sm m-0">
-                    Validate your implementation and measure productivity gains.
+                    {lessonContent.learningObjectives.result}
                   </p>
                 </div>
               </div>
             </div>
             
-            {/* Key Concepts */}
-            <div className="bg-card border border-border rounded-2xl p-6 mb-8">
-              <div className="flex items-center gap-3 mb-4">
+            {/* Key Concepts - Detailed Explanations */}
+            <div className="space-y-8 mb-8">
+              <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-secondary rounded-xl flex items-center justify-center">
                   <Lightbulb className="w-5 h-5 text-foreground" />
                 </div>
-                <h2 className="text-xl font-bold text-foreground m-0">Key Concepts</h2>
+                <h2 className="text-2xl font-bold text-foreground m-0">Key Concepts - Deep Dive</h2>
               </div>
               
-              <ul className="space-y-3 m-0 p-0 list-none">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">How to structure prompts for maximum AI code generation quality</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">VSCode shortcuts and Copilot features for rapid test development</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">Production-grade patterns that AI generates reliably</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">When to accept, modify, or reject AI suggestions</span>
-                </li>
-              </ul>
+              {lessonContent.keyConcepts.map((concept, index) => (
+                <div key={index} className="bg-card border border-border rounded-2xl overflow-hidden">
+                  {/* Concept Header */}
+                  <div className="bg-gradient-to-r from-primary/10 to-transparent p-6 border-b border-border">
+                    <div className="flex items-start gap-4">
+                      <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        {index + 1}
+                      </span>
+                      <h3 className="text-xl font-bold text-foreground m-0">{concept.title}</h3>
+                    </div>
+                  </div>
+                  
+                  {/* Detailed Explanation */}
+                  <div className="p-6">
+                    <div className="prose prose-sm max-w-none mb-6">
+                      {concept.explanation.split('\n\n').map((paragraph, pIndex) => (
+                        <p key={pIndex} className="text-foreground/90 leading-relaxed mb-4 last:mb-0">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    
+                    {/* Code Example */}
+                    {concept.codeExample && (
+                      <div className="bg-secondary rounded-xl p-4 mb-6">
+                        <p className="text-sm text-secondary-foreground/70 mb-2 flex items-center gap-2">
+                          <Code className="w-4 h-4" />
+                          Production Code Example
+                        </p>
+                        <pre className="bg-background/30 rounded-lg p-4 text-sm text-secondary-foreground overflow-x-auto">
+                          <code>{concept.codeExample}</code>
+                        </pre>
+                      </div>
+                    )}
+                    
+                    {/* Real World Application */}
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 mb-4">
+                      <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-1 flex items-center gap-2">
+                        <Star className="w-4 h-4" />
+                        Real-World Application
+                      </p>
+                      <p className="text-sm text-foreground/80 m-0">{concept.realWorldApplication}</p>
+                    </div>
+                    
+                    {/* Two Column: Pitfalls & Pro Tips */}
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {/* Common Pitfalls */}
+                      <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+                        <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2 flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4" />
+                          Common Pitfalls
+                        </p>
+                        <ul className="space-y-1 m-0 p-0 list-none">
+                          {concept.commonPitfalls.map((pitfall, pIndex) => (
+                            <li key={pIndex} className="text-xs text-foreground/70 flex items-start gap-2">
+                              <span className="text-red-500 mt-0.5">•</span>
+                              {pitfall}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      {/* Pro Tips */}
+                      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+                        <p className="text-sm font-semibold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-2">
+                          <Zap className="w-4 h-4" />
+                          Pro Tips
+                        </p>
+                        <ul className="space-y-1 m-0 p-0 list-none">
+                          {concept.proTips.map((tip, tIndex) => (
+                            <li key={tIndex} className="text-xs text-foreground/70 flex items-start gap-2">
+                              <span className="text-blue-500 mt-0.5">✓</span>
+                              {tip}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
             
             {/* Code Example */}
