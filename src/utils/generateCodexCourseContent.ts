@@ -2344,6 +2344,398 @@ describe('Dashboard', () => {
   })
 })` }
     ],
+    12: [
+      { type: 'explanation', title: "The Automation Mindset", content: `**From Manual to Automation Thinking:**
+
+As a manual tester, you execute tests step by step. As an automation engineer, you think about:
+
+1. **What to Automate:**
+   - Repetitive tests (run on every build)
+   - Regression tests (check existing functionality)
+   - Data-driven tests (many variations of same test)
+   - Smoke tests (critical path functionality)
+
+2. **What NOT to Automate:**
+   - Exploratory testing
+   - Tests that change frequently
+   - One-time tests
+   - Tests requiring human judgment (UX, aesthetics)
+
+**The Test Automation Pyramid:**
+            /\\
+           /UI\\        <- Fewest tests (slow, expensive)
+          /------\\
+         / API    \\    <- More tests (fast, reliable)
+        /----------\\
+       /   UNIT     \\  <- Most tests (fastest, cheapest)
+      ----------------
+
+**ROI Calculation:**
+Manual Test Cost = (Time per execution × Number of executions × Hourly rate)
+Automation Cost = (Development time × Hourly rate) + Maintenance
+ROI is positive when: Manual Cost > Automation Cost` },
+      { type: 'steps', title: "Evaluating What to Automate", content: "Use this checklist for every test:", steps: [
+        { step: 1, action: "Is it run frequently?", details: "Tests run on every build or release are prime automation candidates.", verification: "Yes = good candidate." },
+        { step: 2, action: "Is it stable?", details: "Features that change constantly make poor automation targets.", verification: "Stable feature = good candidate." },
+        { step: 3, action: "Is it repetitive?", details: "Same steps with different data? Perfect for data-driven automation.", verification: "Repetitive = great candidate." },
+        { step: 4, action: "Is it critical?", details: "Login, checkout, core business flows should be automated first.", verification: "Critical path = priority automation." },
+        { step: 5, action: "Can results be verified programmatically?", details: "If you need human judgment, keep it manual.", verification: "Clear pass/fail criteria = automatable." }
+      ]}
+    ],
+    17: [
+      { type: 'explanation', title: "Enterprise AI Safety Rules", content: `**CRITICAL SAFETY BOUNDARIES FOR AI CODE GENERATION:**
+
+**Rule 1: Authoring-Time Only**
+AI assists while you WRITE code, never during test EXECUTION.
+- ✅ Use Copilot to write test code
+- ❌ Never let AI make runtime decisions
+
+**Rule 2: Never Handle Credentials**
+NEVER put passwords, API keys, or secrets in AI prompts.
+- ✅ cy.get('[data-testid="password"]').type(Cypress.env('PASSWORD'))
+- ❌ // Login with password "MySecret123"
+
+**Rule 3: Always Review AI Output**
+Every line of AI-generated code must be understood and approved.
+- Read the code before accepting
+- Understand what it does
+- Verify it matches your requirements
+
+**Rule 4: AI Doesn't Make Decisions**
+AI suggests code, humans decide what to test.
+- You decide test coverage
+- You decide assertions
+- You decide test strategy
+
+**Rule 5: Audit Trail Required**
+All AI usage must be documentable for compliance.
+- Code reviews for AI-generated code
+- Comments noting AI assistance
+- Team awareness of AI usage` },
+      { type: 'warning', title: "What Can Go Wrong", content: `**Real Enterprise Risks:**
+
+1. **Credential Leakage** - AI sends prompts to external servers. Secrets in prompts = leaked credentials.
+
+2. **Incorrect Code** - AI can generate code that looks right but has bugs. Critical in enterprise systems.
+
+3. **Compliance Violations** - Regulated industries require human accountability. AI-generated code without review fails audits.
+
+4. **Security Vulnerabilities** - AI might generate code with security flaws. Always security review AI output.
+
+5. **Intellectual Property** - AI trained on open source. Generated code might have licensing implications.
+
+**Mitigation:**
+- Clear policies on AI usage
+- Mandatory code review
+- Training for all team members
+- Never share sensitive context with AI` }
+    ],
+    19: [
+      { type: 'explanation', title: "The Screenplay Pattern", content: `**Screenplay Pattern** is an advanced alternative to Page Object Model for complex workflows.
+
+**Core Concepts:**
+- **Actors** - Users who interact with the system
+- **Tasks** - High-level actions actors perform
+- **Interactions** - Low-level UI interactions
+- **Questions** - Queries about system state
+
+**When to Use Screenplay vs POM:**
+Use **POM** when:
+- Simple page-based navigation
+- Straightforward CRUD operations
+- Small to medium test suites
+
+Use **Screenplay** when:
+- Complex multi-step workflows
+- Multiple user roles
+- Behavior-driven development (BDD)
+- Large enterprise applications
+
+**Screenplay Structure:**
+Actor performs Task, which is composed of Interactions
+Actor asks Question to verify result
+
+Example:
+alice.attemptsTo(
+  Login.withCredentials('user', 'pass'),
+  Navigate.to('/dashboard'),
+  Verify.that(DashboardPage.title).equals('Welcome')
+)` },
+      { type: 'code', title: "Screenplay Implementation", content: "Basic Screenplay pattern in Cypress:", code: `// Define an Actor
+class Actor {
+  name: string
+  constructor(name: string) {
+    this.name = name
+  }
+  attemptsTo(...tasks: Task[]) {
+    tasks.forEach(task => task.performAs(this))
+  }
+}
+
+// Define a Task
+interface Task {
+  performAs(actor: Actor): void
+}
+
+// Login Task
+const Login = {
+  withCredentials: (email: string, password: string): Task => ({
+    performAs: (actor) => {
+      cy.log(\`\${actor.name} logs in\`)
+      cy.visit('/login')
+      cy.get('[data-testid="email"]').type(email)
+      cy.get('[data-testid="password"]').type(password)
+      cy.get('[data-testid="submit"]').click()
+    }
+  })
+}
+
+// Usage in test
+describe('Screenplay Example', () => {
+  it('user can login', () => {
+    const alice = new Actor('Alice')
+    alice.attemptsTo(
+      Login.withCredentials('alice@test.com', 'pass123')
+    )
+    cy.url().should('include', '/dashboard')
+  })
+})` }
+    ],
+    20: [
+      { type: 'explanation', title: "Hybrid Architecture", content: `**Hybrid Screenplay + POM** combines the best of both patterns.
+
+**Architecture Layers:**
+1. **Page Objects** - Encapsulate selectors and low-level interactions
+2. **Tasks** - Compose page object methods into business actions
+3. **Actors** - Execute tasks as specific user personas
+
+**Why Hybrid?**
+- Page Objects keep selectors maintainable
+- Tasks keep tests readable and business-focused
+- Actors enable multi-user scenarios
+
+**Layer Responsibilities:**
+- **Page Objects:** WHERE to interact (selectors, elements)
+- **Tasks:** WHAT to do (business actions)
+- **Actors:** WHO is doing it (user context)` },
+      { type: 'code', title: "Hybrid Implementation", content: "Combining POM with Screenplay:", code: `// Layer 1: Page Object (low-level)
+class LoginPage {
+  private selectors = {
+    email: '[data-testid="email"]',
+    password: '[data-testid="password"]',
+    submit: '[data-testid="submit"]'
+  }
+  visit() { cy.visit('/login') }
+  typeEmail(email: string) { cy.get(this.selectors.email).type(email) }
+  typePassword(pass: string) { cy.get(this.selectors.password).type(pass) }
+  clickSubmit() { cy.get(this.selectors.submit).click() }
+}
+
+// Layer 2: Task (business action)
+const LoginTask = {
+  as: (email: string, password: string) => ({
+    perform: () => {
+      const page = new LoginPage()
+      page.visit()
+      page.typeEmail(email)
+      page.typePassword(password)
+      page.clickSubmit()
+    }
+  })
+}
+
+// Layer 3: Actor
+class User {
+  constructor(public name: string) {}
+  performs(task: { perform: () => void }) {
+    cy.log(\`\${this.name} performs action\`)
+    task.perform()
+  }
+}
+
+// Test using hybrid pattern
+describe('Hybrid Pattern Test', () => {
+  it('admin can login', () => {
+    const admin = new User('Admin')
+    admin.performs(LoginTask.as('admin@test.com', 'adminpass'))
+    cy.url().should('include', '/admin')
+  })
+})` }
+    ],
+    21: [
+      { type: 'explanation', title: "Test Data Management", content: `**Managing Test Data** is crucial for reliable, maintainable tests.
+
+**Data Strategies:**
+
+1. **Fixtures (Static Data)**
+   - JSON files with predefined data
+   - Good for: stable reference data
+   - Location: cypress/fixtures/
+
+2. **Factories (Dynamic Data)**
+   - Functions that generate data
+   - Good for: unique data per test run
+   - Avoid conflicts between parallel tests
+
+3. **API Seeding**
+   - Create data via API before tests
+   - Good for: complex data relationships
+   - Fast and reliable
+
+4. **Database Seeding**
+   - Direct database manipulation
+   - Good for: known state testing
+   - Requires cy.task() setup` },
+      { type: 'code', title: "Data Management Examples", content: "Different approaches to test data:", code: `// 1. FIXTURES - cypress/fixtures/users.json
+{
+  "validUser": {
+    "email": "valid@test.com",
+    "password": "ValidPass123"
+  },
+  "invalidUser": {
+    "email": "invalid",
+    "password": "short"
+  }
+}
+
+// Using fixtures in tests
+describe('Login', () => {
+  beforeEach(function() {
+    cy.fixture('users').as('users')
+  })
+
+  it('logs in with valid user', function() {
+    cy.visit('/login')
+    cy.get('[data-testid="email"]').type(this.users.validUser.email)
+    cy.get('[data-testid="password"]').type(this.users.validUser.password)
+    cy.get('[data-testid="submit"]').click()
+  })
+})
+
+// 2. FACTORY - Generate unique data
+function createUser(overrides = {}) {
+  const timestamp = Date.now()
+  return {
+    email: \`user\${timestamp}@test.com\`,
+    password: 'TestPass123!',
+    name: \`Test User \${timestamp}\`,
+    ...overrides
+  }
+}
+
+// Usage
+const user = createUser({ name: 'Custom Name' })
+
+// 3. API SEEDING
+beforeEach(() => {
+  const user = createUser()
+  cy.request('POST', '/api/users', user).as('createdUser')
+})
+
+it('uses API-created user', function() {
+  cy.get('@createdUser').then((response) => {
+    cy.visit(\`/users/\${response.body.id}\`)
+  })
+})` }
+    ],
+    23: [
+      { type: 'explanation', title: "Eliminating Flaky Tests", content: `**Flaky Tests** pass sometimes and fail sometimes with no code changes. They destroy trust in automation.
+
+**Common Causes:**
+1. **Timing Issues** - Element not ready, animations in progress
+2. **Network Delays** - API responses slower than expected
+3. **Test Isolation** - Tests depend on other tests' state
+4. **Shared Data** - Multiple tests modify same data
+5. **External Dependencies** - Third-party services unavailable
+
+**Solutions:**
+
+**For Timing Issues:**
+// BAD: Arbitrary wait
+cy.wait(3000)
+
+// GOOD: Wait for specific condition
+cy.get('[data-testid="loading"]').should('not.exist')
+cy.get('[data-testid="content"]').should('be.visible')
+
+**For Network Delays:**
+// GOOD: Wait for API response
+cy.intercept('GET', '/api/data').as('getData')
+cy.visit('/page')
+cy.wait('@getData')
+
+**For Test Isolation:**
+// GOOD: Clean state in beforeEach
+beforeEach(() => {
+  cy.clearLocalStorage()
+  cy.clearCookies()
+  cy.visit('/')
+})` },
+      { type: 'steps', title: "Debugging Flaky Tests", content: "Systematic approach to fix flaky tests:", steps: [
+        { step: 1, action: "Reproduce the flake", details: "Run the test 10 times: npx cypress run --spec 'path/to/test' --headed. Note failure rate.", verification: "You can reproduce the failure." },
+        { step: 2, action: "Check for timing issues", details: "Add cy.pause() before the failing line. Watch what happens on the page.", verification: "You identify if page isn't ready." },
+        { step: 3, action: "Add proper waits", details: "Replace arbitrary waits with condition-based waits using .should().", verification: "Test waits for actual readiness." },
+        { step: 4, action: "Check test isolation", details: "Run the failing test alone vs in the full suite. Different results = isolation issue.", verification: "Test passes when run alone." },
+        { step: 5, action: "Add network intercepts", details: "Use cy.intercept() and cy.wait() for all API calls the test depends on.", verification: "Test waits for all necessary data." }
+      ]}
+    ],
+    24: [
+      { type: 'explanation', title: "Multi-Environment Configuration", content: `**Enterprise applications run in multiple environments:**
+- Local (your machine)
+- Development (dev server)
+- QA (testing environment)
+- Staging (pre-production)
+- Production (live system)
+
+**Configuration Strategy:**
+1. Use cypress.config.ts for default settings
+2. Use cypress.env.json for local overrides (don't commit!)
+3. Use environment variables for CI/CD
+4. Use --config or --env flags for runtime overrides
+
+**Environment-Specific Settings:**
+- Base URL
+- API endpoints
+- Credentials (via env vars, never hardcoded!)
+- Timeouts
+- Test data sources` },
+      { type: 'code', title: "Environment Configuration", content: "Setting up multiple environments:", code: `// cypress.config.ts
+import { defineConfig } from 'cypress'
+
+export default defineConfig({
+  e2e: {
+    baseUrl: process.env.CYPRESS_BASE_URL || 'http://localhost:3000',
+    env: {
+      apiUrl: process.env.CYPRESS_API_URL || 'http://localhost:3000/api',
+      environment: process.env.CYPRESS_ENV || 'local'
+    }
+  }
+})
+
+// cypress.env.json (local overrides - DON'T COMMIT)
+{
+  "apiUrl": "http://localhost:3000/api",
+  "username": "local-test-user",
+  "password": "local-test-pass"
+}
+
+// In your tests, access environment values:
+describe('Multi-env test', () => {
+  it('uses correct environment', () => {
+    const apiUrl = Cypress.env('apiUrl')
+    cy.log(\`Testing against: \${apiUrl}\`)
+    
+    cy.request(\`\${apiUrl}/health\`).then((response) => {
+      expect(response.status).to.eq(200)
+    })
+  })
+})
+
+// Running against different environments:
+// Local: npx cypress run
+// Dev: CYPRESS_BASE_URL=https://dev.example.com npx cypress run
+// Staging: CYPRESS_BASE_URL=https://staging.example.com npx cypress run` }
+    ],
     25: [
       { type: 'explanation', title: "What is CI/CD?", content: `**CI/CD** = Continuous Integration / Continuous Deployment
 
@@ -2389,6 +2781,295 @@ cypress_tests:
 # 3. Runs Cypress in headless mode
 # 4. Saves videos and screenshots as artifacts
 # 5. Keeps artifacts for 1 week` }
+    ],
+    26: [
+      { type: 'explanation', title: "Nightly Regression Testing", content: `**Nightly Regression** runs your full test suite every night to catch issues early.
+
+**Why Nightly Runs?**
+- Full suite too slow for every commit
+- Catches integration issues
+- Tests against deployed environments
+- Detects environment-specific problems
+- Creates regular quality checkpoints
+
+**What to Include:**
+- Full regression test suite
+- Tests against ACC (Acceptance) environment
+- Tests against PreProd environment
+- Performance baseline tests
+- Report generation and distribution` },
+      { type: 'code', title: "Scheduled Pipeline", content: "GitLab scheduled pipeline configuration:", code: `# .gitlab-ci.yml with scheduled runs
+
+stages:
+  - test
+  - report
+
+# Regular tests on every push
+quick_tests:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --spec "cypress/e2e/smoke/**"
+  only:
+    - merge_requests
+    - main
+
+# Nightly full regression
+nightly_regression:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --browser chrome --record
+  only:
+    - schedules
+  variables:
+    CYPRESS_BASE_URL: "https://acc.example.com"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos
+      - cypress/screenshots
+      - mochawesome-report
+
+# After test - send notifications
+notify_results:
+  stage: report
+  script:
+    - |
+      if [ -f "cypress/results/results.json" ]; then
+        curl -X POST $SLACK_WEBHOOK -d '{
+          "text": "Nightly tests completed. Check pipeline for results."
+        }'
+      fi
+  only:
+    - schedules
+
+# Set up schedule in GitLab:
+# 1. Go to CI/CD → Schedules
+# 2. Create new schedule
+# 3. Set cron: 0 2 * * * (2 AM daily)
+# 4. Select target branch: main` }
+    ],
+    27: [
+      { type: 'explanation', title: "Parallel Execution", content: `**Parallel Execution** runs tests simultaneously across multiple machines, dramatically reducing total time.
+
+**Without Parallelization:**
+100 tests × 1 minute each = 100 minutes total
+
+**With 10 Parallel Machines:**
+100 tests ÷ 10 machines = 10 minutes total
+
+**Strategies:**
+1. **Cypress Dashboard** - Automatic load balancing (paid)
+2. **GitLab Parallel Jobs** - Built-in parallelization
+3. **Manual Sharding** - Split tests into groups yourself
+
+**Test Sharding:**
+Divide tests into groups (shards) and run each on separate machine.
+
+Example: 100 tests split into 4 shards of 25 tests each.` },
+      { type: 'code', title: "GitLab Parallel Configuration", content: "Parallel test execution in GitLab:", code: `# .gitlab-ci.yml with parallelization
+
+cypress_parallel:
+  stage: test
+  image: cypress/browsers:node18.12.0-chrome107-ff107
+  parallel: 4  # Run 4 parallel jobs
+  script:
+    - npm ci
+    # Use GitLab's CI_NODE_INDEX to shard tests
+    - |
+      TOTAL_RUNNERS=4
+      CURRENT_RUNNER=$((CI_NODE_INDEX))
+      npx cypress run --record --parallel --group "parallel-$CI_NODE_INDEX"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos
+      - cypress/screenshots
+
+# Alternative: Manual sharding by folder
+cypress_auth_tests:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --spec "cypress/e2e/auth/**"
+
+cypress_shopping_tests:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --spec "cypress/e2e/shopping/**"
+
+cypress_user_tests:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --spec "cypress/e2e/user/**"
+
+# All three jobs run in parallel!` }
+    ],
+    28: [
+      { type: 'explanation', title: "Compliance & Audit Trails", content: `**Regulated Industries** (finance, healthcare, government) have legal requirements for testing.
+
+**Key Compliance Concepts:**
+
+1. **Audit Trail** - Record of who did what, when
+2. **Evidence Collection** - Proof that tests were run
+3. **Change Management** - Controlled process for changes
+4. **Traceability** - Link tests to requirements
+
+**What Auditors Want to See:**
+- Test execution records with timestamps
+- Screenshots/videos of test runs
+- Who approved test results
+- Link between requirements and tests
+- Version control history
+
+**Implementation:**
+- Store all test artifacts
+- Use test management tools (TestRail, Xray)
+- Integrate with ticketing systems (Jira)
+- Generate compliance reports` },
+      { type: 'code', title: "Compliance Implementation", content: "Capturing audit information:", code: `// Add metadata to test reports
+describe('Compliance Test Suite', () => {
+  before(() => {
+    // Log test environment info
+    cy.log(\`Environment: \${Cypress.env('environment')}\`)
+    cy.log(\`Test Run ID: \${Cypress.env('CI_JOB_ID') || 'local'}\`)
+    cy.log(\`Runner: \${Cypress.env('CI_RUNNER_DESCRIPTION') || 'manual'}\`)
+  })
+
+  it('REQ-001: User can login', () => {
+    // Requirement traceability in test name
+    cy.visit('/login')
+    cy.get('[data-testid="email"]').type('user@test.com')
+    cy.get('[data-testid="password"]').type('password')
+    cy.get('[data-testid="submit"]').click()
+    cy.url().should('include', '/dashboard')
+    
+    // Take evidence screenshot
+    cy.screenshot('REQ-001-login-success')
+  })
+})
+
+// Mochawesome reporter for compliance reports
+// cypress.config.ts
+export default defineConfig({
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: true,
+    json: true,
+    timestamp: 'mmddyyyy_HHMMss'
+  }
+})
+
+// Generate timestamped reports with full evidence` }
+    ],
+    29: [
+      { type: 'explanation', title: "Enterprise AI Governance", content: `**Scaling AI Usage** across teams requires governance frameworks.
+
+**Governance Framework:**
+
+1. **Policy Definition**
+   - What AI tools are approved
+   - What can/cannot be shared with AI
+   - Review requirements for AI code
+
+2. **Training Programs**
+   - All team members trained on AI safety
+   - Regular refresher training
+   - Updates when policies change
+
+3. **Review Workflows**
+   - Code review checklist for AI code
+   - Security review for sensitive areas
+   - Compliance sign-off
+
+4. **Measurement**
+   - Track AI usage and impact
+   - Monitor for policy violations
+   - Measure productivity gains` },
+      { type: 'steps', title: "Implementing AI Governance", content: "Steps to establish AI governance:", steps: [
+        { step: 1, action: "Define approved AI tools", details: "List specific tools allowed: GitHub Copilot, ChatGPT, etc. Define version and configuration requirements.", verification: "Team knows which tools they can use." },
+        { step: 2, action: "Create usage policy", details: "Document what can/cannot be shared with AI, review requirements, and consequences for violations.", verification: "Written policy exists and is distributed." },
+        { step: 3, action: "Establish review process", details: "Add AI-specific items to code review checklist. Require human understanding of all AI code.", verification: "Code review template includes AI checks." },
+        { step: 4, action: "Train the team", details: "Conduct training sessions on AI safety and policy. Test understanding.", verification: "All team members complete training." },
+        { step: 5, action: "Monitor and measure", details: "Track AI usage, policy compliance, and productivity impact. Report monthly.", verification: "Metrics dashboard exists." }
+      ]}
+    ],
+    30: [
+      { type: 'explanation', title: "Capstone Project Overview", content: `**Your Capstone Project** brings together everything you've learned to build a complete enterprise Cypress framework.
+
+**Project Requirements:**
+
+1. **Project Structure**
+   - Proper folder organization
+   - TypeScript configuration
+   - ESLint and Prettier setup
+
+2. **Framework Components**
+   - Page Object Model implementation
+   - Custom commands library
+   - Fixture and factory data management
+
+3. **Test Coverage**
+   - Authentication tests
+   - Core user flow tests
+   - API integration tests
+   - Error handling tests
+
+4. **CI/CD Integration**
+   - GitLab/GitHub Actions pipeline
+   - Parallel execution
+   - Artifact collection
+   - Notifications
+
+5. **Documentation**
+   - README with setup instructions
+   - Test strategy document
+   - Contribution guidelines` },
+      { type: 'code', title: "Capstone Structure", content: "Recommended project structure:", code: `my-cypress-framework/
+├── .github/
+│   └── workflows/
+│       └── cypress.yml       # GitHub Actions
+├── cypress/
+│   ├── e2e/
+│   │   ├── auth/
+│   │   │   ├── login.cy.ts
+│   │   │   └── logout.cy.ts
+│   │   ├── shopping/
+│   │   │   ├── cart.cy.ts
+│   │   │   └── checkout.cy.ts
+│   │   └── smoke/
+│   │       └── health.cy.ts
+│   ├── fixtures/
+│   │   ├── users.json
+│   │   └── products.json
+│   ├── pages/
+│   │   ├── BasePage.ts
+│   │   ├── LoginPage.ts
+│   │   └── DashboardPage.ts
+│   ├── support/
+│   │   ├── commands.ts
+│   │   ├── e2e.ts
+│   │   └── index.d.ts
+│   └── factories/
+│       ├── userFactory.ts
+│       └── productFactory.ts
+├── cypress.config.ts
+├── tsconfig.json
+├── package.json
+├── README.md
+└── TESTING_STRATEGY.md
+
+// This structure demonstrates:
+// - Organized test files by feature
+// - Reusable page objects
+// - Type-safe custom commands
+// - Data management with fixtures and factories
+// - CI/CD ready configuration` }
     ]
   };
 
