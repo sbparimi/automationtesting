@@ -3950,7 +3950,7 @@ describe('Feature Tests', () => {
 // GitHub Actions / GitLab CI set these:
 // CYPRESS_baseUrl=https://staging.example.com
 // CYPRESS_testUserEmail=ci@test.com
-// CYPRESS_testUserPassword=${{ secrets.TEST_PASSWORD }}` }
+// CYPRESS_testUserPassword=\$\{{ secrets.TEST_PASSWORD }}` }
     ],
     26: [
       { type: 'explanation', title: "Nightly Regression Strategy", content: `**Why Nightly Regression?**
