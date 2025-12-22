@@ -1,9 +1,16 @@
 // Comprehensive Botium Framework Content Generator
 // 5000+ words per lesson with practical, job-ready content
+// Now with Udemy-style beginner content for novice learners
 
 import { LessonContent } from './generateAiInQaContent';
+import { generateBotiumBeginnerContent } from './generateBotiumBeginnerContent';
 
 export function generateBotiumContent(lessonId: string, lessonTitle: string): LessonContent {
+  // First check if we have detailed beginner content for this lesson
+  const beginnerContent = generateBotiumBeginnerContent(lessonId, lessonTitle);
+  if (beginnerContent) {
+    return beginnerContent;
+  }
   const botiumContents: Record<string, LessonContent> = {
     // ==================== BOTIUM BASIC COURSE ====================
     'botium-basic-001': {
